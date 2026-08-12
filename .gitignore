@@ -38,3 +38,10 @@ yarn-error.log*
 /.wrangler/
 /outputs/
 /work/
+
+# local portfolio QA and source artifacts
+/_media-review/
+/_media-review2/
+/tmp/
+/*.tar.gz
+/portfolio-build-brief.docx
