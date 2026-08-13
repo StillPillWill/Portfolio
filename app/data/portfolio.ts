@@ -1,12 +1,17 @@
 export type ChapterId =
   | "intro"
-  | "computer-science"
+  | "education-skills"
   | "csi"
-  | "mechanical-systems"
+  | "software-ml"
   | "vulcan"
-  | "ender3-2"
+  | "fabrication"
   | "team-3598"
   | "contact";
+
+export type ChapterRecord = {
+  label: string;
+  value: string;
+};
 
 export type ProjectKey = "csi" | "vulcan" | "ender3-2" | "team-3598";
 
@@ -19,6 +24,7 @@ export type Chapter = {
   title: string;
   body: string;
   accent: string;
+  records?: ChapterRecord[];
   route?: `/projects/${ProjectKey}`;
   repo?: string;
 };
@@ -70,61 +76,93 @@ export const chapters: Chapter[] = [
     id: "intro",
     anchor: 0,
     number: "01",
-    domain: "WILLIAM NZIVE · CSE @ UC DAVIS",
-    title: "I build systems that move information—and machines.",
-    body: "I work where computation becomes physical: wireless sensing, embedded systems, mechanical design, and machines built to move in the real world.",
+    domain: "PROFILE · WILLIAM NZIVE",
+    title: "Computer science, from signal to machine.",
+    body: "I am a Computer Science and Engineering student at UC Davis working across embedded systems, machine learning, mechanical design, and fabrication.",
+    records: [
+      { label: "Focus", value: "Software · sensing · robotics · fabrication" },
+      { label: "Approach", value: "Constraint-first engineering, measurement, and honest documentation" },
+      { label: "Location", value: "University of California, Davis" },
+    ],
     accent: "#e5b86b",
   },
   {
-    id: "computer-science",
+    id: "education-skills",
     anchor: 0.12,
     number: "02",
-    domain: "COMPUTER SCIENCE · CLOSE TO THE HARDWARE",
-    title: "Start with the signal.",
-    body: "My selected software work is a research-grade CSI capture stack: firmware, native USB transport, synchronized collection, and the sensing experiments built on top of it.",
+    domain: "EDUCATION · TECHNICAL TOOLKIT",
+    title: "A toolkit that crosses the stack.",
+    body: "My work moves between low-level software, data and ML systems, browser interfaces, CAD, electronics, and physical fabrication.",
+    records: [
+      { label: "Education", value: "UC Davis · Computer Science and Engineering" },
+      { label: "Languages", value: "Python · C / C++ · TypeScript / JavaScript · HTML / CSS" },
+      { label: "Systems", value: "Embedded firmware · native USB · Linux · capture pipelines" },
+      { label: "Build", value: "CAD · mechanisms · 3D printing · technical documentation" },
+    ],
     accent: "#8176e9",
   },
   {
     id: "csi",
     anchor: 0.28,
     number: "03",
-    domain: "CSI RESEARCH · EMBEDDED SENSING",
+    domain: "EXPERIENCE · RESEARCH + EMBEDDED SENSING",
     status: "ACTIVE RESEARCH · DETECTION + SPEAKER ID DEMONSTRATED",
-    title: "Wi‑Fi channel measurements became a research instrument.",
-    body: "The current ESP32-S3 transport sustained 10,839 raw records per second for 60 seconds with zero CRC errors or sequence gaps. Audio reconstruction remains ongoing.",
+    title: "Researching audio sensing through Wi‑Fi CSI.",
+    body: "As researcher and embedded-systems builder, I created the firmware, native USB transport, synchronized collection, storage, decoding, and host orchestration behind the experiments.",
+    records: [
+      { label: "Stack", value: "ESP32-S3 / C6 · C / C++ · Python · native USB" },
+      { label: "Evidence", value: "10,839 records/s · 650,386 records · 0 CRC errors or sequence gaps" },
+      { label: "Outcome", value: "Audio-activity detection and speaker identification demonstrated" },
+    ],
     accent: "#8176e9",
     route: "/projects/csi",
     repo: "https://github.com/StillPillWill/Research",
   },
   {
-    id: "mechanical-systems",
+    id: "software-ml",
     anchor: 0.42,
     number: "04",
-    domain: "FROM SIGNAL TO MECHANISM",
-    title: "The evidence must match the claim.",
-    body: "Vulcan is a completed design record. Ender3-2 is a completed physical machine. This threshold keeps that distinction explicit.",
+    domain: "EXPERIENCE · SOFTWARE SYSTEMS + MACHINE LEARNING",
+    title: "The work extends beyond one research project.",
+    body: "Earlier and independent work spans low-level systems, programming-language design, model fine-tuning, classification, and practical generative-ML pipelines.",
+    records: [
+      { label: "Systems", value: "Built a minimal operating system and a programming language" },
+      { label: "ML", value: "Fine-tuned language and image-diffusion models; trained classifiers" },
+      { label: "Tooling", value: "Built extensive ComfyUI workflows for image-generation systems" },
+      { label: "Rapid build", value: "Completed a game jam under a fixed creative deadline" },
+    ],
     accent: "#c8774d",
   },
   {
     id: "vulcan",
     anchor: 0.57,
     number: "05",
-    domain: "VULCAN · ROBOT ARM ARCHITECTURE",
+    domain: "EXPERIENCE · MECHANICAL DESIGN",
     status: "DESIGN STUDY · V1 DOCUMENTED IN CAD · NOT PHYSICALLY BUILT · V2 IN PROGRESS",
-    title: "V1 six-axis belt-reduction arm, designed in CAD.",
-    body: "V1 resolves the assembly, transmissions, component selection, and technical record in CAD. Current V2 work targets a substantially lower projected cost.",
+    title: "Vulcan: six-axis robot architecture in CAD.",
+    body: "As mechanical designer, I resolved the assembly, belt-reduction transmissions, component selection, printable parts, and technical record for an open-source six-axis arm.",
+    records: [
+      { label: "Scope", value: "Six axes · belt reduction · differential wrist · open CAD" },
+      { label: "Evidence", value: "Complete V1 design record and technical zine" },
+      { label: "Boundary", value: "V1 was not physically built; V2 cost reduction is in progress" },
+    ],
     accent: "#c8774d",
     route: "/projects/vulcan",
     repo: "https://github.com/StillPillWill/Vulcan",
   },
   {
-    id: "ender3-2",
+    id: "fabrication",
     anchor: 0.71,
     number: "06",
-    domain: "ENDER3-2 · FABRICATION",
-    status: "PHYSICALLY BUILT + DEMONSTRATED",
-    title: "Two failed printers became one large-format Cartesian machine.",
-    body: "I rebuilt the usable parts around a documented 585 × 775 × 230 mm machine envelope, wrote live-editable firmware, and later converted it into an Open Sauce plotter.",
+    domain: "EXPERIENCE · FABRICATION + RAPID PROTOTYPING",
+    status: "PHYSICAL BUILDS · HACKATHON HARDWARE · CUSTOM FIRMWARE",
+    title: "Building physical systems under real constraints.",
+    body: "My fabrication work includes a large-format printer rebuilt from two failed Ender 3s and a five-axis gesture-controlled arm completed during a hardware hackathon.",
+    records: [
+      { label: "Ender3-2", value: "585 × 775 × 230 mm machine · live-editable firmware · Open Sauce plotter" },
+      { label: "Hackathon", value: "Five-axis gesture-controlled robotic arm" },
+      { label: "Methods", value: "Salvage · CAD · electronics · firmware · 3D printing · iteration" },
+    ],
     accent: "#e5b86b",
     route: "/projects/ender3-2",
     repo: "https://github.com/StillPillWill/Ender3-2",
@@ -133,10 +171,15 @@ export const chapters: Chapter[] = [
     id: "team-3598",
     anchor: 0.86,
     number: "07",
-    domain: "TEAM 3598 · FORMER CAPTAIN",
+    domain: "EXPERIENCE · LEADERSHIP + COMMUNITY",
     status: "PAST LEADERSHIP ROLE · SEASON COMPLETE",
-    title: "Former captain of a 50+ student competition team.",
-    body: "As captain, I coordinated engineering, competition preparation, and outreach through three events, district-championship qualification, and programs that reached 4,452 students.",
+    title: "Technical leadership at the scale of a team.",
+    body: "As former captain of Team 3598, I coordinated more than 50 students across mechanical, electrical, software, operations, competition preparation, and outreach.",
+    records: [
+      { label: "Team", value: "50+ students across five working groups" },
+      { label: "Competition", value: "Three events · district-championship qualification" },
+      { label: "Community", value: "Documented outreach reaching 4,452 students" },
+    ],
     accent: "#b95c6b",
     route: "/projects/team-3598",
   },
@@ -145,8 +188,13 @@ export const chapters: Chapter[] = [
     anchor: 1,
     number: "08",
     domain: "THE NEXT PROBLEM",
-    title: "I’m looking for problems that refuse to stay in one discipline.",
-    body: "Software · machine learning · embedded systems · mechanical design",
+    title: "Bring me the problem that crosses disciplines.",
+    body: "I am interested in technical opportunities where software has to understand hardware, data has to survive the real world, and ideas have to become working systems.",
+    records: [
+      { label: "Email", value: "williamnzive2007@gmail.com" },
+      { label: "Profiles", value: "GitHub · LinkedIn" },
+      { label: "Interests", value: "Software systems · embedded research · ML · robotics · fabrication" },
+    ],
     accent: "#e5b86b",
   },
 ];

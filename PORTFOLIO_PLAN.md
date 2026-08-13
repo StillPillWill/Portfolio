@@ -2,13 +2,19 @@
 
 ## Product goal
 
-Build a local-only spatial portfolio at `http://localhost:3000/` that presents William Nzive as a technically serious builder working across computer science, embedded sensing, mechanical design, fabrication, and technical leadership. The homepage is a concise spatial index; each major project has its own route and its own reversible journey.
+Build a local-only spatial technical CV at `http://localhost:3000/` that presents William Nzive as a technically serious builder working across computer science, embedded sensing, machine learning, low-level systems, mechanical design, fabrication, and technical leadership. The homepage is the complete CV journey; projects with enough evidence also have dedicated, reversible case-study routes.
 
 The visitor should understand within ten seconds:
 
 - William is a CSE student at UC Davis.
 - His strongest work spans advanced software research and physical engineering.
 - The website itself demonstrates unusually strong technical and visual execution.
+
+The main spatial journey and its recruiter-readable overview are not a
+three-project portfolio summary: both cover education, languages, systems work,
+ML practice, mechanical and fabrication work, technical leadership, hackathons,
+game-jam breadth, and direct contact links. Dedicated project routes are the
+evidence layer for work with enough material to support a full case study.
 
 The experience tells one continuous story: information begins as computation, becomes a wireless signal, enters a mechanical system, turns into physical fabrication, and scales through a team.
 
