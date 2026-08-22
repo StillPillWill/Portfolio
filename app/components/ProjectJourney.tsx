@@ -30,9 +30,41 @@ function Arrow() {
   return <span className="arrow" aria-hidden="true">↗</span>;
 }
 
+function CsiEvidenceVisual() {
+  return (
+    <div className="project-hero-art csi-evidence-visual" aria-label="CSI transport validation result">
+      <div className="csi-evidence-heading">
+        <span>Native USB transport</span>
+        <span>60-second soak</span>
+      </div>
+      <div className="csi-evidence-total">
+        <strong>650,386</strong>
+        <span>raw CSI records captured</span>
+      </div>
+      <dl className="csi-evidence-metrics">
+        <div>
+          <dt>Rate</dt>
+          <dd>10,839 / sec</dd>
+        </div>
+        <div>
+          <dt>Transport</dt>
+          <dd>9.019 Mb/s</dd>
+        </div>
+        <div>
+          <dt>CRC + gaps</dt>
+          <dd>0</dd>
+        </div>
+      </dl>
+      <span>Verified capture result</span>
+    </div>
+  );
+}
+
 function ProjectArtwork({ projectKey }: { projectKey: ProjectKey }) {
   const project = projects[projectKey];
   const firstMedia = project.media[0];
+
+  if (projectKey === "csi") return <CsiEvidenceVisual />;
 
   if (firstMedia) {
     return (
@@ -47,20 +79,12 @@ function ProjectArtwork({ projectKey }: { projectKey: ProjectKey }) {
     );
   }
 
-  return (
-    <div className={`project-hero-art project-hero-art-${projectKey}`} aria-label="Abstract visualization of the capture stack">
-      <div className="project-art-grid" />
-      <div className="project-art-line project-art-line-one" />
-      <div className="project-art-line project-art-line-two" />
-      <div className="project-art-orb" />
-      <span>Capture stack / validated transport</span>
-    </div>
-  );
+  return null;
 }
 
-function MediaCard({ src, alt, caption, kind, fit }: { src: string; alt: string; caption: string; kind?: "image" | "video"; fit?: "contain" | "cover" }) {
+function MediaCard({ src, alt, caption, kind, fit, ratio }: { src: string; alt: string; caption: string; kind?: "image" | "video"; fit?: "contain" | "cover"; ratio: "wide" | "portrait" | "square" }) {
   return (
-    <figure className={`project-gallery-item project-gallery-${fit ?? "cover"}`}>
+    <figure className={`project-gallery-item project-gallery-${fit ?? "cover"} project-gallery-${ratio}`}>
       <div className="project-gallery-frame">
         {kind === "video" ? (
           <video src={src} muted controls playsInline preload="metadata" aria-label={alt} />
@@ -103,7 +127,8 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
         </Link>
         <Link href="/#work" className="back-to-work">← Selected work</Link>
         <a className="header-status" href={`mailto:${contact.email}`}>
-          <span className="status-dot" /> Get in touch
+          <span className="status-dot" />
+          <span className="header-status-label">Get in touch</span>
         </a>
       </header>
 
@@ -180,4 +205,3 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
     </main>
   );
 }
-

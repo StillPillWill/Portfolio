@@ -46,16 +46,6 @@ export type ProjectMedia = {
   kind?: "image" | "video";
 };
 
-export type FutureShot = {
-  id: string;
-  title: string;
-  brief: string;
-  angle: string;
-  purpose: string;
-  ratio: string;
-  minimum: string;
-};
-
 export type Project = {
   key: ProjectKey;
   number: string;
@@ -68,7 +58,6 @@ export type Project = {
   model?: string;
   beats: ProjectBeat[];
   media: ProjectMedia[];
-  futureShots: FutureShot[];
 };
 
 export const chapters: Chapter[] = [
@@ -241,41 +230,12 @@ export const projects: Record<ProjectKey, Project> = {
       {
         label: "CURRENT BOUNDARY",
         title: "General audio reconstruction is still an open question.",
-        body: "I am still testing how much of the underlying audio can be recovered. The evidence bay names the exact captures and comparison plots that belong here when the work is validated; it does not fabricate substitutes.",
+        body: "I am still testing how much of the underlying audio can be recovered. New results will be documented only after they are validated.",
         facts: ["Ongoing", "No reconstruction claim"],
         visual: "ledger",
       },
     ],
     media: [],
-    futureShots: [
-      {
-        id: "CSI-HERO-01",
-        title: "Capture rig",
-        brief: "Real bench photograph, 20–30° overhead. Show the ESP32 apparatus, capture computer, and test geometry with wiring legible.",
-        angle: "20–30° overhead",
-        purpose: "Establish the real apparatus and make the experimental geometry inspectable.",
-        ratio: "3:2 landscape",
-        minimum: "2400 × 1600",
-      },
-      {
-        id: "CSI-PROOF-01",
-        title: "Synchronized trace",
-        brief: "Exported capture with CSI response and audio event markers on the same readable time axis.",
-        angle: "Direct UI export",
-        purpose: "Prove that CSI and reference audio were captured on a shared timeline.",
-        ratio: "16:9 landscape",
-        minimum: "2560 × 1440",
-      },
-      {
-        id: "CSI-PROOF-02",
-        title: "Speaker-ID result",
-        brief: "Evaluation output with test setup, labels, and result context visible in one frame.",
-        angle: "Direct result export",
-        purpose: "Show the demonstrated classification result without overstating reconstruction.",
-        ratio: "16:9 landscape",
-        minimum: "2560 × 1440",
-      },
-    ],
   },
   vulcan: {
     key: "vulcan",
@@ -330,17 +290,6 @@ export const projects: Record<ProjectKey, Project> = {
       { src: "/portfolio/media/vulcan-assembly.webp", alt: "Vulcan V1 alternate assembly view", caption: "V1 FINAL FORM · CAD RENDER", ratio: "wide", fit: "contain" },
       { src: "/portfolio/media/vulcan-zine.jpg", alt: "Vulcan V1 technical zine", caption: "V1 TECHNICAL ZINE · DESIGN RECORD", ratio: "portrait", fit: "contain" },
     ],
-    futureShots: [
-      {
-        id: "VULCAN-V2-01",
-        title: "V2 comparison",
-        brief: "Matched V1/V2 CAD view after V2 geometry is stable. Use the same camera, pose, and scale for a defensible comparison.",
-        angle: "Matched 3/4 CAD view",
-        purpose: "Make the V2 cost and fabrication changes visually comparable to V1.",
-        ratio: "16:9 landscape",
-        minimum: "3840 × 2160",
-      },
-    ],
   },
   "ender3-2": {
     key: "ender3-2",
@@ -384,7 +333,7 @@ export const projects: Record<ProjectKey, Project> = {
       {
         label: "PUBLIC DEMONSTRATION",
         title: "The completed machine became an Open Sauce plotter.",
-        body: "At Open Sauce, I converted the completed motion platform into a plotter and used it as the centerpiece of my booth. The completed-machine video appears in the preceding beat; this final slot is reserved for a full-frame record of the plotter setup.",
+        body: "At Open Sauce, I converted the completed motion platform into a plotter and used it as the centerpiece of my booth, demonstrating a second practical use for the machine.",
         facts: ["Open Sauce", "Plotter conversion", "Completed machine"],
         visual: "media",
       },
@@ -395,17 +344,6 @@ export const projects: Record<ProjectKey, Project> = {
       { src: "/portfolio/media/ender3-2/full-build.webp", alt: "Full Ender3-2 machine and oversized build surface", caption: "FULL BUILD · PHYSICAL MACHINE", ratio: "portrait", fit: "contain" },
       { src: "/portfolio/media/ender3-2/boat-print.webp", alt: "Large boat print on Ender3-2", caption: "LARGE-FORMAT PRINT · MACHINE IN OPERATION", ratio: "portrait", fit: "contain" },
       { src: "/portfolio/media/ender3-2/assembly-stage.webp", alt: "Ender3-2 during physical assembly", caption: "ASSEMBLY STAGE · BUILD RECORD", ratio: "portrait", fit: "contain" },
-    ],
-    futureShots: [
-      {
-        id: "ENDER-OPEN-SAUCE-01",
-        title: "Open Sauce plotter configuration",
-        brief: "Full machine in plotter configuration with the drawing output visible. Keep the complete motion envelope in frame.",
-        angle: "Eye-level front 3/4",
-        purpose: "Document the completed machine in its public plotter configuration and show the output it produced.",
-        ratio: "3:2 landscape",
-        minimum: "2400 × 1600",
-      },
     ],
   },
   "team-3598": {
@@ -459,7 +397,6 @@ export const projects: Record<ProjectKey, Project> = {
       { src: "/portfolio/media/team3598/outreach-reach.webp", alt: "Team 3598 outreach record", caption: "OUTREACH RECORD · 4,452 STUDENTS", ratio: "wide", fit: "contain" },
       { src: "/portfolio/media/team3598/team-identity.webp", alt: "Team 3598 identity and location record", caption: "SESTEMATIC ELIMINATORS · TEAM IDENTITY", ratio: "portrait", fit: "contain" },
     ],
-    futureShots: [],
   },
 };
 

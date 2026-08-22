@@ -11,7 +11,6 @@ const featuredProjects = [
     title: "Wi-Fi CSI sensing",
     description:
       "An ESP32 capture and transport stack for investigating audio activity and speaker identification through channel-state information.",
-    visual: "signal-visual",
     stat: "10,839 records/s",
   },
   {
@@ -47,7 +46,35 @@ function Arrow() {
   return <span className="arrow" aria-hidden="true">↗</span>;
 }
 
+function CsiProofVisual() {
+  return (
+    <div className="project-card-visual csi-proof-visual" aria-label="CSI transport validation results">
+      <div className="csi-proof-heading">
+        <span>Transport validation</span>
+        <span>60-second soak</span>
+      </div>
+      <dl className="csi-proof-metrics">
+        <div>
+          <dt>Captured</dt>
+          <dd>650,386</dd>
+        </div>
+        <div>
+          <dt>Throughput</dt>
+          <dd>10,839<span> / sec</span></dd>
+        </div>
+        <div>
+          <dt>CRC + gaps</dt>
+          <dd>0</dd>
+        </div>
+      </dl>
+      <span className="visual-label">Native USB / validated capture</span>
+    </div>
+  );
+}
+
 function ProjectVisual({ project }: { project: (typeof featuredProjects)[number] }) {
+  if (project.key === "csi") return <CsiProofVisual />;
+
   if (project.image) {
     return (
       <div className="project-card-visual">
@@ -57,14 +84,7 @@ function ProjectVisual({ project }: { project: (typeof featuredProjects)[number]
     );
   }
 
-  return (
-    <div className={`project-card-visual ${project.visual ?? ""}`} aria-hidden="true">
-      <div className="signal-grid" />
-      <div className="signal-trace signal-trace-one" />
-      <div className="signal-trace signal-trace-two" />
-      <span className="visual-label">Capture stack / live system</span>
-    </div>
-  );
+  return null;
 }
 
 function ProjectCard({ project, featured = false }: { project: (typeof featuredProjects)[number]; featured?: boolean }) {
@@ -101,7 +121,8 @@ export function SignalFoundry() {
           <a href="#contact">Contact</a>
         </nav>
         <a className="header-status" href={`mailto:${contact.email}`}>
-          <span className="status-dot" /> Available for technical work
+          <span className="status-dot" />
+          <span className="header-status-label">Email</span>
         </a>
       </header>
 
