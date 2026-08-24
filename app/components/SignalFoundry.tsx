@@ -1,8 +1,21 @@
 import Link from "next/link";
 import { contact } from "../data/portfolio";
 import { cv } from "../data/cv";
+import { CountUp } from "./CountUp";
+import { Magnetic } from "./Magnetic";
+import { ModelViewer } from "./ModelViewer";
+import { Reveal } from "./Reveal";
+import { Waveform } from "./Waveform";
+import { WorkStack } from "./WorkStack";
 
 /* eslint-disable @next/next/no-img-element */
+
+const ACCENTS: Record<string, string> = {
+  csi: "#8176e9",
+  vulcan: "#c8774d",
+  "ender3-2": "#e5b86b",
+  "team-3598": "#b95c6b",
+};
 
 const featuredProjects = [
   {
@@ -19,8 +32,7 @@ const featuredProjects = [
     title: "Vulcan",
     description:
       "A documented six-axis robot arm architecture built around belt reduction, printable parts, and honest design boundaries.",
-    image: "/portfolio/media/vulcan-hero.webp",
-    stat: "6-axis arm",
+    stat: "Six-axis arm",
   },
   {
     key: "ender3-2" as const,
@@ -28,7 +40,6 @@ const featuredProjects = [
     title: "Ender3-2",
     description:
       "Two failed printers rebuilt into one large-format machine, then converted into a plotter for Open Sauce.",
-    image: "/portfolio/media/ender3-2/full-build.webp",
     stat: "585 × 775 × 230 mm",
   },
   {
@@ -37,73 +48,99 @@ const featuredProjects = [
     title: "Team 3598",
     description:
       "Technical leadership across engineering, operations, competition preparation, and outreach for a 50+ student team.",
-    image: "/portfolio/media/team3598.webp",
     stat: "4,452 students reached",
   },
 ];
 
 function Arrow() {
-  return <span className="arrow" aria-hidden="true">↗</span>;
+  return (
+    <span className="arrow" aria-hidden="true">
+      ↗
+    </span>
+  );
 }
 
-function CsiProofVisual() {
+function CsiDataPanel() {
   return (
-    <div className="project-card-visual csi-proof-visual" aria-label="CSI transport validation results">
-      <div className="csi-proof-heading">
+    <div className="data-panel" aria-label="CSI transport validation results">
+      <div className="data-panel-heading">
         <span>Transport validation</span>
         <span>60-second soak</span>
       </div>
-      <dl className="csi-proof-metrics">
+      <dl className="data-panel-metrics">
         <div>
           <dt>Captured</dt>
-          <dd>650,386</dd>
+          <dd>
+            <CountUp value="650,386" />
+          </dd>
         </div>
         <div>
           <dt>Throughput</dt>
-          <dd>10,839<span> / sec</span></dd>
+          <dd>
+            <CountUp value="10,839" />
+            <span> / sec</span>
+          </dd>
         </div>
         <div>
           <dt>CRC + gaps</dt>
           <dd>0</dd>
         </div>
       </dl>
-      <span className="visual-label">Native USB / validated capture</span>
+      <span className="data-panel-foot">Native USB / validated capture</span>
     </div>
   );
 }
 
 function ProjectVisual({ project }: { project: (typeof featuredProjects)[number] }) {
-  if (project.key === "csi") return <CsiProofVisual />;
+  if (project.key === "csi") return <CsiDataPanel />;
 
-  if (project.image) {
-    return (
-      <div className="project-card-visual">
-        <img src={project.image} alt="" />
-        <span className="visual-label">Selected work / {project.key}</span>
-      </div>
-    );
-  }
+  const images: Record<string, string> = {
+    vulcan: "/portfolio/media/vulcan-hero.webp",
+    "ender3-2": "/portfolio/media/ender3-2/full-build.webp",
+    "team-3598": "/portfolio/media/team3598.webp",
+  };
 
-  return null;
+  return (
+    <div className="project-card-visual">
+      <img src={images[project.key]} alt="" loading="lazy" />
+      <span className="visual-label">Selected work / {project.key}</span>
+    </div>
+  );
 }
 
-function ProjectCard({ project, featured = false }: { project: (typeof featuredProjects)[number]; featured?: boolean }) {
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: (typeof featuredProjects)[number];
+  index: number;
+}) {
+  const featured = index === 0;
+
   return (
-    <article className={`project-card ${featured ? "project-card-featured" : ""}`}>
-      <ProjectVisual project={project} />
+    <Reveal
+      className={`project-card${featured ? " project-card-featured" : ""}`}
+      delay={index * 70}
+      accent={ACCENTS[project.key]}
+    >
       <div className="project-card-content">
         <div className="project-card-heading">
           <p className="eyebrow">{project.eyebrow}</p>
-          <span className="project-card-number">{String(featuredProjects.indexOf(project) + 1).padStart(2, "0")}</span>
+          <span className="project-card-number">
+            {String(index + 1).padStart(2, "0")}
+          </span>
         </div>
         <h3>{project.title}</h3>
         <p>{project.description}</p>
         <div className="project-card-footer">
           <span>{project.stat}</span>
-          <Link href={`/projects/${project.key}`}>View project <Arrow /></Link>
+          <Link href={`/projects/${project.key}`}>
+            View project <Arrow />
+          </Link>
         </div>
       </div>
-    </article>
+      <ProjectVisual project={project} />
+    </Reveal>
   );
 }
 
@@ -126,83 +163,177 @@ export function SignalFoundry() {
         </a>
       </header>
 
-      <section className="hero section-wrap" aria-labelledby="hero-title">
+      <section className="hero" aria-labelledby="hero-title">
         <div className="hero-copy">
-          <p className="eyebrow eyebrow-accent">Computer science + engineering / UC Davis</p>
-          <h1 id="hero-title">I build software that meets the physical world.</h1>
-          <p className="hero-intro">
-            I&apos;m William, a computer science and engineering student working across embedded systems, machine learning, mechanical design, and fabrication.
+          <p className="eyebrow eyebrow-accent hero-kicker">
+            Computer science + engineering / UC Davis
+          </p>
+          <h1 id="hero-title">
+            I build software that meets <em>the physical world.</em>
+          </h1>
+          <p className="hero-lede">
+            I&apos;m William, working across embedded systems, machine learning,
+            mechanical design, and fabrication. Constraint first, measured always,
+            documented honestly.
           </p>
           <div className="hero-actions">
-            <a className="button button-dark" href="#work">Explore selected work <Arrow /></a>
-            <a className="text-link" href={`mailto:${contact.email}`}>Let&apos;s talk <Arrow /></a>
+            <Magnetic>
+              <a className="button button-solid" href="#work">
+                Explore selected work <Arrow />
+              </a>
+            </Magnetic>
+            <a className="text-link" href={`mailto:${contact.email}`}>
+              Let&apos;s talk <Arrow />
+            </a>
+          </div>
+          <div className="hero-meta">
+            <span>
+              Currently / <strong>Wi-Fi sensing research</strong>
+            </span>
+            <span>
+              Based / <strong>California</strong>
+            </span>
+            <span>
+              Status / <strong>Open to opportunities</strong>
+            </span>
           </div>
         </div>
-        <div className="hero-art" aria-label="Vulcan robot arm CAD study">
-          <div className="hero-art-frame">
-            <img src="/portfolio/media/vulcan-hero.webp" alt="Sectioned CAD render of the Vulcan robot arm" />
-          </div>
-          <div className="hero-art-meta">
-            <span>01 / 04</span>
-            <span>Vulcan / V1 assembly study</span>
+
+        <div>
+          <ModelViewer
+            url="/portfolio/models/vulcan/vulcan-showcase.glb"
+            projectKey="vulcan"
+            label="Vulcan V1 · assembly study"
+            hudRight="CAD · GLB"
+          />
+          <div className="wave-wrap" aria-hidden="true">
+            <Waveform />
           </div>
         </div>
       </section>
 
-      <section className="proof-strip section-wrap" aria-label="Selected proof points">
-        <div><span>Currently</span><strong>Building sensing systems</strong></div>
-        <div><span>Based at</span><strong>UC Davis / California</strong></div>
-        <div><span>Works across</span><strong>Software + hardware</strong></div>
-        <div><span>Best at</span><strong>Turning constraints into systems</strong></div>
+      <section className="instrument-strip section-wrap" aria-label="Selected proof points">
+        <div>
+          <span>Discipline</span>
+          <strong>Software × hardware</strong>
+        </div>
+        <div>
+          <span>Research</span>
+          <strong>Wi-Fi CSI sensing</strong>
+        </div>
+        <div>
+          <span>Machines</span>
+          <strong>Designed &amp; physically built</strong>
+        </div>
+        <div>
+          <span>Method</span>
+          <strong>Constraints into systems</strong>
+        </div>
       </section>
 
       <section className="work-section section-wrap" id="work" aria-labelledby="work-title">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Selected work</p>
-            <h2 id="work-title">A few things I&apos;ve made real.</h2>
+        <Reveal>
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Selected work</p>
+              <h2 className="display" id="work-title">
+                Four systems, built end to end.
+              </h2>
+            </div>
+            <p className="section-heading-note">
+              Research instruments, machines, and the leadership system between them.
+            </p>
           </div>
-          <p className="section-heading-note">Research, machines, and the systems between them.</p>
+        </Reveal>
+        <div className="project-grid work-stack-grid">
+          <WorkStack
+            cards={featuredProjects.map((project, index) => (
+              <ProjectCard key={project.key} project={project} index={index} />
+            ))}
+          />
         </div>
-        <div className="project-grid">
-          {featuredProjects.map((project, index) => <ProjectCard key={project.key} project={project} featured={index === 0} />)}
-        </div>
+      </section>
+
+      <section className="matrix-section section-wrap" aria-labelledby="matrix-title">
+        <Reveal>
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Toolkit</p>
+              <h2 className="display" id="matrix-title">
+                The stack behind the work.
+              </h2>
+            </div>
+            <p className="section-heading-note">Everything here has shipped something real.</p>
+          </div>
+        </Reveal>
+        <Reveal delay={90}>
+          <table className="matrix-table">
+            <tbody>
+              {cv.skills.map((skill) => (
+                <tr key={skill.label}>
+                  <th scope="row">{skill.label}</th>
+                  <td>{skill.items}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Reveal>
       </section>
 
       <section className="about-section section-wrap" id="about" aria-labelledby="about-title">
-        <div className="about-lead">
-          <p className="eyebrow">A little context</p>
-          <h2 id="about-title">Curious about the layer where ideas become artifacts.</h2>
-        </div>
-        <div className="about-copy">
-          <p>{cv.summary}</p>
-          <div className="about-details">
-            <div>
-              <span className="eyebrow">Education</span>
-              <strong>University of California, Davis</strong>
-              <span>Computer Science and Engineering</span>
-            </div>
-            <div>
-              <span className="eyebrow">Toolkit</span>
-              <strong>Python / C++ / TypeScript</strong>
-              <span>Embedded firmware / ML / CAD / fabrication</span>
+        <Reveal>
+          <div className="about-lead">
+            <p className="eyebrow">A little context</p>
+            <h2 className="display" id="about-title">
+              Curious about where ideas become artifacts.
+            </h2>
+          </div>
+        </Reveal>
+        <Reveal delay={90}>
+          <div className="about-copy">
+            <p>{cv.summary}</p>
+            <div className="about-details">
+              <div>
+                <span className="eyebrow">Education</span>
+                <strong>University of California, Davis</strong>
+                <span>Computer Science and Engineering</span>
+              </div>
+              <div>
+                <span className="eyebrow">Working style</span>
+                <strong>Measure, iterate, document</strong>
+                <span>Claims stay inside what the evidence supports</span>
+              </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="contact-section section-wrap" id="contact" aria-labelledby="contact-title">
-        <div>
-          <p className="eyebrow eyebrow-accent">Have an interesting constraint?</p>
-          <h2 id="contact-title">Let&apos;s make something that works.</h2>
-        </div>
-        <div className="contact-actions">
-          <a className="button button-light" href={`mailto:${contact.email}`}>{contact.email} <Arrow /></a>
-          <div className="social-links">
-            <a href={contact.github} target="_blank" rel="noreferrer">GitHub <Arrow /></a>
-            <a href={contact.linkedin} target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
+        <Reveal>
+          <div>
+            <p className="eyebrow eyebrow-accent">Have an interesting constraint?</p>
+            <h2 className="display" id="contact-title">
+              Let&apos;s make something that works.
+            </h2>
           </div>
-        </div>
+        </Reveal>
+        <Reveal delay={80}>
+          <div className="contact-actions">
+            <Magnetic>
+              <a className="button button-solid" href={`mailto:${contact.email}`}>
+                {contact.email} <Arrow />
+              </a>
+            </Magnetic>
+            <div className="social-links">
+              <a href={contact.github} target="_blank" rel="noreferrer">
+                GitHub <Arrow />
+              </a>
+              <a href={contact.linkedin} target="_blank" rel="noreferrer">
+                LinkedIn <Arrow />
+              </a>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
       <footer className="site-footer section-wrap">

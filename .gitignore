@@ -45,3 +45,6 @@ yarn-error.log*
 /tmp/
 /*.tar.gz
 /portfolio-build-brief.docx
+
+# build artifacts
+*.tsbuildinfo

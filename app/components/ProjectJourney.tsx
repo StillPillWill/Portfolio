@@ -1,7 +1,23 @@
 import Link from "next/link";
-import { contact, ProjectKey, projects } from "../data/portfolio";
+import { contact, type ProjectKey, type ProjectMedia, projects } from "../data/portfolio";
+import { ModelViewer } from "./ModelViewer";
+import { Reveal } from "./Reveal";
 
 /* eslint-disable @next/next/no-img-element */
+
+const ACCENTS: Record<ProjectKey, string> = {
+  csi: "#8176e9",
+  vulcan: "#c8774d",
+  "ender3-2": "#e5b86b",
+  "team-3598": "#b95c6b",
+};
+
+const NEXT_PROJECT: Record<ProjectKey, ProjectKey> = {
+  csi: "vulcan",
+  vulcan: "ender3-2",
+  "ender3-2": "team-3598",
+  "team-3598": "csi",
+};
 
 const projectStats: Record<ProjectKey, Array<{ label: string; value: string }>> = {
   csi: [
@@ -27,73 +43,95 @@ const projectStats: Record<ProjectKey, Array<{ label: string; value: string }>> 
 };
 
 function Arrow() {
-  return <span className="arrow" aria-hidden="true">↗</span>;
+  return (
+    <span className="arrow" aria-hidden="true">
+      ↗
+    </span>
+  );
 }
 
-function CsiEvidenceVisual() {
+function CsiEvidencePanel() {
   return (
-    <div className="project-hero-art csi-evidence-visual" aria-label="CSI transport validation result">
-      <div className="csi-evidence-heading">
-        <span>Native USB transport</span>
-        <span>60-second soak</span>
+    <div className="project-hero-art">
+      <div className="data-panel" aria-label="CSI transport validation result">
+        <div className="data-panel-heading">
+          <span>Native USB transport</span>
+          <span>60-second soak</span>
+        </div>
+        <div className="csi-evidence-total">
+          <strong>650,386</strong>
+          <span>raw CSI records captured</span>
+        </div>
+        <dl className="data-panel-metrics">
+          <div>
+            <dt>Rate</dt>
+            <dd>10,839 / sec</dd>
+          </div>
+          <div>
+            <dt>Transport</dt>
+            <dd>9.019 Mb/s</dd>
+          </div>
+          <div>
+            <dt>CRC + gaps</dt>
+            <dd>0</dd>
+          </div>
+        </dl>
+        <span className="data-panel-foot">Verified capture result</span>
       </div>
-      <div className="csi-evidence-total">
-        <strong>650,386</strong>
-        <span>raw CSI records captured</span>
-      </div>
-      <dl className="csi-evidence-metrics">
-        <div>
-          <dt>Rate</dt>
-          <dd>10,839 / sec</dd>
-        </div>
-        <div>
-          <dt>Transport</dt>
-          <dd>9.019 Mb/s</dd>
-        </div>
-        <div>
-          <dt>CRC + gaps</dt>
-          <dd>0</dd>
-        </div>
-      </dl>
-      <span>Verified capture result</span>
+      <span>Capture record · live instrumentation</span>
     </div>
   );
 }
 
-function ProjectArtwork({ projectKey }: { projectKey: ProjectKey }) {
+function HeroArtwork({ projectKey }: { projectKey: ProjectKey }) {
   const project = projects[projectKey];
-  const firstMedia = project.media[0];
 
-  if (projectKey === "csi") return <CsiEvidenceVisual />;
-
-  if (firstMedia) {
+  if (project.model) {
     return (
-      <div className="project-hero-art">
-        {firstMedia.kind === "video" ? (
-          <video src={firstMedia.src} muted autoPlay loop playsInline aria-label={firstMedia.alt} />
-        ) : (
-          <img src={firstMedia.src} alt={firstMedia.alt} />
-        )}
-        <span>{firstMedia.caption}</span>
-      </div>
+      <ModelViewer
+        url={project.model}
+        projectKey={projectKey === "vulcan" || projectKey === "ender3-2" ? projectKey : "vulcan"}
+        label={`${project.name} · interactive model`}
+        hudRight={`CAD · ${project.number}/04`}
+      />
     );
   }
 
-  return null;
+  if (projectKey === "csi") return <CsiEvidencePanel />;
+
+  const firstMedia = project.media[0];
+  if (!firstMedia) return null;
+
+  return (
+    <div
+      className={`project-hero-art${firstMedia.fit === "contain" ? " project-gallery-contain-art" : ""}`}
+    >
+      {firstMedia.kind === "video" ? (
+        <video src={firstMedia.src} muted autoPlay loop playsInline aria-label={firstMedia.alt} />
+      ) : (
+        <img src={firstMedia.src} alt={firstMedia.alt} />
+      )}
+      <span>{firstMedia.caption}</span>
+    </div>
+  );
 }
 
-function MediaCard({ src, alt, caption, kind, fit, ratio }: { src: string; alt: string; caption: string; kind?: "image" | "video"; fit?: "contain" | "cover"; ratio: "wide" | "portrait" | "square" }) {
+function MediaCard({ src, alt, caption, kind, fit, ratio }: ProjectMedia) {
   return (
-    <figure className={`project-gallery-item project-gallery-${fit ?? "cover"} project-gallery-${ratio}`}>
-      <div className="project-gallery-frame">
-        {kind === "video" ? (
-          <video src={src} muted controls playsInline preload="metadata" aria-label={alt} />
-        ) : (
-          <img src={src} alt={alt} />
-        )}
-      </div>
-      <figcaption>{caption}</figcaption>
-    </figure>
+    <Reveal
+      className={`project-gallery-item project-gallery-${fit ?? "cover"} project-gallery-${ratio}`}
+    >
+      <figure style={{ margin: 0 }}>
+        <div className="project-gallery-frame">
+          {kind === "video" ? (
+            <video src={src} muted controls playsInline preload="metadata" aria-label={alt} />
+          ) : (
+            <img src={src} alt={alt} loading="lazy" />
+          )}
+        </div>
+        <figcaption>{caption}</figcaption>
+      </figure>
+    </Reveal>
   );
 }
 
@@ -102,14 +140,23 @@ function EvidenceNote({ projectKey }: { projectKey: ProjectKey }) {
 
   return (
     <aside className="evidence-note">
-      <div>
-        <span className="eyebrow">Evidence boundary</span>
-        <h2>Specific results, carefully claimed.</h2>
-      </div>
-      <div className="evidence-note-copy">
-        <p>Audio-activity detection and speaker identification have been demonstrated. General audio reconstruction remains an open research question.</p>
-        <a href={projects.csi.repo} target="_blank" rel="noreferrer">Read the repository <Arrow /></a>
-      </div>
+      <Reveal>
+        <div>
+          <span className="eyebrow eyebrow-accent">Evidence boundary</span>
+          <h2 className="display">Specific results, carefully claimed.</h2>
+        </div>
+      </Reveal>
+      <Reveal delay={90}>
+        <div className="evidence-note-copy">
+          <p>
+            Audio-activity detection and speaker identification have been demonstrated. General
+            audio reconstruction remains an open research question.
+          </p>
+          <a href={projects.csi.repo} target="_blank" rel="noreferrer">
+            Read the repository <Arrow />
+          </a>
+        </div>
+      </Reveal>
     </aside>
   );
 }
@@ -117,6 +164,7 @@ function EvidenceNote({ projectKey }: { projectKey: ProjectKey }) {
 export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
   const project = projects[projectKey];
   const stats = projectStats[projectKey];
+  const next = projects[NEXT_PROJECT[projectKey]];
 
   return (
     <main className={`project-page project-page-${projectKey}`}>
@@ -125,82 +173,148 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
           <span className="wordmark-mark">WN</span>
           <span>William Nzive</span>
         </Link>
-        <Link href="/#work" className="back-to-work">← Selected work</Link>
+        <Link href="/#work" className="back-to-work">
+          ← Selected work
+        </Link>
         <a className="header-status" href={`mailto:${contact.email}`}>
           <span className="status-dot" />
           <span className="header-status-label">Get in touch</span>
         </a>
       </header>
 
-      <section className="project-hero section-wrap" aria-labelledby="project-title">
-        <div className="project-hero-copy">
-          <p className="eyebrow eyebrow-accent">{project.domain}</p>
-          <p className="project-number">{project.number} / 04</p>
-          <h1 id="project-title">{project.name}</h1>
-          <p className="project-deck">{project.deck}</p>
-          <div className="project-status"><span className="status-dot" /> {project.status}</div>
-          <div className="hero-actions">
-            {project.repo && <a className="button button-dark" href={project.repo} target="_blank" rel="noreferrer">View repository <Arrow /></a>}
-            <Link className="text-link" href="/#work">All work <Arrow /></Link>
+      <section className="project-hero" aria-labelledby="project-title">
+        <Reveal>
+          <div className="project-hero-copy">
+            <p className="eyebrow eyebrow-accent">{project.domain}</p>
+            <p className="project-number">
+              {project.number} / 04
+            </p>
+            <h1 id="project-title">{project.name}</h1>
+            <p className="project-deck">{project.deck}</p>
+            <div className="project-status">
+              <span className="status-dot" /> {project.status}
+            </div>
+            <div className="hero-actions">
+              {project.repo && (
+                <a className="button button-solid" href={project.repo} target="_blank" rel="noreferrer">
+                  View repository <Arrow />
+                </a>
+              )}
+              <Link className="text-link" href="/#work">
+                All work <Arrow />
+              </Link>
+            </div>
           </div>
-        </div>
-        <ProjectArtwork projectKey={projectKey} />
+        </Reveal>
+        <Reveal delay={110}>
+          <HeroArtwork projectKey={projectKey} />
+        </Reveal>
       </section>
 
-      <section className="project-stats section-wrap" aria-label={`${project.name} highlights`}>
-        {stats.map((stat) => <div key={stat.label}><span>{stat.label}</span><strong>{stat.value}</strong></div>)}
+      <section className="stat-strip section-wrap" aria-label={`${project.name} highlights`}>
+        {stats.map((stat) => (
+          <div key={stat.label}>
+            <span>{stat.label}</span>
+            <strong>{stat.value}</strong>
+          </div>
+        ))}
       </section>
 
       <section className="project-notes section-wrap" aria-labelledby="project-notes-title">
-        <div className="section-heading project-notes-heading">
-          <div>
-            <p className="eyebrow">Project notes</p>
-            <h2 id="project-notes-title">How the system came together.</h2>
+        <Reveal>
+          <div className="section-heading project-notes-heading">
+            <div>
+              <p className="eyebrow">Project notes</p>
+              <h2 className="display" id="project-notes-title">
+                How the system came together.
+              </h2>
+            </div>
+            <p className="section-heading-note">The decisions, constraints, and results in sequence.</p>
           </div>
-          <p className="section-heading-note">The decisions, constraints, and results in sequence.</p>
-        </div>
+        </Reveal>
         <ol className="project-note-list">
           {project.beats.map((beat, index) => (
-            <li className="project-note" key={beat.title}>
+            <Reveal key={beat.title} as="li" className="project-note">
               <div className="project-note-index">{String(index + 1).padStart(2, "0")}</div>
               <div className="project-note-content">
                 <p className="eyebrow">{beat.label}</p>
                 <h3>{beat.title}</h3>
                 <p>{beat.body}</p>
-                {beat.facts && <ul className="project-facts">{beat.facts.map((fact) => <li key={fact}>{fact}</li>)}</ul>}
+                {beat.facts && (
+                  <ul className="project-facts">
+                    {beat.facts.map((fact) => (
+                      <li key={fact}>{fact}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
-            </li>
+            </Reveal>
           ))}
         </ol>
       </section>
 
       <EvidenceNote projectKey={projectKey} />
 
+      {project.model && (
+        <section className="model-section section-wrap" aria-label={`${project.name} 3D model`}>
+          <Reveal>
+            <ModelViewer
+              url={project.model}
+              projectKey={projectKey === "vulcan" || projectKey === "ender3-2" ? projectKey : "vulcan"}
+              label={`${project.name} · full assembly`}
+              hudRight="drag to orbit · scroll to continue"
+            />
+            <div className="model-section-meta">
+              <span>Interactive · WebGL</span>
+              <span>Source CAD exported to GLB</span>
+            </div>
+          </Reveal>
+        </section>
+      )}
+
       {project.media.length > 0 && (
         <section className="project-gallery section-wrap" aria-labelledby="gallery-title">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Project record</p>
-              <h2 id="gallery-title">The work, in frames.</h2>
+          <Reveal>
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">Project record</p>
+                <h2 className="display" id="gallery-title">
+                  The work, in frames.
+                </h2>
+              </div>
+              <p className="section-heading-note">Original project media and build documentation.</p>
             </div>
-            <p className="section-heading-note">Original project media and build documentation.</p>
-          </div>
+          </Reveal>
           <div className="project-gallery-grid">
-            {project.media.map((media) => <MediaCard key={media.src} {...media} />)}
+            {project.media.map((media) => (
+              <MediaCard key={media.src} {...media} />
+            ))}
           </div>
         </section>
       )}
 
-      <section className="project-next section-wrap">
-        <p className="eyebrow eyebrow-accent">Keep exploring</p>
-        <h2>More work at the intersection of software and hardware.</h2>
-        <Link className="button button-light" href="/#work">Back to selected work <Arrow /></Link>
+      <section className="project-next">
+        <div className="section-wrap">
+          <Reveal>
+            <Link href={`/projects/${next.key}`} className="next-project-card">
+              <div>
+                <p className="eyebrow eyebrow-accent">Next project / {next.domain}</p>
+                <h2>{next.name}</h2>
+              </div>
+              <span className="next-project-arrow" aria-hidden="true">
+                →
+              </span>
+            </Link>
+          </Reveal>
+        </div>
       </section>
 
       <footer className="site-footer section-wrap">
         <span>William Nzive / {project.name}</span>
         <span>Questions, collaboration, or a hard problem?</span>
-        <a href={`mailto:${contact.email}`}>Get in touch <Arrow /></a>
+        <a href={`mailto:${contact.email}`}>
+          Get in touch <Arrow />
+        </a>
       </footer>
     </main>
   );
