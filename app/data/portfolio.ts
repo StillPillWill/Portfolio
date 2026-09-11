@@ -100,8 +100,8 @@ export const chapters: Chapter[] = [
     body: "As researcher and embedded-systems builder, I created the firmware, native USB transport, synchronized collection, storage, decoding, and host orchestration behind the experiments.",
     records: [
       { label: "Stack", value: "ESP32-S3 / C6 · C / C++ · Python · native USB" },
-      { label: "Evidence", value: "10,839 records/s · 650,386 records · 0 CRC errors or sequence gaps" },
-      { label: "Outcome", value: "Audio-activity detection and speaker identification demonstrated" },
+      { label: "Corpus", value: "4.6B packets · 98 hrs audio · $40 hardware" },
+      { label: "Outcome", value: "90% speaker recognition over 122 runs (400 hrs training)" },
     ],
     accent: "#8176e9",
     route: "/projects/csi",
@@ -195,7 +195,7 @@ export const projects: Record<ProjectKey, Project> = {
     name: "CSI Research",
     domain: "COMPUTER SCIENCE · EMBEDDED SENSING",
     status: "ONGOING RESEARCH",
-    deck: "An ESP32 firmware, transport, and capture stack built to investigate audio sensing through Wi-Fi channel-state information.",
+    deck: "An ESP32 firmware, transport, and deep-learning pipeline built to investigate audio sensing through Wi-Fi channel-state information—achieving 90% speaker recognition across 4.6B packets and 400 hours of training on $40 of hardware.",
     accent: "#8176e9",
     repo: "https://github.com/StillPillWill/Research",
     beats: [

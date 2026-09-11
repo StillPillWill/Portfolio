@@ -22,8 +22,8 @@ const featuredProjects = [
     eyebrow: "Research / embedded sensing",
     title: "Wi-Fi CSI sensing",
     description:
-      "An ESP32 capture and transport stack for investigating audio activity and speaker identification through channel-state information.",
-    stat: "10,839 records/s",
+      "ESP32 capture pipeline and machine-learning models investigating audio sensing through Wi-Fi channel-state information—achieving 90% speaker recognition across 400 hours of training on $40 of hardware.",
+    stat: "90% speaker ID · 4.6B packets",
   },
   {
     key: "vulcan" as const,
@@ -53,31 +53,39 @@ function Arrow() {
 
 function CsiDataPanel() {
   return (
-    <div className="data-panel" aria-label="CSI transport validation results">
+    <div className="data-panel" aria-label="CSI research corpus and model performance">
       <div className="data-panel-heading">
-        <span>Transport validation</span>
-        <span>60-second soak</span>
+        <span>Research corpus &amp; models</span>
+        <span>$40 hardware</span>
+      </div>
+      <div className="csi-evidence-total">
+        <strong>4.6B</strong>
+        <span>packets captured</span>
       </div>
       <dl className="data-panel-metrics">
         <div>
-          <dt>Captured</dt>
+          <dt>Audio</dt>
           <dd>
-            <CountUp value="650,386" />
+            <CountUp value="98" />
+            <span> hrs</span>
           </dd>
         </div>
         <div>
-          <dt>Throughput</dt>
+          <dt>Training</dt>
           <dd>
-            <CountUp value="10,839" />
-            <span> / sec</span>
+            <CountUp value="400" />
+            <span> hrs</span>
           </dd>
         </div>
         <div>
-          <dt>CRC + gaps</dt>
-          <dd>0</dd>
+          <dt>Recognition</dt>
+          <dd>
+            <CountUp value="90" />
+            <span>%</span>
+          </dd>
         </div>
       </dl>
-      <span className="data-panel-foot">Native USB / validated capture</span>
+      <span className="data-panel-foot">122 training runs · 400 hrs training · 90% speaker recognition</span>
     </div>
   );
 }

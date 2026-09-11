@@ -1140,6 +1140,10 @@ a:hover .arrow,
   text-transform: uppercase;
 }
 
+.project-card-featured .data-panel {
+  border-left: 1px solid var(--line);
+}
+
 /* Large evidence number inside the CSI dossier panel */
 .csi-evidence-total {
   display: grid;
@@ -1156,6 +1160,15 @@ a:hover .arrow,
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.06em;
   line-height: 0.9;
+}
+
+.project-card .csi-evidence-total {
+  margin-block: 8px;
+  gap: 4px;
+}
+
+.project-card .csi-evidence-total strong {
+  font-size: clamp(36px, 4vw, 52px);
 }
 
 .csi-evidence-total span {
@@ -1611,6 +1624,32 @@ a:hover .arrow,
   font-variant-numeric: tabular-nums;
 }
 
+.stat-strip-dense {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.stat-strip-dense > div {
+  padding: 20px 18px;
+}
+
+@media (max-width: 1100px) {
+  .stat-strip-dense {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stat-strip-dense > div:nth-child(3) {
+    border-right: 0;
+  }
+
+  .stat-strip-dense > div:nth-child(-n + 3) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stat-strip-dense > div:nth-child(3n + 1) {
+    padding-left: 0;
+  }
+}
+
 /* Notes ledger */
 .project-notes {
   padding-top: 128px;
@@ -1986,19 +2025,23 @@ a:hover .arrow,
     padding-right: 0;
   }
 
-  .stat-strip {
+  .stat-strip,
+  .stat-strip-dense {
     grid-template-columns: 1fr;
   }
 
   .stat-strip > div,
-  .stat-strip > div:first-child {
+  .stat-strip-dense > div,
+  .stat-strip > div:first-child,
+  .stat-strip-dense > div:first-child {
     min-height: 0;
     padding: 17px 0;
     border-right: 0;
     border-bottom: 1px solid var(--line-subtle);
   }
 
-  .stat-strip > div:last-child {
+  .stat-strip > div:last-child,
+  .stat-strip-dense > div:last-child {
     border-bottom: 0;
   }
 

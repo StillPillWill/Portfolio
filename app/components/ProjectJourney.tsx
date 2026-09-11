@@ -14,9 +14,12 @@ const NEXT_PROJECT: Record<ProjectKey, ProjectKey> = {
 
 const projectStats: Record<ProjectKey, Array<{ label: string; value: string }>> = {
   csi: [
-    { label: "Corpus", value: "4.6B packets" },
-    { label: "Speaker recognition", value: "90%" },
+    { label: "Packets captured", value: "4.6 billion" },
+    { label: "Audio corpus", value: "98 hours" },
+    { label: "Model training", value: "400 hours" },
     { label: "Training runs", value: "122 runs" },
+    { label: "Speaker recognition", value: "90%" },
+    { label: "Hardware cost", value: "$40" },
   ],
   vulcan: [
     { label: "Architecture", value: "Six-axis arm" },
@@ -49,7 +52,7 @@ function CsiEvidencePanel() {
       <div className="data-panel" aria-label="CSI research corpus totals">
         <div className="data-panel-heading">
           <span>Independent research corpus</span>
-          <span>2025 – present</span>
+          <span>$40 hardware</span>
         </div>
         <div className="csi-evidence-total">
           <strong>4.6B</strong>
@@ -70,10 +73,10 @@ function CsiEvidencePanel() {
           </div>
           <div>
             <dt>Hardware</dt>
-            <dd>~$40</dd>
+            <dd>$40</dd>
           </div>
         </dl>
-        <span className="data-panel-foot">122 training runs · 90% speaker recognition</span>
+        <span className="data-panel-foot">122 training runs · 400 hrs training · 90% speaker recognition</span>
       </div>
       <span>Corpus totals · live instrumentation</span>
     </div>
@@ -156,8 +159,7 @@ function EvidenceNote({ projectKey }: { projectKey: ProjectKey }) {
       <Reveal delay={90}>
         <div className="evidence-note-copy">
           <p>
-            Audio-activity detection and speaker identification have been demonstrated. General
-            audio reconstruction remains an open research question.
+            Across 400 hours of training, 122 training runs, and 4.6 billion packets captured with 98 hours of audio on $40 of hardware, audio-activity detection and 90% speaker recognition have been demonstrated. General audio reconstruction remains an open research question.
           </p>
           <a href={projects.csi.repo} target="_blank" rel="noreferrer">
             Read the repository <Arrow />
@@ -221,7 +223,10 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
         </Reveal>
       </section>
 
-      <section className="stat-strip section-wrap" aria-label={`${project.name} highlights`}>
+      <section
+        className={`stat-strip section-wrap${stats.length > 3 ? " stat-strip-dense" : ""}`}
+        aria-label={`${project.name} highlights`}
+      >
         {stats.map((stat) => (
           <div key={stat.label}>
             <span>{stat.label}</span>
