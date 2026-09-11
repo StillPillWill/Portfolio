@@ -165,8 +165,8 @@ export const chapters: Chapter[] = [
     title: "Technical leadership at the scale of a team.",
     body: "As former captain of Team 3598, I coordinated more than 50 students across mechanical, electrical, software, operations, competition preparation, and outreach.",
     records: [
-      { label: "Team", value: "50+ students across five working groups" },
-      { label: "Competition", value: "Three events · district-championship qualification" },
+      { label: "Team", value: "40+ students across five working groups" },
+      { label: "Competition", value: "District qualification · FIRST Impact Award · World Championship berth" },
       { label: "Community", value: "Documented outreach reaching 4,452 students" },
     ],
     accent: "#b95c6b",
@@ -203,7 +203,7 @@ export const projects: Record<ProjectKey, Project> = {
         label: "THE RESEARCH QUESTION",
         title: "Can a low-cost Wi‑Fi sensor reveal sound activity?",
         body: "I am investigating whether channel-state information from low-cost ESP32 hardware contains enough structure to detect audio activity, identify a speaker, and eventually recover more of the underlying signal.",
-        facts: ["Wi-Fi CSI", "ESP32-S3 / C6", "Active research"],
+        facts: ["Wi-Fi CSI", "ESP32-S3 / C6", "Origin: UCSC SIP 2025", "Active research"],
         visual: "instrument",
       },
       {
@@ -352,14 +352,14 @@ export const projects: Record<ProjectKey, Project> = {
     name: "Team 3598",
     domain: "LEADERSHIP · COMPETITIVE ROBOTICS",
     status: "FORMER CAPTAIN · SEASON COMPLETE",
-    deck: "Past captaincy across engineering, competition operations, and outreach for an FRC team of more than 50 students.",
+    deck: "Past captaincy across engineering, competition operations, and outreach for an FRC team of more than 40 students.",
     accent: "#b95c6b",
     beats: [
       {
         label: "LEADERSHIP SCOPE",
-        title: "Led 50+ students across engineering, operations, and outreach.",
-        body: "As captain, I coordinated more than 50 students across design, manufacturing, programming, competition preparation, and outreach.",
-        facts: ["50+ students", "Former captain", "Cross-discipline"],
+        title: "Led 40+ students across engineering, operations, and outreach.",
+        body: "As captain, I coordinated more than 40 students across design, manufacturing, programming, competition preparation, and outreach.",
+        facts: ["40+ students", "Former captain", "Cross-discipline"],
         visual: "media",
       },
       {
@@ -371,9 +371,9 @@ export const projects: Record<ProjectKey, Project> = {
       },
       {
         label: "SEASON OUTCOME",
-        title: "Three events ended in district-championship qualification.",
-        body: "During my captaincy, Team 3598 competed three times and qualified for the district championship.",
-        facts: ["3 competitions", "District qualification"],
+        title: "District qualification, the Impact Award, and a Worlds berth.",
+        body: "During my captaincy, Team 3598 competed across the season to district-championship qualification, earned the FIRST Impact Award, and qualified for the FIRST World Championship.",
+        facts: ["District qualification", "FIRST Impact Award", "World Championship"],
         visual: "media",
       },
       {

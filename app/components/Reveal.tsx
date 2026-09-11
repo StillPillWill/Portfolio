@@ -1,6 +1,6 @@
 "use client";
 
-import { createElement, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from "react";
 
 /**
  * Scroll-reveal wrapper. Fails open by design:
@@ -23,7 +23,7 @@ export function Reveal({
   accent?: string;
   as?: "div" | "li";
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement | HTMLLIElement>(null);
   const [armed, setArmed] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -31,6 +31,10 @@ export function Reveal({
     const el = ref.current;
     if (!el) return;
 
+    // Mount-time sync from external systems (viewport position, matchMedia,
+    // IO support). Runs once per delay value; never loops, so the cascading
+    // setState this rule guards against cannot occur here.
+    /* eslint-disable react-hooks/set-state-in-effect */
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setVisible(true);
       return;
@@ -47,6 +51,7 @@ export function Reveal({
       setVisible(true);
       return;
     }
+    /* eslint-enable react-hooks/set-state-in-effect */
 
     setArmed(true);
 
@@ -74,14 +79,21 @@ export function Reveal({
   }, [delay]);
 
   const accentStyle = accent ? ({ "--card-accent": `${accent}1f` } as CSSProperties) : undefined;
+  const revealClassName =
+    `reveal${armed && !visible ? " reveal-armed" : ""}${visible ? " is-visible" : ""}${className ? ` ${className}` : ""}`;
+  const revealStyle = { ...(accentStyle ?? {}), "--reveal-delay": `${delay}ms` } as CSSProperties;
 
-  return createElement(
-    as,
-    {
-      ref,
-      className: `reveal${armed && !visible ? " reveal-armed" : ""}${visible ? " is-visible" : ""}${className ? ` ${className}` : ""}`,
-      style: { ...(accentStyle ?? {}), "--reveal-delay": `${delay}ms` } as CSSProperties,
-    },
-    children,
+  if (as === "li") {
+    return (
+      <li ref={ref as RefObject<HTMLLIElement | null>} className={revealClassName} style={revealStyle}>
+        {children}
+      </li>
+    );
+  }
+
+  return (
+    <div ref={ref as RefObject<HTMLDivElement | null>} className={revealClassName} style={revealStyle}>
+      {children}
+    </div>
   );
 }

@@ -1,5 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  themeColor: "#07090b",
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   title: "William Nzive — Software, sensing, and machines",

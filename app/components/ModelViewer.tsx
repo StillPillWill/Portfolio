@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type ComponentType, type CSSProperties, type ReactNode } from "react";
 import type { ModelViewerProps, SpinHandle } from "./viewer/types";
 
+/* eslint-disable @next/next/no-img-element -- static WebGL fallback frame, not a content image */
+
 /**
  * Public model viewer. Renders a static fallback frame immediately
  * (SSR-safe), then lazily hydrates a three.js canvas only when:
@@ -80,6 +82,9 @@ export function ModelViewer({
       })();
 
     if (!ok) {
+      // One-shot capability gate evaluated at mount (viewport width,
+      // reduced motion, WebGL). Runs once; cannot cascade.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStage("failed");
       return;
     }
@@ -151,7 +156,9 @@ export function ModelViewer({
 
       {stage === "failed" ? (
         <figure className="viewer-fallback">
-          <img src={FALLBACKS[projectKey] ?? ""} alt="" loading="lazy" />
+          {FALLBACKS[projectKey] ? (
+            <img src={FALLBACKS[projectKey]} alt="" loading="lazy" decoding="async" />
+          ) : null}
           <figcaption>{label}</figcaption>
           <span className="viewer-hint">static view</span>
         </figure>
@@ -167,7 +174,7 @@ function fallbackImage(projectKey: string): ReactNode {
   if (!src) return null;
   return (
     <figure className="viewer-fallback">
-      <img src={src} alt="" loading="lazy" />
+      <img src={src} alt="" loading="lazy" decoding="async" />
     </figure>
   );
 }

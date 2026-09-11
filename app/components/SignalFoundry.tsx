@@ -47,7 +47,7 @@ const featuredProjects = [
     eyebrow: "Leadership / robotics",
     title: "Team 3598",
     description:
-      "Technical leadership across engineering, operations, competition preparation, and outreach for a 50+ student team.",
+      "Technical leadership across engineering, operations, competition preparation, and outreach for a 40+ student team.",
     stat: "4,452 students reached",
   },
 ];
@@ -94,15 +94,27 @@ function CsiDataPanel() {
 function ProjectVisual({ project }: { project: (typeof featuredProjects)[number] }) {
   if (project.key === "csi") return <CsiDataPanel />;
 
-  const images: Record<string, string> = {
-    vulcan: "/portfolio/media/vulcan-hero.webp",
-    "ender3-2": "/portfolio/media/ender3-2/full-build.webp",
-    "team-3598": "/portfolio/media/team3598.webp",
+  const images: Record<string, { src: string; alt: string }> = {
+    vulcan: {
+      src: "/portfolio/media/vulcan-hero.webp",
+      alt: "Vulcan six-axis robot arm CAD assembly render",
+    },
+    "ender3-2": {
+      src: "/portfolio/media/ender3-2/full-build.webp",
+      alt: "Ender3-2 large-format printer physical build",
+    },
+    "team-3598": {
+      src: "/portfolio/media/team3598.webp",
+      alt: "Team 3598 robotics team group photo",
+    },
   };
+
+  const image = images[project.key];
+  if (!image) return null;
 
   return (
     <div className="project-card-visual">
-      <img src={images[project.key]} alt="" loading="lazy" />
+      <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
       <span className="visual-label">Selected work / {project.key}</span>
     </div>
   );
@@ -146,7 +158,10 @@ function ProjectCard({
 
 export function SignalFoundry() {
   return (
-    <main className="site-shell">
+    <main className="site-shell" id="main">
+      <a className="skip-link" href="#work">
+        Skip to selected work
+      </a>
       <header className="site-header">
         <Link href="/" className="wordmark" aria-label="William Nzive home">
           <span className="wordmark-mark">WN</span>
@@ -156,6 +171,9 @@ export function SignalFoundry() {
           <a href="#work">Work</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
+          <a href="/resume.pdf" target="_blank" rel="noreferrer">
+            Resume <Arrow />
+          </a>
         </nav>
         <a className="header-status" href={`mailto:${contact.email}`}>
           <span className="status-dot" />
@@ -206,9 +224,7 @@ export function SignalFoundry() {
             label="Vulcan V1 · assembly study"
             hudRight="CAD · GLB"
           />
-          <div className="wave-wrap" aria-hidden="true">
-            <Waveform />
-          </div>
+          <Waveform />
         </div>
       </section>
 
@@ -280,6 +296,45 @@ export function SignalFoundry() {
         </Reveal>
       </section>
 
+      <section className="exp-section section-wrap" id="experience" aria-labelledby="exp-title">
+        <Reveal>
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Experience</p>
+              <h2 className="display" id="exp-title">
+                Research roles and independent builds.
+              </h2>
+            </div>
+            <p className="section-heading-note">
+              The internship, the competitions, and the side quests — full detail in the resume.
+            </p>
+          </div>
+        </Reveal>
+        <ol className="exp-list">
+          {[cv.experience[0], ...cv.additionalExperience].map((exp, index) => (
+            <Reveal as="li" key={exp.title} className="exp-item" delay={Math.min(index, 3) * 60}>
+              <span className="exp-index" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div className="exp-main">
+                <p className="eyebrow">{exp.meta}</p>
+                <h3>{exp.title}</h3>
+                <p className="exp-role">{exp.role}</p>
+                <p className="exp-summary">{exp.summary}</p>
+                <p className="exp-proof">{exp.proof}</p>
+              </div>
+            </Reveal>
+          ))}
+        </ol>
+        <Reveal>
+          <div className="exp-resume">
+            <a className="button button-ghost" href="/resume.pdf" target="_blank" rel="noreferrer">
+              Download resume <Arrow />
+            </a>
+          </div>
+        </Reveal>
+      </section>
+
       <section className="about-section section-wrap" id="about" aria-labelledby="about-title">
         <Reveal>
           <div className="about-lead">
@@ -296,7 +351,7 @@ export function SignalFoundry() {
               <div>
                 <span className="eyebrow">Education</span>
                 <strong>University of California, Davis</strong>
-                <span>Computer Science and Engineering</span>
+                <span>B.S. Computer Science &amp; Engineering · expected Jun 2030</span>
               </div>
               <div>
                 <span className="eyebrow">Working style</span>
@@ -325,6 +380,9 @@ export function SignalFoundry() {
               </a>
             </Magnetic>
             <div className="social-links">
+              <a href="/resume.pdf" target="_blank" rel="noreferrer">
+                Resume <Arrow />
+              </a>
               <a href={contact.github} target="_blank" rel="noreferrer">
                 GitHub <Arrow />
               </a>

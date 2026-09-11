@@ -135,6 +135,36 @@ button:focus-visible,
   background: var(--void);
 }
 
+/* Skip link — visible on keyboard focus only */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 16px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--acc);
+  color: var(--void);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: top 180ms var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  top: 12px;
+}
+
+/* Anchored sections must clear the sticky 64px header */
+#work,
+#about,
+#contact,
+#experience,
+#project-notes-title,
+#gallery-title {
+  scroll-margin-top: 84px;
+}
+
 /* ------------------------------------------------------------
    Utilities
    ------------------------------------------------------------ */
@@ -406,6 +436,7 @@ a:hover .arrow,
   font-weight: 720;
   letter-spacing: -0.055em;
   line-height: 0.95;
+  text-wrap: balance;
 }
 
 .hero h1 em {
@@ -570,7 +601,22 @@ a:hover .arrow,
   object-fit: contain;
 }
 
-.viewer-fallback figcaption,
+.viewer-fallback figcaption {
+  position: absolute;
+  z-index: 2;
+  right: 16px;
+  bottom: 46px;
+  left: 16px;
+  color: var(--text-3);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+}
+
 .viewer-hud {
   position: absolute;
   z-index: 2;
@@ -819,6 +865,7 @@ a:hover .arrow,
   font-weight: 700;
   letter-spacing: -0.048em;
   line-height: 1;
+  text-wrap: balance;
 }
 
 .section-heading-note {
@@ -1143,6 +1190,92 @@ a:hover .arrow,
 }
 
 /* ------------------------------------------------------------
+   Experience
+   ------------------------------------------------------------ */
+
+.exp-section {
+  padding-top: 118px;
+  padding-bottom: 124px;
+  border-top: 1px solid var(--line-subtle);
+}
+
+.exp-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.exp-item {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 34px;
+  padding: 30px 0 32px;
+  border-top: 1px solid var(--line-subtle);
+  transition: background 220ms ease;
+}
+
+.exp-item:last-child {
+  border-bottom: 1px solid var(--line-subtle);
+}
+
+.exp-index {
+  color: var(--text-4);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  transition: color 220ms ease;
+}
+
+.exp-item:hover .exp-index {
+  color: var(--acc);
+}
+
+.exp-main .eyebrow {
+  max-width: 60ch;
+}
+
+.exp-main h3 {
+  max-width: 22ch;
+  margin: 10px 0 4px;
+  font-size: clamp(20px, 2vw, 27px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.exp-role {
+  margin: 0 0 12px;
+  color: var(--acc);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.exp-summary {
+  max-width: 72ch;
+  margin: 0;
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.exp-proof {
+  max-width: 72ch;
+  margin: 12px 0 0;
+  padding-left: 14px;
+  border-left: 1px solid var(--acc-line);
+  color: var(--text-3);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.exp-resume {
+  margin-top: 40px;
+}
+
+/* ------------------------------------------------------------
    About
    ------------------------------------------------------------ */
 
@@ -1280,6 +1413,7 @@ a:hover .arrow,
   font-weight: 720;
   letter-spacing: -0.055em;
   line-height: 0.9;
+  text-wrap: balance;
 }
 
 .project-deck {
@@ -1876,6 +2010,7 @@ a:hover .arrow,
 
   .work-section,
   .matrix-section,
+  .exp-section,
   .about-section,
   .project-notes,
   .model-section {
@@ -2006,6 +2141,12 @@ a:hover .arrow,
     grid-template-columns: 38px 1fr;
     gap: 16px;
     padding: 26px 0 30px;
+  }
+
+  .exp-item {
+    grid-template-columns: 38px 1fr;
+    gap: 16px;
+    padding: 24px 0 28px;
   }
 
   .project-note h3 {

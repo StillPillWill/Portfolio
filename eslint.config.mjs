@@ -14,6 +14,15 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local dev/QA scratch: vendored three.js copies, screenshots, harness scripts.
+    "tmp/**",
+    "public/tmp-render/**",
+    "_docx-qa/**",
+    "_docx-qa2/**",
+    "_media-review/**",
+    "_media-review2/**",
+    "_resume-review/**",
+    ".docx-review/**",
   ]),
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
@@ -34,6 +43,15 @@ const eslintConfig = defineConfig([
       react: {
         version: "detect",
       },
+    },
+  },
+  {
+    // react-three-fiber renders three.js objects as JSX intrinsics
+    // (<group>, <primitive>, <ambientLight>, shadow-camera-* props).
+    // The DOM-oriented rule cannot know these members.
+    files: ["app/components/viewer/**/*.tsx"],
+    rules: {
+      "react/no-unknown-property": "off",
     },
   },
 ]);

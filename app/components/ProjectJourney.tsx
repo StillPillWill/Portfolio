@@ -5,13 +5,6 @@ import { Reveal } from "./Reveal";
 
 /* eslint-disable @next/next/no-img-element */
 
-const ACCENTS: Record<ProjectKey, string> = {
-  csi: "#8176e9",
-  vulcan: "#c8774d",
-  "ender3-2": "#e5b86b",
-  "team-3598": "#b95c6b",
-};
-
 const NEXT_PROJECT: Record<ProjectKey, ProjectKey> = {
   csi: "vulcan",
   vulcan: "ender3-2",
@@ -36,8 +29,8 @@ const projectStats: Record<ProjectKey, Array<{ label: string; value: string }>> 
     { label: "Public demo", value: "Open Sauce plotter" },
   ],
   "team-3598": [
-    { label: "Team size", value: "50+ students" },
-    { label: "Competition", value: "District qualification" },
+    { label: "Team size", value: "40+ students" },
+    { label: "Competition", value: "Impact Award · Worlds berth" },
     { label: "Outreach", value: "4,452 students" },
   ],
 };
@@ -90,7 +83,7 @@ function HeroArtwork({ projectKey }: { projectKey: ProjectKey }) {
     return (
       <ModelViewer
         url={project.model}
-        projectKey={projectKey === "vulcan" || projectKey === "ender3-2" ? projectKey : "vulcan"}
+        projectKey={projectKey as "vulcan" | "ender3-2"}
         label={`${project.name} · interactive model`}
         hudRight={`CAD · ${project.number}/04`}
       />
@@ -109,7 +102,7 @@ function HeroArtwork({ projectKey }: { projectKey: ProjectKey }) {
       {firstMedia.kind === "video" ? (
         <video src={firstMedia.src} muted autoPlay loop playsInline aria-label={firstMedia.alt} />
       ) : (
-        <img src={firstMedia.src} alt={firstMedia.alt} />
+        <img src={firstMedia.src} alt={firstMedia.alt} decoding="async" />
       )}
       <span>{firstMedia.caption}</span>
     </div>
@@ -117,16 +110,17 @@ function HeroArtwork({ projectKey }: { projectKey: ProjectKey }) {
 }
 
 function MediaCard({ src, alt, caption, kind, fit, ratio }: ProjectMedia) {
+  const contain = fit === "contain";
   return (
     <Reveal
-      className={`project-gallery-item project-gallery-${fit ?? "cover"} project-gallery-${ratio}`}
+      className={`project-gallery-item project-gallery-${ratio}${contain ? " project-gallery-contain" : ""}`}
     >
       <figure style={{ margin: 0 }}>
         <div className="project-gallery-frame">
           {kind === "video" ? (
             <video src={src} muted controls playsInline preload="metadata" aria-label={alt} />
           ) : (
-            <img src={src} alt={alt} loading="lazy" />
+            <img src={src} alt={alt} loading="lazy" decoding="async" />
           )}
         </div>
         <figcaption>{caption}</figcaption>
@@ -167,7 +161,10 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
   const next = projects[NEXT_PROJECT[projectKey]];
 
   return (
-    <main className={`project-page project-page-${projectKey}`}>
+    <main className={`project-page project-page-${projectKey}`} id="main">
+      <a className="skip-link" href="#project-notes-title">
+        Skip to project notes
+      </a>
       <header className="site-header project-site-header">
         <Link href="/" className="wordmark" aria-label="William Nzive home">
           <span className="wordmark-mark">WN</span>
@@ -260,7 +257,7 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
           <Reveal>
             <ModelViewer
               url={project.model}
-              projectKey={projectKey === "vulcan" || projectKey === "ender3-2" ? projectKey : "vulcan"}
+              projectKey={projectKey as "vulcan" | "ender3-2"}
               label={`${project.name} · full assembly`}
               hudRight="drag to orbit · scroll to continue"
             />
