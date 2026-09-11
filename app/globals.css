@@ -401,13 +401,11 @@ a:hover .arrow,
 .hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
-  gap: clamp(48px, 6vw, 96px);
+  grid-template-columns: minmax(0, 1.12fr) minmax(380px, 0.88fr);
+  gap: clamp(40px, 5vw, 80px);
   align-items: center;
-  max-width: 1240px;
+  width: min(1240px, calc(100% - 96px));
   margin-inline: auto;
-  /* match .section-wrap gutters at every breakpoint */
-  padding-inline: max(48px, calc((100% - 1240px) / 2));
   min-height: min(calc(100vh - 64px), 880px);
   padding-top: 72px;
   padding-bottom: 96px;
@@ -415,9 +413,6 @@ a:hover .arrow,
 
 .hero-copy {
   max-width: 660px;
-  /* Query container for the headline: type scales with its own column,
-     so no viewport/zoom/font condition can overflow it into the viewer. */
-  container-type: inline-size;
   min-width: 0;
 }
 
@@ -436,15 +431,13 @@ a:hover .arrow,
 
 .hero h1 {
   margin: 28px 0 24px;
-  font-size: clamp(52px, 6.6vw, 94px);
-  /* Column-relative size (with vw fallback): the longest word
-     ("software" ≈ 0.79 columns) can never outgrow its track. */
-  font-size: clamp(40px, 16cqi, 94px);
+  font-size: clamp(40px, 4.2vw, 68px);
   font-weight: 720;
-  letter-spacing: -0.055em;
-  line-height: 0.95;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
   text-wrap: balance;
-  overflow-wrap: break-word;
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 
 .hero h1 em {
@@ -1477,13 +1470,11 @@ a:hover .arrow,
 
 .project-hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.86fr) minmax(340px, 1.14fr);
-  gap: clamp(48px, 7vw, 120px);
+  grid-template-columns: minmax(0, 0.95fr) minmax(380px, 1.05fr);
+  gap: clamp(40px, 5vw, 88px);
   align-items: center;
-  max-width: 1240px;
+  width: min(1240px, calc(100% - 96px));
   margin-inline: auto;
-  /* match .section-wrap gutters at every breakpoint */
-  padding-inline: max(48px, calc((100% - 1240px) / 2));
   min-height: min(calc(100vh - 64px), 860px);
   padding-top: 76px;
   padding-bottom: 88px;
@@ -1505,14 +1496,13 @@ a:hover .arrow,
 
 .project-hero h1 {
   margin: 0;
-  font-size: clamp(56px, 7.4vw, 108px);
-  /* Column-relative size (with vw fallback). */
-  font-size: clamp(44px, 15cqi, 108px);
+  font-size: clamp(44px, 5vw, 80px);
   font-weight: 720;
   letter-spacing: -0.055em;
-  line-height: 0.9;
+  line-height: 0.95;
   text-wrap: balance;
-  overflow-wrap: break-word;
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 
 .project-deck {
@@ -1942,7 +1932,7 @@ a:hover .arrow,
     grid-template-columns: 1fr;
     gap: 60px;
     min-height: auto;
-    padding-inline: 26px;
+    padding-inline: 0;
     padding-top: 64px;
     padding-bottom: 76px;
   }
@@ -1972,7 +1962,9 @@ a:hover .arrow,
 
 @media (max-width: 920px) {
   .section-wrap,
-  .evidence-note {
+  .evidence-note,
+  .hero,
+  .project-hero {
     width: min(100% - 52px, 760px);
   }
 
@@ -2040,7 +2032,9 @@ a:hover .arrow,
   }
 
   .section-wrap,
-  .evidence-note {
+  .evidence-note,
+  .hero,
+  .project-hero {
     width: calc(100% - 36px);
   }
 
@@ -2075,7 +2069,7 @@ a:hover .arrow,
   .hero,
   .project-hero {
     gap: 44px;
-    padding-inline: 18px;
+    padding-inline: 0;
     padding-top: 52px;
     padding-bottom: 60px;
   }
