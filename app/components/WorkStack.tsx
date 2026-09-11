@@ -19,6 +19,11 @@ export function WorkStack({ cards }: { cards: ReactNode[] }) {
     let cleanup: (() => void) | undefined;
 
     (async () => {
+      // Never download GSAP on devices that can't use the effect: small
+      // screens get a plain stacked grid and reduced-motion gets none of it.
+      if (!window.matchMedia("(min-width: 921px) and (prefers-reduced-motion: no-preference)").matches) {
+        return;
+      }
       const [{ gsap }, { ScrollTrigger }] = await Promise.all([
         import("gsap"),
         import("gsap/ScrollTrigger"),

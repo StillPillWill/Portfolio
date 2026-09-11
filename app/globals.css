@@ -401,7 +401,7 @@ a:hover .arrow,
 .hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(400px, 0.92fr);
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
   gap: clamp(48px, 6vw, 96px);
   align-items: center;
   max-width: 1240px;
@@ -415,6 +415,10 @@ a:hover .arrow,
 
 .hero-copy {
   max-width: 660px;
+  /* Query container for the headline: type scales with its own column,
+     so no viewport/zoom/font condition can overflow it into the viewer. */
+  container-type: inline-size;
+  min-width: 0;
 }
 
 .hero-kicker {
@@ -433,10 +437,14 @@ a:hover .arrow,
 .hero h1 {
   margin: 28px 0 24px;
   font-size: clamp(52px, 6.6vw, 94px);
+  /* Column-relative size (with vw fallback): the longest word
+     ("software" ≈ 0.79 columns) can never outgrow its track. */
+  font-size: clamp(40px, 16cqi, 94px);
   font-weight: 720;
   letter-spacing: -0.055em;
   line-height: 0.95;
   text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .hero h1 em {
@@ -579,6 +587,12 @@ a:hover .arrow,
 .viewer-canvas {
   position: absolute;
   inset: 0;
+  opacity: 0;
+  transition: opacity 350ms ease;
+}
+
+[data-stage="ready"] .viewer-canvas {
+  opacity: 1;
 }
 
 .viewer-canvas canvas {
@@ -593,12 +607,21 @@ a:hover .arrow,
   place-items: center;
   padding: 30px;
   text-align: center;
+  transition: opacity 350ms ease;
+}
+
+[data-stage="ready"] .viewer-fallback {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .viewer-fallback img {
-  max-width: 82%;
+  max-width: 84%;
   max-height: 74%;
   object-fit: contain;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
 }
 
 .viewer-fallback figcaption {
@@ -1454,7 +1477,7 @@ a:hover .arrow,
 
 .project-hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.86fr) minmax(420px, 1.14fr);
+  grid-template-columns: minmax(0, 0.86fr) minmax(340px, 1.14fr);
   gap: clamp(48px, 7vw, 120px);
   align-items: center;
   max-width: 1240px;
@@ -1468,6 +1491,8 @@ a:hover .arrow,
 
 .project-hero-copy {
   position: relative;
+  container-type: inline-size;
+  min-width: 0;
 }
 
 .project-number {
@@ -1481,10 +1506,13 @@ a:hover .arrow,
 .project-hero h1 {
   margin: 0;
   font-size: clamp(56px, 7.4vw, 108px);
+  /* Column-relative size (with vw fallback). */
+  font-size: clamp(44px, 15cqi, 108px);
   font-weight: 720;
   letter-spacing: -0.055em;
   line-height: 0.9;
   text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .project-deck {
@@ -1905,12 +1933,10 @@ a:hover .arrow,
   }
 }
 
-@media (max-width: 920px) {
-  .section-wrap,
-  .evidence-note {
-    width: min(100% - 52px, 760px);
-  }
-
+@media (max-width: 1100px) {
+  /* Collapse the two-column heroes early: below this width the fixed-minimum
+     media column would starve the display headline. Single column + full
+     width can never squeeze or overlap, at any zoom or font setting. */
   .hero,
   .project-hero {
     grid-template-columns: 1fr;
@@ -1926,6 +1952,14 @@ a:hover .arrow,
     max-width: 680px;
   }
 
+  .hero h1 {
+    font-size: clamp(42px, 7vw, 68px);
+  }
+
+  .project-hero h1 {
+    font-size: clamp(44px, 8vw, 74px);
+  }
+
   .viewer-frame,
   .project-hero-art {
     min-height: 380px;
@@ -1933,6 +1967,13 @@ a:hover .arrow,
 
   .wave-block {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 920px) {
+  .section-wrap,
+  .evidence-note {
+    width: min(100% - 52px, 760px);
   }
 
   .instrument-strip {
@@ -1989,6 +2030,15 @@ a:hover .arrow,
 }
 
 @media (max-width: 650px) {
+  #work,
+  #about,
+  #contact,
+  #experience,
+  #project-notes-title,
+  #gallery-title {
+    scroll-margin-top: 104px;
+  }
+
   .section-wrap,
   .evidence-note {
     width: calc(100% - 36px);
@@ -2031,7 +2081,7 @@ a:hover .arrow,
   }
 
   .hero h1 {
-    font-size: clamp(44px, 13.5vw, 64px);
+    font-size: clamp(36px, 10vw, 50px);
   }
 
   .hero-lede {
@@ -2201,7 +2251,7 @@ a:hover .arrow,
   }
 
   .project-hero h1 {
-    font-size: clamp(48px, 15vw, 76px);
+    font-size: clamp(38px, 11vw, 54px);
   }
 
   .project-deck {

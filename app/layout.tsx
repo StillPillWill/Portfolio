@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     title: "William Nzive — Software, sensing, and machines",
     description: "Software, sensing systems, and machines built with care and documented honestly.",
     type: "website",
-    images: [{ url: "/og.png", width: 1792, height: 936, alt: "William Nzive — software, sensing, and machines" }],
+    images: [{ url: "/og.jpg", width: 1731, height: 909, alt: "William Nzive — software, sensing, and machines" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "William Nzive — Software, sensing, and machines",
     description: "Software, sensing systems, and machines built with care and documented honestly.",
-    images: ["/og.png"],
+    images: ["/og.jpg"],
   },
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
 };
@@ -28,6 +28,22 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/manrope-variable.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/dm-mono-regular.ttf"
+          as="font"
+          type="font/ttf"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

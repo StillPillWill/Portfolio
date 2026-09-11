@@ -101,7 +101,7 @@ function ProjectVisual({ project }: { project: (typeof featuredProjects)[number]
 
   return (
     <div className="project-card-visual">
-      <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+      <img src={image.src} alt={image.alt} decoding="async" />
       <span className="visual-label">Selected work / {project.key}</span>
     </div>
   );

@@ -56,13 +56,16 @@ export function Reveal({
     setArmed(true);
 
     const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          io.disconnect();
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            io.disconnect();
+            break;
+          }
         }
       },
-      { threshold: 0.12 },
+      { threshold: 0.01, rootMargin: "0px 0px 160px 0px" },
     );
     io.observe(el);
 
@@ -70,7 +73,7 @@ export function Reveal({
     const failsafe = window.setTimeout(() => {
       setVisible(true);
       io.disconnect();
-    }, 4000 + delay);
+    }, 1500 + delay);
 
     return () => {
       io.disconnect();

@@ -157,24 +157,25 @@ export function ModelViewer({
       {stage === "failed" ? (
         <figure className="viewer-fallback">
           {FALLBACKS[projectKey] ? (
-            <img src={FALLBACKS[projectKey]} alt="" loading="lazy" decoding="async" />
+            <img src={FALLBACKS[projectKey]} alt={label} decoding="async" />
           ) : null}
           <figcaption>{label}</figcaption>
-          <span className="viewer-hint">static view</span>
+          <span className="viewer-hint">static preview</span>
         </figure>
       ) : (
-        stage === "idle" && fallbackImage(projectKey)
+        stage !== "ready" && fallbackImage(projectKey, label)
       )}
     </div>
   );
 }
 
-function fallbackImage(projectKey: string): ReactNode {
+function fallbackImage(projectKey: string, label: string): ReactNode {
   const src = FALLBACKS[projectKey];
   if (!src) return null;
   return (
     <figure className="viewer-fallback">
-      <img src={src} alt="" loading="lazy" decoding="async" />
+      <img src={src} alt={label} decoding="async" fetchPriority="high" />
+      <figcaption>{label}</figcaption>
     </figure>
   );
 }

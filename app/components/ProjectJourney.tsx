@@ -83,11 +83,11 @@ function CsiEvidencePanel() {
 function HeroArtwork({ projectKey }: { projectKey: ProjectKey }) {
   const project = projects[projectKey];
 
-  if (project.model) {
+  if (projectKey === "vulcan" && project.model) {
     return (
       <ModelViewer
         url={project.model}
-        projectKey={projectKey as "vulcan" | "ender3-2"}
+        projectKey="vulcan"
         label={`${project.name} · interactive model`}
         hudRight={`CAD · ${project.number}/04`}
       />
@@ -104,7 +104,16 @@ function HeroArtwork({ projectKey }: { projectKey: ProjectKey }) {
       className={`project-hero-art${firstMedia.fit === "contain" ? " project-gallery-contain-art" : ""}`}
     >
       {firstMedia.kind === "video" ? (
-        <video src={firstMedia.src} muted autoPlay loop playsInline aria-label={firstMedia.alt} />
+        <video
+          src={firstMedia.src}
+          muted
+          autoPlay
+          loop
+          playsInline
+          preload="metadata"
+          poster="/portfolio/media/ender3-2/machine-in-operation.webp"
+          aria-label={firstMedia.alt}
+        />
       ) : (
         <img src={firstMedia.src} alt={firstMedia.alt} decoding="async" />
       )}
@@ -124,7 +133,7 @@ function MediaCard({ src, alt, caption, kind, fit, ratio }: ProjectMedia) {
           {kind === "video" ? (
             <video src={src} muted controls playsInline preload="metadata" aria-label={alt} />
           ) : (
-            <img src={src} alt={alt} loading="lazy" decoding="async" />
+            <img src={src} alt={alt} decoding="async" />
           )}
         </div>
         <figcaption>{caption}</figcaption>
@@ -256,7 +265,7 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
 
       <EvidenceNote projectKey={projectKey} />
 
-      {project.model && (
+      {project.model && projectKey !== "vulcan" && (
         <section className="model-section section-wrap" aria-label={`${project.name} 3D model`}>
           <Reveal>
             <ModelViewer
@@ -287,7 +296,7 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
             </div>
           </Reveal>
           <div className="project-gallery-grid">
-            {project.media.map((media) => (
+            {(projectKey === "ender3-2" ? project.media.slice(1) : project.media).map((media) => (
               <MediaCard key={media.src} {...media} />
             ))}
           </div>
