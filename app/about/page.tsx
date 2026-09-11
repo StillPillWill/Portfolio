@@ -65,14 +65,14 @@ export default function AboutPage() {
           <div className="about-page-grid">
             <div className="about-page-main">
               <p className="about-page-lede">
-                I am an engineering student at the University of California, Davis, pursuing a B.S. in Computer Science and Engineering.
-                My work focuses on the intersection of low-level software, embedded hardware, and physical mechanical design.
+                I am an undergraduate student at UC Davis studying Computer Science and Engineering.
+                My work spans low-level software, embedded hardware, and mechanical design.
               </p>
               <p>
-                I believe in building reliable systems from first principles. When standard USB serial endpoints cannot sustain the throughput needed for Wi-Fi channel-state information sensing, I design native USB firmware transports with custom CRC validation. When precision robot gearboxes are prohibitively expensive, I engineer high-reduction belt-driven transmissions and 3D-printed joint mechanisms.
+                When standard USB serial endpoints dropped packets during Wi-Fi CSI sensing, I rewrote the ESP32 firmware with native USB bulk transfers and packet-level verification to sustain 10,839 records/s with zero drops. When industrial gearboxes were too expensive for a 6-axis arm, I designed multi-stage synchronous belt drives and 3D-printed joints to keep costs accessible while remaining serviceable.
               </p>
               <p>
-                Beyond software, my work extends into the physical shop: CAD kinematics in Creo and SolidWorks, manual machining, MIG/TIG welding, and rapid additive prototyping.
+                Beyond software, my work extends into the physical shop: CAD modeling in Creo and SolidWorks, manual machining, MIG/TIG welding, and 3D printing.
               </p>
               <div className="about-page-actions">
                 <a href="/projects" className="button button-solid">

@@ -9,7 +9,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "William Nzive — Software, sensing, and machines",
   description:
-    "William Nzive is a Computer Science and Engineering student at UC Davis building embedded software, robotics, and physical systems from first principles.",
+    "William Nzive is a Computer Science and Engineering student at UC Davis building embedded software, robotics, and physical systems.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://williamn.site"),
   alternates: {
     canonical: "/",

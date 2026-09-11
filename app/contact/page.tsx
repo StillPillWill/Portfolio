@@ -65,7 +65,7 @@ export default function ContactPage() {
           <div className="contact-page-grid">
             <div className="contact-page-main">
               <p className="contact-page-lede">
-                Whether you are discussing research collaborations, high-throughput systems, robotic kinematics, or technical internships, I welcome challenging technical conversations.
+                I am open to technical internships, research collaborations, and engineering discussions across embedded systems, robotics, and software engineering. Feel free to reach out directly.
               </p>
               <div className="contact-actions" style={{ marginTop: "16px" }}>
                 <a className="button button-solid" href={`mailto:${contact.email}`}>

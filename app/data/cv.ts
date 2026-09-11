@@ -23,7 +23,7 @@ export const cv = {
   name: "William Nzive",
   headline: "Computer Science & Engineering student at UC Davis building embedded software, robotics, and physical systems.",
   summary:
-    "Undergraduate Computer Science and Engineering student at UC Davis operating at the intersection of embedded firmware, robotics kinematics, RF sensing, and mechanical fabrication. Focused on building reliable systems from first principles.",
+    "Undergraduate Computer Science and Engineering student at UC Davis working across embedded firmware, robotics kinematics, RF sensing, and mechanical fabrication.",
   education: [
     {
       institution: "University of California, Davis",
@@ -90,7 +90,7 @@ export const cv = {
         keyDecisions: [
           "Switched from standard UART to native USB bulk endpoints to sustain 10,839 records/s without packet drops.",
           "Engineered binary packet framing with CRC and monotonically increasing sequence counters to detect dropped or corrupted frames in hardware.",
-          "Built synchronized CSI and audio collection pipeline with crash-resilient chunked storage and host-side orchestration.",
+          "Built synchronized CSI and audio collection pipeline with chunked binary storage and host-side orchestration.",
         ],
         relatedRoute: "/projects/csi",
         relatedRouteLabel: "View full CSI research page →",
@@ -278,7 +278,7 @@ export const cv = {
       title: "Custom Operating System & Programming Language",
       role: "Independent systems builder",
       meta: "Bootloader / OS prototype / systems / 2024",
-      intent: "Build a bootloader, operating system prototype, and programming language to teach myself lower-level computer architecture from first principles.",
+      intent: "Build a bootloader, operating system prototype, and programming language to learn lower-level computer architecture through direct implementation.",
       summary: "Built a bootloader, operating-system prototype, and custom programming language while teaching myself lower-level computer architecture.",
       proof: "Implemented a simple Snake game within that OS in Assembly; used insights later in firmware optimization.",
       dossier: {

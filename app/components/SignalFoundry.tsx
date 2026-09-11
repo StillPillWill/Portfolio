@@ -20,7 +20,6 @@ const featuredProjects = [
     key: "csi" as const,
     eyebrow: "Research / embedded sensing",
     title: "Wi-Fi CSI sensing",
-    intent: "Test whether subcarrier multi-path phase perturbations on $40 commodity silicon preserve speech biometric signatures.",
     description:
       "ESP32 capture pipeline and machine-learning models investigating audio sensing through Wi-Fi channel-state information—achieving 90% speaker recognition across 400 hours of training on $40 of hardware.",
     stat: "90% speaker ID · 4.6B packets",
@@ -29,7 +28,6 @@ const featuredProjects = [
     key: "vulcan" as const,
     eyebrow: "Mechanical design / robotics",
     title: "Vulcan",
-    intent: "Eliminate expensive harmonic gearboxes by engineering accessible, pre-tensioned 1:16 synchronous belt reductions in CAD.",
     description:
       "An open-source six-axis robot arm designed around belt reductions, 3D-printed structural parts, and transparent CAD documentation.",
     stat: "Six-axis arm · 1:16 reduction",
@@ -38,7 +36,6 @@ const featuredProjects = [
     key: "ender3-2" as const,
     eyebrow: "Fabrication / firmware",
     title: "Ender3-2",
-    intent: "Re-engineer discarded mechanical components into high-utility, oversized Cartesian CNC platforms while maintaining sub-millimeter precision.",
     description:
       "Two failed printers rebuilt into one large-format machine with custom Marlin firmware, expanded to 585 × 775 × 230 mm, then demonstrated live at Open Sauce.",
     stat: "585 × 775 × 230 mm · Dual-Z",
@@ -47,7 +44,6 @@ const featuredProjects = [
     key: "team-3598" as const,
     eyebrow: "Leadership / competitive robotics",
     title: "Team 3598",
-    intent: "Coordinate 40+ students across mechanical design, programming, competition operations, and regional outreach.",
     description:
       "Technical leadership across engineering, operations, competition preparation, and outreach for a 40+ student team.",
     stat: "4,452 students reached · Worlds berth",
@@ -153,12 +149,6 @@ function ProjectCard({
           </span>
         </div>
         <h3>{project.title}</h3>
-        {project.intent && (
-          <div className="project-card-intent">
-            <span className="intent-badge">INTENT</span>
-            <p className="intent-text">{project.intent}</p>
-          </div>
-        )}
         <p>{project.description}</p>
         <div className="project-card-footer">
           <span>{project.stat}</span>
@@ -217,10 +207,10 @@ export function SignalFoundry() {
             Software, embedded systems, <em>and robotics.</em>
           </h1>
           <p className="hero-lede">
-            I study Computer Science and Engineering at UC Davis, building bare-metal firmware,
-            robotics kinematics, and RF sensor pipelines. My work focuses on physical systems
-            engineered from first principles—demonstrating 90% speaker recognition over 4.6 billion
-            Wi-Fi packets on $40 hardware, open-source 6-axis robot architectures, and large-format Cartesian fabrication.
+            I study Computer Science and Engineering at UC Davis. I work across software,
+            firmware, and mechanical design—including Wi-Fi CSI acoustic sensing (90% speaker
+            recognition over 4.6 billion packets on $40 hardware), a 6-axis robotic arm in CAD,
+            and custom Cartesian CNC machines.
           </p>
           <div className="hero-actions">
             <Magnetic>
@@ -317,12 +307,6 @@ export function SignalFoundry() {
                 <div className="more-card-main">
                   <p className="eyebrow">{item.meta}</p>
                   <h3>{item.title}</h3>
-                  {item.intent && (
-                    <div className="more-card-intent">
-                      <span className="intent-badge">INTENT</span>
-                      <p className="intent-text">{item.intent}</p>
-                    </div>
-                  )}
                   <p>{item.summary}</p>
                 </div>
                 <div className="more-card-footer">
@@ -394,12 +378,6 @@ export function SignalFoundry() {
                   <p className="eyebrow">{exp.meta}</p>
                   <h3>{exp.title}</h3>
                   <p className="exp-role">{exp.role}</p>
-                  {exp.intent && (
-                    <div className="exp-intent">
-                      <span className="intent-badge">INTENT</span>
-                      <p className="intent-text">{exp.intent}</p>
-                    </div>
-                  )}
                 </div>
                 <div className="exp-body-block">
                   <p className="exp-summary">{exp.summary}</p>
@@ -414,7 +392,7 @@ export function SignalFoundry() {
                       <div className="exp-drawer">
                         {exp.dossier.intent && (
                           <div className="exp-drawer-section exp-drawer-section-full">
-                            <span className="exp-drawer-label">Core Engineering Intent</span>
+                            <span className="exp-drawer-label">Project Objective</span>
                             <p className="exp-drawer-intent">{exp.dossier.intent}</p>
                           </div>
                         )}
@@ -491,11 +469,10 @@ export function SignalFoundry() {
         <Reveal delay={90}>
           <div className="about-copy">
             <p>
-              I&apos;m an undergraduate studying Computer Science and Engineering at UC Davis.
-              My work focuses on embedded systems, robotics, and machine learning.
-              Whether developing high-throughput USB capture pipelines for RF sensing or designing
-              belt-reduction transmissions for multi-axis arms, I focus on building reliable systems
-              from first principles.
+              I&apos;m an undergraduate studying Computer Science and Engineering at UC Davis,
+              working across embedded systems, robotics, and machine learning. From writing USB bulk
+              capture pipelines for RF sensing to designing belt transmissions for robotic joints,
+              I focus on building reliable hardware and software with clear, verified measurements.
             </p>
             <div className="about-details">
               <div>
