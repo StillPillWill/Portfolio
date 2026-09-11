@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { contact, type ProjectKey, type ProjectMedia, projects } from "../data/portfolio";
 import { ModelViewer } from "./ModelViewer";
 import { Reveal } from "./Reveal";
@@ -181,13 +180,13 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
         Skip to project notes
       </a>
       <header className="site-header project-site-header">
-        <Link href="/" className="wordmark" aria-label="William Nzive home">
+        <a href="/" className="wordmark" aria-label="William Nzive home">
           <span className="wordmark-mark">WN</span>
           <span>William Nzive</span>
-        </Link>
-        <Link href="/#work" className="back-to-work">
+        </a>
+        <a href="/#work" className="back-to-work">
           ← Selected work
-        </Link>
+        </a>
         <a className="header-status" href={`mailto:${contact.email}`}>
           <span className="status-dot" />
           <span className="header-status-label">Get in touch</span>
@@ -212,9 +211,9 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
                   View repository <Arrow />
                 </a>
               )}
-              <Link className="text-link" href="/#work">
+              <a className="text-link" href="/#work">
                 All work <Arrow />
-              </Link>
+              </a>
             </div>
           </div>
         </Reveal>
@@ -311,7 +310,7 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
       <section className="project-next">
         <div className="section-wrap">
           <Reveal>
-            <Link href={`/projects/${next.key}`} className="next-project-card">
+            <a href={`/projects/${next.key}`} className="next-project-card">
               <div>
                 <p className="eyebrow eyebrow-accent">Next project / {next.domain}</p>
                 <h2>{next.name}</h2>
@@ -319,7 +318,7 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
               <span className="next-project-arrow" aria-hidden="true">
                 →
               </span>
-            </Link>
+            </a>
           </Reveal>
         </div>
       </section>

@@ -54,6 +54,12 @@ const eslintConfig = defineConfig([
       "react/no-unknown-property": "off",
     },
   },
+  {
+    // Vinext client runtime requires native <a> tags for production navigation stability.
+    rules: {
+      "@next/next/no-html-link-for-pages": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

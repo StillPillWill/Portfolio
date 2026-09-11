@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { contact } from "../data/portfolio";
 import { cv } from "../data/cv";
 import { CountUp } from "./CountUp";
@@ -141,9 +140,9 @@ function ProjectCard({
         <p>{project.description}</p>
         <div className="project-card-footer">
           <span>{project.stat}</span>
-          <Link href={`/projects/${project.key}`}>
+          <a href={`/projects/${project.key}`}>
             View project <Arrow />
-          </Link>
+          </a>
         </div>
       </div>
       <ProjectVisual project={project} />
@@ -158,16 +157,25 @@ export function SignalFoundry() {
         Skip to selected work
       </a>
       <header className="site-header">
-        <Link href="/" className="wordmark" aria-label="William Nzive home">
+        <a href="/" className="wordmark" aria-label="William Nzive home">
           <span className="wordmark-mark">WN</span>
           <span>William Nzive</span>
-        </Link>
-        <nav className="site-nav" aria-label="Primary navigation">
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-          <a href="/resume.pdf" target="_blank" rel="noreferrer">
-            Resume <Arrow />
+        </a>
+        <nav className="site-nav" aria-label="Primary">
+          <a className="site-nav-link" href="#work">
+            Work
+          </a>
+          <a className="site-nav-link" href="#experience">
+            Experience
+          </a>
+          <a className="site-nav-link" href="#about">
+            About
+          </a>
+          <a className="site-nav-link" href="#contact">
+            Contact
+          </a>
+          <a className="site-nav-link" href="/resume.pdf" target="_blank" rel="noreferrer">
+            Resume
           </a>
         </nav>
         <a className="header-status" href={`mailto:${contact.email}`}>
@@ -272,7 +280,7 @@ export function SignalFoundry() {
           </div>
         </Reveal>
         <Reveal delay={70}>
-          <Link href="/projects/ender3-2" className="more-card">
+          <a href="/projects/ender3-2" className="more-card">
             <div className="more-card-main">
               <p className="eyebrow">Fabrication / firmware</p>
               <h3>Ender3-2</h3>
@@ -282,7 +290,7 @@ export function SignalFoundry() {
             <span className="more-card-link">
               View project <Arrow />
             </span>
-          </Link>
+          </a>
         </Reveal>
       </section>
 
@@ -327,7 +335,7 @@ export function SignalFoundry() {
           </div>
         </Reveal>
         <ol className="exp-list">
-          {[cv.experience[0], ...cv.additionalExperience].map((exp, index) => (
+          {[...cv.experience, ...cv.additionalExperience].map((exp, index) => (
             <Reveal as="li" key={exp.title} className="exp-item" delay={Math.min(index, 3) * 60}>
               <span className="exp-index" aria-hidden="true">
                 {String(index + 1).padStart(2, "0")}
@@ -338,6 +346,61 @@ export function SignalFoundry() {
                 <p className="exp-role">{exp.role}</p>
                 <p className="exp-summary">{exp.summary}</p>
                 <p className="exp-proof">{exp.proof}</p>
+
+                {exp.dossier && (
+                  <details className="exp-details">
+                    <summary className="exp-toggle">
+                      <span className="exp-toggle-icon" aria-hidden="true">▸</span>
+                      <span>Technical dossier &amp; notes</span>
+                    </summary>
+                    <div className="exp-drawer">
+                      <div className="exp-drawer-section">
+                        <span className="exp-drawer-label">System Architecture</span>
+                        <p>{exp.dossier.architecture}</p>
+                      </div>
+
+                      <div className="exp-drawer-section">
+                        <span className="exp-drawer-label">Stack &amp; Tools</span>
+                        <div className="exp-tags">
+                          {exp.dossier.stack.map((item) => (
+                            <span key={item} className="exp-badge">
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="exp-drawer-section">
+                        <span className="exp-drawer-label">Key Metrics &amp; Benchmarks</span>
+                        <ul className="exp-metrics-list">
+                          {exp.dossier.metrics.map((metric, mIdx) => (
+                            <li key={mIdx}>{metric}</li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="exp-drawer-section">
+                        <span className="exp-drawer-label">Engineering Decisions &amp; Trade-offs</span>
+                        <ul className="exp-decisions-list">
+                          {exp.dossier.keyDecisions.map((decision, dIdx) => (
+                            <li key={dIdx}>{decision}</li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {(exp.route || exp.dossier.relatedRoute) && (
+                        <div className="exp-drawer-actions">
+                          <a
+                            href={exp.route || exp.dossier.relatedRoute}
+                            className="exp-project-link"
+                          >
+                            {exp.dossier.relatedRouteLabel || "View dedicated project page →"}
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </details>
+                )}
               </div>
             </Reveal>
           ))}

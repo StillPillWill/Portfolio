@@ -1369,6 +1369,157 @@ a:hover .arrow,
   line-height: 1.6;
 }
 
+.exp-details {
+  margin-top: 18px;
+  max-width: 78ch;
+}
+
+.exp-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line-subtle);
+  border-radius: 4px;
+  padding: 6px 12px;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+  list-style: none;
+}
+
+.exp-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.exp-toggle:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--acc);
+  color: var(--text-1);
+}
+
+.exp-toggle-icon {
+  display: inline-block;
+  font-size: 10px;
+  transition: transform 200ms ease;
+}
+
+.exp-details[open] .exp-toggle-icon {
+  transform: rotate(90deg);
+}
+
+.exp-details[open] .exp-toggle {
+  background: rgba(229, 184, 107, 0.08);
+  border-color: var(--acc-line);
+  color: var(--acc);
+}
+
+.exp-drawer {
+  margin-top: 14px;
+  padding: 22px 24px;
+  background: rgba(18, 20, 26, 0.85);
+  border: 1px solid var(--line-subtle);
+  border-radius: 6px;
+  display: grid;
+  gap: 18px;
+  animation: expDrawerSlide 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes expDrawerSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.exp-drawer-section {
+  display: grid;
+  gap: 6px;
+}
+
+.exp-drawer-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.exp-drawer-section p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.62;
+  color: var(--text-2);
+}
+
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.exp-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line-subtle);
+  border-radius: 3px;
+  color: var(--text-2);
+}
+
+.exp-metrics-list,
+.exp-decisions-list {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.exp-metrics-list li,
+.exp-decisions-list li {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.exp-drawer-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line-subtle);
+}
+
+.exp-project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--acc);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 150ms ease;
+}
+
+.exp-project-link:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+}
+
 .exp-resume {
   margin-top: 40px;
 }
@@ -2062,6 +2213,171 @@ a:hover .arrow,
   }
 }
 
+/* ------------------------------------------------------------
+   Project Directory & Archive
+   ------------------------------------------------------------ */
+
+.project-directory-page {
+  min-height: 100vh;
+  padding-bottom: 96px;
+}
+
+.project-directory-hero {
+  padding-top: 72px;
+  padding-bottom: 56px;
+}
+
+.directory-hero-copy .display {
+  max-width: 20ch;
+  margin-top: 8px;
+}
+
+.directory-hero-lede {
+  max-width: 64ch;
+  margin-top: 20px;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.68;
+  color: var(--text-2);
+}
+
+.directory-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 36px;
+}
+
+.directory-card {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 28px;
+  background: rgba(18, 20, 26, 0.7);
+  border: 1px solid var(--line-subtle);
+  border-radius: 8px;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+
+.directory-card:hover {
+  border-color: var(--acc-line);
+  transform: translateY(-2px);
+}
+
+.directory-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.directory-card-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--acc);
+}
+
+.directory-card-domain {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.directory-card-title {
+  margin: 0 0 12px;
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.directory-card-deck {
+  margin: 0 0 20px;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text-2);
+  flex-grow: 1;
+}
+
+.directory-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 24px;
+}
+
+.directory-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.directory-dossier-list {
+  display: grid;
+  gap: 28px;
+  margin-top: 36px;
+}
+
+.directory-dossier-card {
+  padding: 28px 28px 32px;
+  background: rgba(18, 20, 26, 0.5);
+  border: 1px solid var(--line-subtle);
+  border-radius: 8px;
+}
+
+.directory-dossier-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 12px;
+}
+
+.directory-dossier-head h3 {
+  margin: 6px 0 4px;
+  font-size: clamp(20px, 1.8vw, 24px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.directory-dossier-summary {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-2);
+  max-width: 76ch;
+}
+
+.directory-dossier-proof {
+  margin: 10px 0 0;
+  padding-left: 14px;
+  border-left: 1px solid var(--acc-line);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-3);
+  max-width: 76ch;
+}
+
+@media (max-width: 767px) {
+  .directory-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .directory-card {
+    padding: 24px 20px;
+  }
+
+  .directory-dossier-card {
+    padding: 22px 18px;
+  }
+}
+
 @media (max-width: 650px) {
   #work,
   #about,
@@ -2303,6 +2619,11 @@ a:hover .arrow,
     grid-template-columns: 38px 1fr;
     gap: 16px;
     padding: 24px 0 28px;
+  }
+
+  .exp-drawer {
+    padding: 16px 14px;
+    gap: 14px;
   }
 
   .project-note h3 {
