@@ -20,6 +20,7 @@ const featuredProjects = [
     key: "csi" as const,
     eyebrow: "Research / embedded sensing",
     title: "Wi-Fi CSI sensing",
+    intent: "Test whether subcarrier multi-path phase perturbations on $40 commodity silicon preserve speech biometric signatures.",
     description:
       "ESP32 capture pipeline and machine-learning models investigating audio sensing through Wi-Fi channel-state information—achieving 90% speaker recognition across 400 hours of training on $40 of hardware.",
     stat: "90% speaker ID · 4.6B packets",
@@ -28,17 +29,19 @@ const featuredProjects = [
     key: "vulcan" as const,
     eyebrow: "Mechanical design / robotics",
     title: "Vulcan",
+    intent: "Eliminate expensive harmonic gearboxes by engineering accessible, pre-tensioned 1:16 synchronous belt reductions in CAD.",
     description:
       "An open-source six-axis robot arm designed around belt reductions, 3D-printed structural parts, and transparent CAD documentation.",
-    stat: "Six-axis arm",
+    stat: "Six-axis arm · 1:16 reduction",
   },
   {
     key: "team-3598" as const,
-    eyebrow: "Leadership / robotics",
+    eyebrow: "Leadership / competitive robotics",
     title: "Team 3598",
+    intent: "Direct 40+ students across closed-loop CANcoder swerve kinematics, CAD tolerance reviews, and regional outreach.",
     description:
       "Technical leadership across engineering, operations, competition preparation, and outreach for a 40+ student team.",
-    stat: "4,452 students reached",
+    stat: "4,452 students reached · Worlds berth",
   },
 ];
 
@@ -137,6 +140,12 @@ function ProjectCard({
           </span>
         </div>
         <h3>{project.title}</h3>
+        {project.intent && (
+          <div className="project-card-intent">
+            <span className="intent-badge">INTENT</span>
+            <p className="intent-text">{project.intent}</p>
+          </div>
+        )}
         <p>{project.description}</p>
         <div className="project-card-footer">
           <span>{project.stat}</span>
@@ -193,9 +202,10 @@ export function SignalFoundry() {
             Software, embedded systems, <em>and robotics.</em>
           </h1>
           <p className="hero-lede">
-            I&apos;m William, an engineering student at UC Davis. I build
-            low-level firmware, robotics hardware, and sensor pipelines—from
-            ESP32 RF sensing research to custom-built machines and competitive robotics.
+            I study Computer Science and Engineering at UC Davis, building bare-metal firmware,
+            robotics kinematics, and RF sensor pipelines. My work focuses on physical systems
+            engineered from first principles—demonstrating 90% speaker recognition over 4.6 billion
+            Wi-Fi packets on $40 hardware, open-source 6-axis robot architectures, and large-format Cartesian fabrication.
           </p>
           <div className="hero-actions">
             <Magnetic>
@@ -209,13 +219,13 @@ export function SignalFoundry() {
           </div>
           <div className="hero-meta">
             <span>
-              Currently / <strong>Wi-Fi sensing research</strong>
+              Research / <strong>Wi-Fi CSI Acoustic Sensing</strong>
             </span>
             <span>
-              Based / <strong>California</strong>
+              Hardware / <strong>ESP32, Robotics, CNC</strong>
             </span>
             <span>
-              Status / <strong>Open to opportunities</strong>
+              Status / <strong>Open to technical roles &amp; co-ops</strong>
             </span>
           </div>
         </div>
@@ -284,7 +294,11 @@ export function SignalFoundry() {
             <div className="more-card-main">
               <p className="eyebrow">Fabrication / firmware</p>
               <h3>Ender3-2</h3>
-              <p>Two failed printers rebuilt into one large-format machine, then converted into a plotter for Open Sauce.</p>
+              <div className="more-card-intent">
+                <span className="intent-badge">INTENT</span>
+                <p className="intent-text">Triple Cartesian build volume using salvaged parts for &lt;$20 with dynamic bed mesh firmware.</p>
+              </div>
+              <p>Two failed printers rebuilt into one large-format machine with custom Marlin firmware, then converted into a plotter for Open Sauce.</p>
             </div>
             <span className="more-card-stat">585 × 775 × 230 mm</span>
             <span className="more-card-link">
@@ -344,6 +358,12 @@ export function SignalFoundry() {
                 <p className="eyebrow">{exp.meta}</p>
                 <h3>{exp.title}</h3>
                 <p className="exp-role">{exp.role}</p>
+                {exp.intent && (
+                  <p className="exp-intent">
+                    <span className="intent-badge">INTENT</span>
+                    <span className="intent-text">{exp.intent}</span>
+                  </p>
+                )}
                 <p className="exp-summary">{exp.summary}</p>
                 <p className="exp-proof">{exp.proof}</p>
 
@@ -354,6 +374,12 @@ export function SignalFoundry() {
                       <span>Technical dossier &amp; notes</span>
                     </summary>
                     <div className="exp-drawer">
+                      {exp.dossier.intent && (
+                        <div className="exp-drawer-section">
+                          <span className="exp-drawer-label">Core Engineering Intent</span>
+                          <p className="exp-drawer-intent">{exp.dossier.intent}</p>
+                        </div>
+                      )}
                       <div className="exp-drawer-section">
                         <span className="exp-drawer-label">System Architecture</span>
                         <p>{exp.dossier.architecture}</p>

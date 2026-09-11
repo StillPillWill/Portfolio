@@ -253,6 +253,12 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
               <div className="project-note-content">
                 <p className="eyebrow">{beat.label}</p>
                 <h3>{beat.title}</h3>
+                {beat.intent && (
+                  <div className="project-note-intent">
+                    <span className="intent-badge">INTENT</span>
+                    <p className="intent-text">{beat.intent}</p>
+                  </div>
+                )}
                 <p>{beat.body}</p>
                 {beat.facts && (
                   <ul className="project-facts">

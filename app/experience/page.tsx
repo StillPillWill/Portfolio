@@ -72,6 +72,12 @@ export default function ExperiencePage() {
                 <p className="eyebrow">{exp.meta}</p>
                 <h3>{exp.title}</h3>
                 <p className="exp-role">{exp.role}</p>
+                {exp.intent && (
+                  <p className="exp-intent">
+                    <span className="intent-badge">INTENT</span>
+                    <span className="intent-text">{exp.intent}</span>
+                  </p>
+                )}
                 <p className="exp-summary">{exp.summary}</p>
                 <p className="exp-proof">{exp.proof}</p>
 
@@ -82,6 +88,12 @@ export default function ExperiencePage() {
                       <span>Technical dossier &amp; notes</span>
                     </summary>
                     <div className="exp-drawer">
+                      {exp.dossier.intent && (
+                        <div className="exp-drawer-section">
+                          <span className="exp-drawer-label">Core Engineering Intent</span>
+                          <p className="exp-drawer-intent">{exp.dossier.intent}</p>
+                        </div>
+                      )}
                       <div className="exp-drawer-section">
                         <span className="exp-drawer-label">System Architecture</span>
                         <p>{exp.dossier.architecture}</p>

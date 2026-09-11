@@ -88,6 +88,12 @@ export default function ProjectsPage() {
                   <span className="directory-card-domain">{project.domain}</span>
                 </div>
                 <h3 className="directory-card-title">{project.name}</h3>
+                {project.beats[0]?.intent && (
+                  <p className="project-card-intent">
+                    <span className="intent-badge">INTENT</span>
+                    <span className="intent-text">{project.beats[0].intent}</span>
+                  </p>
+                )}
                 <p className="directory-card-deck">{project.deck}</p>
                 <div className="directory-card-status">
                   <span className="status-dot" /> {project.status}
@@ -139,6 +145,12 @@ export default function ProjectsPage() {
                   <p className="exp-role">{item.role}</p>
                 </div>
               </div>
+              {item.intent && (
+                <p className="exp-intent">
+                  <span className="intent-badge">INTENT</span>
+                  <span className="intent-text">{item.intent}</span>
+                </p>
+              )}
               <p className="directory-dossier-summary">{item.summary}</p>
               <p className="directory-dossier-proof">{item.proof}</p>
 
@@ -149,6 +161,12 @@ export default function ProjectsPage() {
                     <span>Technical breakdown &amp; specifications</span>
                   </summary>
                   <div className="exp-drawer">
+                    {item.dossier.intent && (
+                      <div className="exp-drawer-section">
+                        <span className="exp-drawer-label">Core Engineering Intent</span>
+                        <p className="exp-drawer-intent">{item.dossier.intent}</p>
+                      </div>
+                    )}
                     <div className="exp-drawer-section">
                       <span className="exp-drawer-label">System Architecture</span>
                       <p>{item.dossier.architecture}</p>

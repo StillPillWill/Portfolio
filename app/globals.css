@@ -1520,6 +1520,78 @@ a:hover .arrow,
   text-decoration: underline;
 }
 
+/* ------------------------------------------------------------
+   Engineering Intent Badges & Callouts
+   ------------------------------------------------------------ */
+
+.intent-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--acc);
+  background: rgba(229, 184, 107, 0.1);
+  border: 1px solid var(--acc-line);
+  border-radius: 3px;
+  padding: 2px 7px;
+  flex-shrink: 0;
+}
+
+.intent-text {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin: 0;
+}
+
+.project-note-intent {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 6px 0 12px;
+  flex-wrap: wrap;
+}
+
+.project-card-intent {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin: 8px 0 12px;
+  flex-wrap: wrap;
+}
+
+.exp-intent {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 8px 0 10px;
+  flex-wrap: wrap;
+}
+
+.exp-drawer-intent {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--text-1);
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 2px solid var(--acc);
+  padding: 10px 14px;
+  margin: 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.more-card-intent {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin: 6px 0 10px;
+  flex-wrap: wrap;
+}
+
 .exp-resume {
   margin-top: 40px;
 }
