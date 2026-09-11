@@ -174,12 +174,12 @@ export function SignalFoundry() {
             Computer science + engineering / UC Davis
           </p>
           <h1 id="hero-title">
-            I build software that meets <em>the physical world.</em>
+            Software, embedded systems, <em>and robotics.</em>
           </h1>
           <p className="hero-lede">
-            I&apos;m William, working across embedded systems, machine learning,
-            mechanical design, and fabrication. Constraint-first engineering, measured
-            rigorously, documented honestly.
+            I&apos;m William, an engineering student at UC Davis. I build
+            low-level firmware, robotics hardware, and sensor pipelines—from
+            ESP32 RF sensing research to custom-built machines and competitive robotics.
           </p>
           <div className="hero-actions">
             <Magnetic>
@@ -215,22 +215,22 @@ export function SignalFoundry() {
         </div>
       </section>
 
-      <section className="instrument-strip section-wrap" aria-label="Selected proof points">
+      <section className="instrument-strip section-wrap" aria-label="Technical focus">
         <div>
-          <span>Discipline</span>
-          <strong>Software × hardware</strong>
+          <span>Major</span>
+          <strong>B.S. CSE · UC Davis</strong>
         </div>
         <div>
           <span>Research</span>
-          <strong>Wi-Fi CSI sensing</strong>
+          <strong>Wi-Fi CSI Sensing</strong>
         </div>
         <div>
-          <span>Machines</span>
-          <strong>Designed &amp; physically built</strong>
+          <span>Robotics</span>
+          <strong>6-Axis Arm &amp; FRC Captain</strong>
         </div>
         <div>
-          <span>Method</span>
-          <strong>Constraints into systems</strong>
+          <span>Core Stack</span>
+          <strong>C/C++, Python, CAD</strong>
         </div>
       </section>
 
@@ -240,11 +240,11 @@ export function SignalFoundry() {
             <div>
               <p className="eyebrow">Selected work</p>
               <h2 className="display" id="work-title">
-                Three systems, built end to end.
+                Featured projects.
               </h2>
             </div>
             <p className="section-heading-note">
-              Embedded research instrumentation, physical machines, and engineering team leadership.
+              Embedded sensing research, robotic systems design, and engineering team leadership.
             </p>
           </div>
         </Reveal>
@@ -260,7 +260,7 @@ export function SignalFoundry() {
       <section className="more-section section-wrap" aria-labelledby="more-title">
         <Reveal>
           <div className="more-heading">
-            <p className="eyebrow">More builds</p>
+            <p className="eyebrow">More projects</p>
           </div>
         </Reveal>
         <Reveal delay={70}>
@@ -282,12 +282,12 @@ export function SignalFoundry() {
         <Reveal>
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Toolkit</p>
+              <p className="eyebrow">Skills &amp; Tooling</p>
               <h2 className="display" id="matrix-title">
-                The stack behind the work.
+                Technical toolkit.
               </h2>
             </div>
-            <p className="section-heading-note">Everything here has shipped something real.</p>
+            <p className="section-heading-note">Languages, hardware platforms, and fabrication tools.</p>
           </div>
         </Reveal>
         <Reveal delay={90}>
@@ -310,11 +310,11 @@ export function SignalFoundry() {
             <div>
               <p className="eyebrow">Experience</p>
               <h2 className="display" id="exp-title">
-                Research roles and independent builds.
+                Experience &amp; projects.
               </h2>
             </div>
             <p className="section-heading-note">
-              Research internships, technical competitions, and independent systems projects. Full history in the resume.
+              Research internships, engineering competitions, and independent builds. Full history in resume.
             </p>
           </div>
         </Reveal>
@@ -346,15 +346,21 @@ export function SignalFoundry() {
       <section className="about-section section-wrap" id="about" aria-labelledby="about-title">
         <Reveal>
           <div className="about-lead">
-            <p className="eyebrow">A little context</p>
+            <p className="eyebrow">Background</p>
             <h2 className="display" id="about-title">
-              Building systems where software meets real hardware.
+              About me.
             </h2>
           </div>
         </Reveal>
         <Reveal delay={90}>
           <div className="about-copy">
-            <p>{cv.summary}</p>
+            <p>
+              I&apos;m an undergraduate studying Computer Science and Engineering at UC Davis.
+              My work focuses on embedded systems, robotics, and machine learning.
+              Whether developing high-throughput USB capture pipelines for RF sensing or designing
+              belt-reduction transmissions for multi-axis arms, I focus on building reliable systems
+              from first principles.
+            </p>
             <div className="about-details">
               <div>
                 <span className="eyebrow">Education</span>
@@ -362,9 +368,9 @@ export function SignalFoundry() {
                 <span>B.S. Computer Science &amp; Engineering · expected Jun 2030</span>
               </div>
               <div>
-                <span className="eyebrow">Working style</span>
-                <strong>Measure, iterate, document</strong>
-                <span>Engineering decisions backed by validated evidence</span>
+                <span className="eyebrow">Technical Interests</span>
+                <strong>Embedded, Robotics &amp; ML</strong>
+                <span>Firmware, kinematics, signal processing, and physical fabrication</span>
               </div>
             </div>
           </div>
@@ -374,9 +380,9 @@ export function SignalFoundry() {
       <section className="contact-section section-wrap" id="contact" aria-labelledby="contact-title">
         <Reveal>
           <div>
-            <p className="eyebrow eyebrow-accent">Have an interesting constraint?</p>
+            <p className="eyebrow eyebrow-accent">Contact</p>
             <h2 className="display" id="contact-title">
-              Let&apos;s make something that works.
+              Get in touch.
             </h2>
           </div>
         </Reveal>
@@ -403,8 +409,8 @@ export function SignalFoundry() {
       </section>
 
       <footer className="site-footer section-wrap">
-        <span>William Nzive / Portfolio</span>
-        <span>Built with care, documented honestly.</span>
+        <span>William Nzive · UC Davis</span>
+        <span>Computer Science &amp; Engineering</span>
         <a href="#hero-title">Back to top ↑</a>
       </footer>
     </main>

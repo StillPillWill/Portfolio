@@ -149,8 +149,8 @@ function EvidenceNote({ projectKey }: { projectKey: ProjectKey }) {
     <aside className="evidence-note">
       <Reveal>
         <div>
-          <span className="eyebrow eyebrow-accent">Research boundary</span>
-          <h2 className="display">Validated results and open questions.</h2>
+          <span className="eyebrow eyebrow-accent">Scope &amp; Status</span>
+          <h2 className="display">Demonstrated results &amp; ongoing questions.</h2>
         </div>
       </Reveal>
       <Reveal delay={90}>
@@ -236,10 +236,10 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
             <div>
               <p className="eyebrow">Project notes</p>
               <h2 className="display" id="project-notes-title">
-                How the system came together.
+                Technical breakdown.
               </h2>
             </div>
-            <p className="section-heading-note">The decisions, constraints, and results in sequence.</p>
+            <p className="section-heading-note">Architecture, key design decisions, and measured outcomes.</p>
           </div>
         </Reveal>
         <ol className="project-note-list">

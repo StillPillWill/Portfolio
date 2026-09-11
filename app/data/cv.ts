@@ -9,9 +9,9 @@ export type CvRecord = {
 
 export const cv = {
   name: "William Nzive",
-  headline: "Computer science student building software, sensing systems, and machines.",
+  headline: "Computer Science & Engineering student at UC Davis building embedded software, robotics, and physical systems.",
   summary:
-    "I work across embedded systems, machine learning, mechanical design, and fabrication. My strongest work starts with a hard constraint, builds the underlying system, and documents what the evidence actually supports.",
+    "I study Computer Science and Engineering at UC Davis, working across embedded firmware, robotics kinematics, signal processing, and mechanical fabrication. I focus on building reliable systems from first principles.",
   education: [
     {
       institution: "University of California, Davis",
@@ -23,7 +23,7 @@ export const cv = {
     { label: "Systems", items: "ESP32 / ESP-IDF · embedded firmware · native USB · Linux · Docker · Git · bootloaders · data capture · host orchestration" },
     { label: "ML + research", items: "CUDA · signal processing · classification · model training · fine-tuning · computer vision · RAG · model evaluation · ComfyUI workflows" },
     { label: "Build", items: "Creo · SolidWorks · Onshape · KiCad · CAD · CNC machining · 3D printing · MIG/TIG welding · fabrication · technical documentation" },
-    { label: "Working style", items: "Constraint-first design · measurement · iteration · honest technical communication" },
+    { label: "Hardware & Lab", items: "Oscilloscopes · logic analyzers · solder rework · power supplies · 3D printing · CNC · hand tools" },
   ],
   experience: [
     {
