@@ -30,7 +30,7 @@ const featuredProjects = [
     eyebrow: "Mechanical design / robotics",
     title: "Vulcan",
     description:
-      "A documented six-axis robot arm architecture built around belt reduction, printable parts, and honest design boundaries.",
+      "An open-source six-axis robot arm designed around belt reductions, 3D-printed structural parts, and transparent CAD documentation.",
     stat: "Six-axis arm",
   },
   {
@@ -178,8 +178,8 @@ export function SignalFoundry() {
           </h1>
           <p className="hero-lede">
             I&apos;m William, working across embedded systems, machine learning,
-            mechanical design, and fabrication. Constraint first, measured always,
-            documented honestly.
+            mechanical design, and fabrication. Constraint-first engineering, measured
+            rigorously, documented honestly.
           </p>
           <div className="hero-actions">
             <Magnetic>
@@ -244,7 +244,7 @@ export function SignalFoundry() {
               </h2>
             </div>
             <p className="section-heading-note">
-              Research instruments, machines, and the leadership system between them.
+              Embedded research instrumentation, physical machines, and engineering team leadership.
             </p>
           </div>
         </Reveal>
@@ -314,7 +314,7 @@ export function SignalFoundry() {
               </h2>
             </div>
             <p className="section-heading-note">
-              The internship, the competitions, and the side quests — full detail in the resume.
+              Research internships, technical competitions, and independent systems projects. Full history in the resume.
             </p>
           </div>
         </Reveal>
@@ -348,7 +348,7 @@ export function SignalFoundry() {
           <div className="about-lead">
             <p className="eyebrow">A little context</p>
             <h2 className="display" id="about-title">
-              Curious about where ideas become artifacts.
+              Building systems where software meets real hardware.
             </h2>
           </div>
         </Reveal>
@@ -364,7 +364,7 @@ export function SignalFoundry() {
               <div>
                 <span className="eyebrow">Working style</span>
                 <strong>Measure, iterate, document</strong>
-                <span>Claims stay inside what the evidence supports</span>
+                <span>Engineering decisions backed by validated evidence</span>
               </div>
             </div>
           </div>

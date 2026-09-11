@@ -149,8 +149,8 @@ function EvidenceNote({ projectKey }: { projectKey: ProjectKey }) {
     <aside className="evidence-note">
       <Reveal>
         <div>
-          <span className="eyebrow eyebrow-accent">Evidence boundary</span>
-          <h2 className="display">Specific results, carefully claimed.</h2>
+          <span className="eyebrow eyebrow-accent">Research boundary</span>
+          <h2 className="display">Validated results and open questions.</h2>
         </div>
       </Reveal>
       <Reveal delay={90}>
