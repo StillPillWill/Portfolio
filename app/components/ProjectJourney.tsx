@@ -14,9 +14,9 @@ const NEXT_PROJECT: Record<ProjectKey, ProjectKey> = {
 
 const projectStats: Record<ProjectKey, Array<{ label: string; value: string }>> = {
   csi: [
-    { label: "Throughput", value: "10,839 records/s" },
-    { label: "Captured", value: "650,386 records" },
-    { label: "Transport errors", value: "0" },
+    { label: "Corpus", value: "4.6B packets" },
+    { label: "Speaker recognition", value: "90%" },
+    { label: "Training runs", value: "122 runs" },
   ],
   vulcan: [
     { label: "Architecture", value: "Six-axis arm" },
@@ -46,32 +46,36 @@ function Arrow() {
 function CsiEvidencePanel() {
   return (
     <div className="project-hero-art">
-      <div className="data-panel" aria-label="CSI transport validation result">
+      <div className="data-panel" aria-label="CSI research corpus totals">
         <div className="data-panel-heading">
-          <span>Native USB transport</span>
-          <span>60-second soak</span>
+          <span>Independent research corpus</span>
+          <span>2025 – present</span>
         </div>
         <div className="csi-evidence-total">
-          <strong>650,386</strong>
-          <span>raw CSI records captured</span>
+          <strong>4.6B</strong>
+          <span>packets captured</span>
         </div>
         <dl className="data-panel-metrics">
           <div>
-            <dt>Rate</dt>
-            <dd>10,839 / sec</dd>
+            <dt>Audio</dt>
+            <dd>
+              98<span> hours</span>
+            </dd>
           </div>
           <div>
-            <dt>Transport</dt>
-            <dd>9.019 Mb/s</dd>
+            <dt>Training</dt>
+            <dd>
+              400<span> hours</span>
+            </dd>
           </div>
           <div>
-            <dt>CRC + gaps</dt>
-            <dd>0</dd>
+            <dt>Hardware</dt>
+            <dd>~$40</dd>
           </div>
         </dl>
-        <span className="data-panel-foot">Verified capture result</span>
+        <span className="data-panel-foot">122 training runs · 90% speaker recognition</span>
       </div>
-      <span>Capture record · live instrumentation</span>
+      <span>Corpus totals · live instrumentation</span>
     </div>
   );
 }

@@ -13,7 +13,6 @@ import { WorkStack } from "./WorkStack";
 const ACCENTS: Record<string, string> = {
   csi: "#8176e9",
   vulcan: "#c8774d",
-  "ender3-2": "#e5b86b",
   "team-3598": "#b95c6b",
 };
 
@@ -33,14 +32,6 @@ const featuredProjects = [
     description:
       "A documented six-axis robot arm architecture built around belt reduction, printable parts, and honest design boundaries.",
     stat: "Six-axis arm",
-  },
-  {
-    key: "ender3-2" as const,
-    eyebrow: "Fabrication / firmware",
-    title: "Ender3-2",
-    description:
-      "Two failed printers rebuilt into one large-format machine, then converted into a plotter for Open Sauce.",
-    stat: "585 × 775 × 230 mm",
   },
   {
     key: "team-3598" as const,
@@ -98,10 +89,6 @@ function ProjectVisual({ project }: { project: (typeof featuredProjects)[number]
     vulcan: {
       src: "/portfolio/media/vulcan-hero.webp",
       alt: "Vulcan six-axis robot arm CAD assembly render",
-    },
-    "ender3-2": {
-      src: "/portfolio/media/ender3-2/full-build.webp",
-      alt: "Ender3-2 large-format printer physical build",
     },
     "team-3598": {
       src: "/portfolio/media/team3598.webp",
@@ -253,7 +240,7 @@ export function SignalFoundry() {
             <div>
               <p className="eyebrow">Selected work</p>
               <h2 className="display" id="work-title">
-                Four systems, built end to end.
+                Three systems, built end to end.
               </h2>
             </div>
             <p className="section-heading-note">
@@ -268,6 +255,27 @@ export function SignalFoundry() {
             ))}
           />
         </div>
+      </section>
+
+      <section className="more-section section-wrap" aria-labelledby="more-title">
+        <Reveal>
+          <div className="more-heading">
+            <p className="eyebrow">More builds</p>
+          </div>
+        </Reveal>
+        <Reveal delay={70}>
+          <Link href="/projects/ender3-2" className="more-card">
+            <div className="more-card-main">
+              <p className="eyebrow">Fabrication / firmware</p>
+              <h3>Ender3-2</h3>
+              <p>Two failed printers rebuilt into one large-format machine, then converted into a plotter for Open Sauce.</p>
+            </div>
+            <span className="more-card-stat">585 × 775 × 230 mm</span>
+            <span className="more-card-link">
+              View project <Arrow />
+            </span>
+          </Link>
+        </Reveal>
       </section>
 
       <section className="matrix-section section-wrap" aria-labelledby="matrix-title">

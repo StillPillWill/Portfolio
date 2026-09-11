@@ -38,7 +38,7 @@ export const cv = {
       role: "Researcher / embedded systems builder",
       meta: "Embedded sensing / machine learning / ongoing research",
       summary: "Built an ESP32 CSI capture and synchronized audio pipeline to investigate low-cost audio sensing through Wi-Fi channel-state information.",
-      proof: "10,839 records/s over a 60-second soak; 650,386 records; 0 CRC errors and 0 sequence gaps. Audio-activity detection and speaker identification demonstrated; general audio reconstruction remains ongoing.",
+      proof: "10,839 records/s over a 60-second soak with 0 CRC errors and 0 sequence gaps. Corpus to date: 4.6B packets and 98 hours of audio across 122 training runs (400 hours), reaching 90% speaker recognition on ~$40 of hardware.",
       route: "/projects/csi",
     },
     {

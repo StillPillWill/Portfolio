@@ -216,15 +216,15 @@ export const projects: Record<ProjectKey, Project> = {
       {
         label: "THE CAPTURE STACK",
         title: "Synchronized collection made the experiments repeatable.",
-        body: "The system combines embedded firmware with synchronized CSI and audio collection, crash-resilient chunked storage, decoding, and host-side orchestration. That pipeline produces the labeled data used by the sensing experiments.",
-        facts: ["Synchronized CSI + audio", "Lossless storage", "Host orchestration"],
+        body: "The system combines embedded firmware with synchronized CSI and audio collection, crash-resilient chunked storage, decoding, and host-side orchestration. That pipeline has produced a 4.6-billion-packet corpus with 98 hours of synchronized audio, on roughly $40 of hardware.",
+        facts: ["4.6B packets", "98 hours of audio", "~$40 hardware"],
         visual: "instrument",
       },
       {
         label: "DEMONSTRATED MILESTONE",
-        title: "Audio detection and speaker identification worked.",
-        body: "The prototype has demonstrated audio-event detection and speaker identification from captured CSI. That result is narrower—and more defensible—than claiming that the original audio has been reconstructed.",
-        facts: ["Audio detection", "Speaker identification", "Demonstrated"],
+        title: "Audio detection and 90% speaker identification worked.",
+        body: "The prototype has demonstrated audio-event detection and 90% speaker identification from captured CSI, across 122 training runs and 400 hours of training. That result is narrower—and more defensible—than claiming that the original audio has been reconstructed.",
+        facts: ["90% speaker ID", "122 training runs", "400 hours training"],
         visual: "ledger",
       },
       {

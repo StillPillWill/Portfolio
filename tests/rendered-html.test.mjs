@@ -31,6 +31,8 @@ test("homepage server-renders the portfolio shell", async () => {
   assert.match(html, /<title>William Nzive/i);
   assert.match(html, /Skip to selected work/);
   assert.match(html, /Selected work/);
+  assert.match(html, /Three systems, built end to end/);
+  assert.match(html, /More builds/);
   assert.match(html, /Wi-Fi CSI sensing/);
   assert.match(html, /Vulcan/);
   assert.match(html, /Ender3-2/);
