@@ -180,17 +180,19 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
         Skip to project notes
       </a>
       <header className="site-header project-site-header">
-        <a href="/" className="wordmark" aria-label="William Nzive home">
-          <span className="wordmark-mark">WN</span>
-          <span>William Nzive</span>
-        </a>
-        <a href="/#work" className="back-to-work">
-          ← Selected work
-        </a>
-        <a className="header-status" href={`mailto:${contact.email}`}>
-          <span className="status-dot" />
-          <span className="header-status-label">Get in touch</span>
-        </a>
+        <div className="site-header-inner">
+          <a href="/" className="wordmark" aria-label="William Nzive home">
+            <span className="wordmark-mark">WN</span>
+            <span>William Nzive</span>
+          </a>
+          <a href="/#work" className="back-to-work">
+            ← Selected work
+          </a>
+          <a className="header-status" href={`mailto:${contact.email}`}>
+            <span className="status-dot" />
+            <span className="header-status-label">Get in touch</span>
+          </a>
+        </div>
       </header>
 
       <section className="project-hero" aria-labelledby="project-title">
@@ -251,22 +253,26 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
             <Reveal key={beat.title} as="li" className="project-note">
               <div className="project-note-index">{String(index + 1).padStart(2, "0")}</div>
               <div className="project-note-content">
-                <p className="eyebrow">{beat.label}</p>
-                <h3>{beat.title}</h3>
-                {beat.intent && (
-                  <div className="project-note-intent">
-                    <span className="intent-badge">INTENT</span>
-                    <p className="intent-text">{beat.intent}</p>
-                  </div>
-                )}
-                <p>{beat.body}</p>
-                {beat.facts && (
-                  <ul className="project-facts">
-                    {beat.facts.map((fact) => (
-                      <li key={fact}>{fact}</li>
-                    ))}
-                  </ul>
-                )}
+                <div className="project-note-meta-side">
+                  <p className="eyebrow">{beat.label}</p>
+                  <h3>{beat.title}</h3>
+                  {beat.intent && (
+                    <div className="project-note-intent">
+                      <span className="intent-badge">INTENT</span>
+                      <p className="intent-text">{beat.intent}</p>
+                    </div>
+                  )}
+                </div>
+                <div className="project-note-body-side">
+                  <p>{beat.body}</p>
+                  {beat.facts && (
+                    <ul className="project-facts">
+                      {beat.facts.map((fact) => (
+                        <li key={fact}>{fact}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
             </Reveal>
           ))}

@@ -23,31 +23,33 @@ export default function ProjectsPage() {
   return (
     <main className="project-directory-page" id="main">
       <header className="site-header project-site-header">
-        <a href="/" className="wordmark" aria-label="William Nzive home">
-          <span className="wordmark-mark">WN</span>
-          <span>William Nzive</span>
-        </a>
-        <nav className="site-nav" aria-label="Projects navigation">
-          <a className="site-nav-link" href="/">
-            Home
+        <div className="site-header-inner">
+          <a href="/" className="wordmark" aria-label="William Nzive home">
+            <span className="wordmark-mark">WN</span>
+            <span>William Nzive</span>
           </a>
-          <a className="site-nav-link" href="/projects">
-            Projects
+          <nav className="site-nav" aria-label="Projects navigation">
+            <a className="site-nav-link" href="/">
+              Home
+            </a>
+            <a className="site-nav-link" href="/projects">
+              Projects
+            </a>
+            <a className="site-nav-link" href="/about">
+              About
+            </a>
+            <a className="site-nav-link" href="/contact">
+              Contact
+            </a>
+            <a className="site-nav-link" href="/resume.pdf" target="_blank" rel="noreferrer">
+              Resume
+            </a>
+          </nav>
+          <a className="header-status" href={`mailto:${contact.email}`}>
+            <span className="status-dot" />
+            <span className="header-status-label">Get in touch</span>
           </a>
-          <a className="site-nav-link" href="/about">
-            About
-          </a>
-          <a className="site-nav-link" href="/contact">
-            Contact
-          </a>
-          <a className="site-nav-link" href="/resume.pdf" target="_blank" rel="noreferrer">
-            Resume
-          </a>
-        </nav>
-        <a className="header-status" href={`mailto:${contact.email}`}>
-          <span className="status-dot" />
-          <span className="header-status-label">Get in touch</span>
-        </a>
+        </div>
       </header>
 
       <section className="project-directory-hero section-wrap">
@@ -137,72 +139,78 @@ export default function ProjectsPage() {
         <div className="directory-dossier-list">
           {cv.additionalExperience.map((item, idx) => (
             <Reveal key={item.title} className="directory-dossier-card">
-              <div className="directory-dossier-head">
-                <span className="exp-index">{String(idx + 5).padStart(2, "0")}</span>
-                <div>
-                  <p className="eyebrow">{item.meta}</p>
-                  <h3>{item.title}</h3>
-                  <p className="exp-role">{item.role}</p>
-                </div>
-              </div>
-              {item.intent && (
-                <p className="exp-intent">
-                  <span className="intent-badge">INTENT</span>
-                  <span className="intent-text">{item.intent}</span>
-                </p>
-              )}
-              <p className="directory-dossier-summary">{item.summary}</p>
-              <p className="directory-dossier-proof">{item.proof}</p>
-
-              {item.dossier && (
-                <details className="exp-details" open>
-                  <summary className="exp-toggle">
-                    <span className="exp-toggle-icon" aria-hidden="true">▸</span>
-                    <span>Technical breakdown &amp; specifications</span>
-                  </summary>
-                  <div className="exp-drawer">
-                    {item.dossier.intent && (
-                      <div className="exp-drawer-section">
-                        <span className="exp-drawer-label">Core Engineering Intent</span>
-                        <p className="exp-drawer-intent">{item.dossier.intent}</p>
-                      </div>
-                    )}
-                    <div className="exp-drawer-section">
-                      <span className="exp-drawer-label">System Architecture</span>
-                      <p>{item.dossier.architecture}</p>
-                    </div>
-
-                    <div className="exp-drawer-section">
-                      <span className="exp-drawer-label">Stack &amp; Tools</span>
-                      <div className="exp-tags">
-                        {item.dossier.stack.map((tool) => (
-                          <span key={tool} className="exp-badge">
-                            {tool}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="exp-drawer-section">
-                      <span className="exp-drawer-label">Measured Metrics &amp; Benchmarks</span>
-                      <ul className="exp-metrics-list">
-                        {item.dossier.metrics.map((m, mIdx) => (
-                          <li key={mIdx}>{m}</li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="exp-drawer-section">
-                      <span className="exp-drawer-label">Engineering Decisions &amp; Trade-offs</span>
-                      <ul className="exp-decisions-list">
-                        {item.dossier.keyDecisions.map((d, dIdx) => (
-                          <li key={dIdx}>{d}</li>
-                        ))}
-                      </ul>
+              <div className="directory-dossier-layout">
+                <div className="directory-dossier-meta">
+                  <div className="directory-dossier-head">
+                    <span className="exp-index">{String(idx + 5).padStart(2, "0")}</span>
+                    <div>
+                      <p className="eyebrow">{item.meta}</p>
+                      <h3>{item.title}</h3>
+                      <p className="exp-role">{item.role}</p>
                     </div>
                   </div>
-                </details>
-              )}
+                  {item.intent && (
+                    <p className="exp-intent">
+                      <span className="intent-badge">INTENT</span>
+                      <span className="intent-text">{item.intent}</span>
+                    </p>
+                  )}
+                </div>
+                <div className="directory-dossier-body">
+                  <p className="directory-dossier-summary">{item.summary}</p>
+                  <p className="directory-dossier-proof">{item.proof}</p>
+
+                  {item.dossier && (
+                    <details className="exp-details" open>
+                      <summary className="exp-toggle">
+                        <span className="exp-toggle-icon" aria-hidden="true">▸</span>
+                        <span>Technical breakdown &amp; specifications</span>
+                      </summary>
+                      <div className="exp-drawer">
+                        {item.dossier.intent && (
+                          <div className="exp-drawer-section exp-drawer-section-full">
+                            <span className="exp-drawer-label">Core Engineering Intent</span>
+                            <p className="exp-drawer-intent">{item.dossier.intent}</p>
+                          </div>
+                        )}
+                        <div className="exp-drawer-section">
+                          <span className="exp-drawer-label">System Architecture</span>
+                          <p>{item.dossier.architecture}</p>
+                        </div>
+
+                        <div className="exp-drawer-section">
+                          <span className="exp-drawer-label">Stack &amp; Tools</span>
+                          <div className="exp-tags">
+                            {item.dossier.stack.map((tool) => (
+                              <span key={tool} className="exp-badge">
+                                {tool}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="exp-drawer-section">
+                          <span className="exp-drawer-label">Measured Metrics &amp; Benchmarks</span>
+                          <ul className="exp-metrics-list">
+                            {item.dossier.metrics.map((m, mIdx) => (
+                              <li key={mIdx}>{m}</li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="exp-drawer-section">
+                          <span className="exp-drawer-label">Engineering Decisions &amp; Trade-offs</span>
+                          <ul className="exp-decisions-list">
+                            {item.dossier.keyDecisions.map((d, dIdx) => (
+                              <li key={dIdx}>{d}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </details>
+                  )}
+                </div>
+              </div>
             </Reveal>
           ))}
         </div>

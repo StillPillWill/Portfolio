@@ -5,13 +5,13 @@ import { Magnetic } from "./Magnetic";
 import { ModelViewer } from "./ModelViewer";
 import { Reveal } from "./Reveal";
 import { Waveform } from "./Waveform";
-import { WorkStack } from "./WorkStack";
 
 /* eslint-disable @next/next/no-img-element */
 
 const ACCENTS: Record<string, string> = {
   csi: "#8176e9",
   vulcan: "#c8774d",
+  "ender3-2": "#e5b86b",
   "team-3598": "#b95c6b",
 };
 
@@ -33,6 +33,15 @@ const featuredProjects = [
     description:
       "An open-source six-axis robot arm designed around belt reductions, 3D-printed structural parts, and transparent CAD documentation.",
     stat: "Six-axis arm · 1:16 reduction",
+  },
+  {
+    key: "ender3-2" as const,
+    eyebrow: "Fabrication / firmware",
+    title: "Ender3-2",
+    intent: "Re-engineer discarded mechanical components into high-utility, oversized Cartesian CNC platforms while maintaining sub-millimeter precision.",
+    description:
+      "Two failed printers rebuilt into one large-format machine with custom Marlin firmware, expanded to 585 × 775 × 230 mm, then demonstrated live at Open Sauce.",
+    stat: "585 × 775 × 230 mm · Quad-Z",
   },
   {
     key: "team-3598" as const,
@@ -100,6 +109,10 @@ function ProjectVisual({ project }: { project: (typeof featuredProjects)[number]
       src: "/portfolio/media/vulcan-hero.webp",
       alt: "Vulcan six-axis robot arm CAD assembly render",
     },
+    "ender3-2": {
+      src: "/portfolio/media/ender3-2/full-build.webp",
+      alt: "Ender3-2 large-format 3D printer gantry",
+    },
     "team-3598": {
       src: "/portfolio/media/team3598.webp",
       alt: "Team 3598 robotics team group photo",
@@ -166,31 +179,33 @@ export function SignalFoundry() {
         Skip to selected work
       </a>
       <header className="site-header">
-        <a href="/" className="wordmark" aria-label="William Nzive home">
-          <span className="wordmark-mark">WN</span>
-          <span>William Nzive</span>
-        </a>
-        <nav className="site-nav" aria-label="Primary">
-          <a className="site-nav-link" href="#work">
-            Work
+        <div className="site-header-inner">
+          <a href="/" className="wordmark" aria-label="William Nzive home">
+            <span className="wordmark-mark">WN</span>
+            <span>William Nzive</span>
           </a>
-          <a className="site-nav-link" href="#experience">
-            Experience
+          <nav className="site-nav" aria-label="Primary">
+            <a className="site-nav-link" href="#work">
+              Work
+            </a>
+            <a className="site-nav-link" href="#experience">
+              Experience
+            </a>
+            <a className="site-nav-link" href="#about">
+              About
+            </a>
+            <a className="site-nav-link" href="#contact">
+              Contact
+            </a>
+            <a className="site-nav-link" href="/resume.pdf" target="_blank" rel="noreferrer">
+              Resume
+            </a>
+          </nav>
+          <a className="header-status" href={`mailto:${contact.email}`}>
+            <span className="status-dot" />
+            <span className="header-status-label">Email</span>
           </a>
-          <a className="site-nav-link" href="#about">
-            About
-          </a>
-          <a className="site-nav-link" href="#contact">
-            Contact
-          </a>
-          <a className="site-nav-link" href="/resume.pdf" target="_blank" rel="noreferrer">
-            Resume
-          </a>
-        </nav>
-        <a className="header-status" href={`mailto:${contact.email}`}>
-          <span className="status-dot" />
-          <span className="header-status-label">Email</span>
-        </a>
+        </div>
       </header>
 
       <section className="hero" aria-labelledby="hero-title">
@@ -275,36 +290,50 @@ export function SignalFoundry() {
           </div>
         </Reveal>
         <div className="project-grid work-stack-grid">
-          <WorkStack
-            cards={featuredProjects.map((project, index) => (
-              <ProjectCard key={project.key} project={project} index={index} />
-            ))}
-          />
+          {featuredProjects.map((project, index) => (
+            <ProjectCard key={project.key} project={project} index={index} />
+          ))}
         </div>
       </section>
 
       <section className="more-section section-wrap" aria-labelledby="more-title">
         <Reveal>
-          <div className="more-heading">
-            <p className="eyebrow">More projects</p>
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">More builds · Systems &amp; Research</p>
+              <h2 className="display" id="more-title">
+                Research dossiers &amp; builds.
+              </h2>
+            </div>
+            <a href="/projects" className="button button-ghost">
+              View all projects &amp; directory <Arrow />
+            </a>
           </div>
         </Reveal>
         <Reveal delay={70}>
-          <a href="/projects/ender3-2" className="more-card">
-            <div className="more-card-main">
-              <p className="eyebrow">Fabrication / firmware</p>
-              <h3>Ender3-2</h3>
-              <div className="more-card-intent">
-                <span className="intent-badge">INTENT</span>
-                <p className="intent-text">Triple Cartesian build volume using salvaged parts for &lt;$20 with dynamic bed mesh firmware.</p>
-              </div>
-              <p>Two failed printers rebuilt into one large-format machine with custom Marlin firmware, then converted into a plotter for Open Sauce.</p>
-            </div>
-            <span className="more-card-stat">585 × 775 × 230 mm</span>
-            <span className="more-card-link">
-              View project <Arrow />
-            </span>
-          </a>
+          <div className="more-grid">
+            {cv.additionalExperience.slice(0, 3).map((item) => (
+              <a key={item.title} href="/projects" className="more-card">
+                <div className="more-card-main">
+                  <p className="eyebrow">{item.meta}</p>
+                  <h3>{item.title}</h3>
+                  {item.intent && (
+                    <div className="more-card-intent">
+                      <span className="intent-badge">INTENT</span>
+                      <p className="intent-text">{item.intent}</p>
+                    </div>
+                  )}
+                  <p>{item.summary}</p>
+                </div>
+                <div className="more-card-footer">
+                  <span className="more-card-stat">{item.proof}</span>
+                  <span className="more-card-link">
+                    Explore dossier <Arrow />
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
         </Reveal>
       </section>
 
@@ -321,16 +350,22 @@ export function SignalFoundry() {
           </div>
         </Reveal>
         <Reveal delay={90}>
-          <table className="matrix-table">
-            <tbody>
-              {cv.skills.map((skill) => (
-                <tr key={skill.label}>
-                  <th scope="row">{skill.label}</th>
-                  <td>{skill.items}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="matrix-grid">
+            {cv.skills.map((skill) => (
+              <div key={skill.label} className="matrix-card">
+                <div className="matrix-card-head">
+                  <span className="mono-label">{skill.label}</span>
+                </div>
+                <div className="matrix-card-tags">
+                  {skill.items.split(" · ").map((item) => (
+                    <span key={item} className="exp-badge">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </Reveal>
       </section>
 
@@ -355,78 +390,82 @@ export function SignalFoundry() {
                 {String(index + 1).padStart(2, "0")}
               </span>
               <div className="exp-main">
-                <p className="eyebrow">{exp.meta}</p>
-                <h3>{exp.title}</h3>
-                <p className="exp-role">{exp.role}</p>
-                {exp.intent && (
-                  <p className="exp-intent">
-                    <span className="intent-badge">INTENT</span>
-                    <span className="intent-text">{exp.intent}</span>
-                  </p>
-                )}
-                <p className="exp-summary">{exp.summary}</p>
-                <p className="exp-proof">{exp.proof}</p>
-
-                {exp.dossier && (
-                  <details className="exp-details">
-                    <summary className="exp-toggle">
-                      <span className="exp-toggle-icon" aria-hidden="true">▸</span>
-                      <span>Technical dossier &amp; notes</span>
-                    </summary>
-                    <div className="exp-drawer">
-                      {exp.dossier.intent && (
-                        <div className="exp-drawer-section">
-                          <span className="exp-drawer-label">Core Engineering Intent</span>
-                          <p className="exp-drawer-intent">{exp.dossier.intent}</p>
-                        </div>
-                      )}
-                      <div className="exp-drawer-section">
-                        <span className="exp-drawer-label">System Architecture</span>
-                        <p>{exp.dossier.architecture}</p>
-                      </div>
-
-                      <div className="exp-drawer-section">
-                        <span className="exp-drawer-label">Stack &amp; Tools</span>
-                        <div className="exp-tags">
-                          {exp.dossier.stack.map((item) => (
-                            <span key={item} className="exp-badge">
-                              {item}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="exp-drawer-section">
-                        <span className="exp-drawer-label">Key Metrics &amp; Benchmarks</span>
-                        <ul className="exp-metrics-list">
-                          {exp.dossier.metrics.map((metric, mIdx) => (
-                            <li key={mIdx}>{metric}</li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="exp-drawer-section">
-                        <span className="exp-drawer-label">Engineering Decisions &amp; Trade-offs</span>
-                        <ul className="exp-decisions-list">
-                          {exp.dossier.keyDecisions.map((decision, dIdx) => (
-                            <li key={dIdx}>{decision}</li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {(exp.route || exp.dossier.relatedRoute) && (
-                        <div className="exp-drawer-actions">
-                          <a
-                            href={exp.route || exp.dossier.relatedRoute}
-                            className="exp-project-link"
-                          >
-                            {exp.dossier.relatedRouteLabel || "View dedicated project page →"}
-                          </a>
-                        </div>
-                      )}
+                <div className="exp-meta-block">
+                  <p className="eyebrow">{exp.meta}</p>
+                  <h3>{exp.title}</h3>
+                  <p className="exp-role">{exp.role}</p>
+                  {exp.intent && (
+                    <div className="exp-intent">
+                      <span className="intent-badge">INTENT</span>
+                      <p className="intent-text">{exp.intent}</p>
                     </div>
-                  </details>
-                )}
+                  )}
+                </div>
+                <div className="exp-body-block">
+                  <p className="exp-summary">{exp.summary}</p>
+                  <p className="exp-proof">{exp.proof}</p>
+
+                  {exp.dossier && (
+                    <details className="exp-details">
+                      <summary className="exp-toggle">
+                        <span className="exp-toggle-icon" aria-hidden="true">▸</span>
+                        <span>Technical dossier &amp; notes</span>
+                      </summary>
+                      <div className="exp-drawer">
+                        {exp.dossier.intent && (
+                          <div className="exp-drawer-section exp-drawer-section-full">
+                            <span className="exp-drawer-label">Core Engineering Intent</span>
+                            <p className="exp-drawer-intent">{exp.dossier.intent}</p>
+                          </div>
+                        )}
+                        <div className="exp-drawer-section">
+                          <span className="exp-drawer-label">System Architecture</span>
+                          <p>{exp.dossier.architecture}</p>
+                        </div>
+
+                        <div className="exp-drawer-section">
+                          <span className="exp-drawer-label">Stack &amp; Tools</span>
+                          <div className="exp-tags">
+                            {exp.dossier.stack.map((item) => (
+                              <span key={item} className="exp-badge">
+                                {item}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="exp-drawer-section">
+                          <span className="exp-drawer-label">Key Metrics &amp; Benchmarks</span>
+                          <ul className="exp-metrics-list">
+                            {exp.dossier.metrics.map((metric, mIdx) => (
+                              <li key={mIdx}>{metric}</li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="exp-drawer-section">
+                          <span className="exp-drawer-label">Engineering Decisions &amp; Trade-offs</span>
+                          <ul className="exp-decisions-list">
+                            {exp.dossier.keyDecisions.map((decision, dIdx) => (
+                              <li key={dIdx}>{decision}</li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {(exp.route || exp.dossier.relatedRoute) && (
+                          <div className="exp-drawer-actions exp-drawer-section-full">
+                            <a
+                              href={exp.route || exp.dossier.relatedRoute}
+                              className="exp-project-link"
+                            >
+                              {exp.dossier.relatedRouteLabel || "View dedicated project page →"}
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    </details>
+                  )}
+                </div>
               </div>
             </Reveal>
           ))}
