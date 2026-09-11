@@ -69,7 +69,7 @@ export default function AboutPage() {
                 My work focuses on the intersection of low-level software, embedded hardware, and physical mechanical design.
               </p>
               <p>
-                I believe in building reliable systems from first principles. When standard USB serial endpoints cannot sustain the throughput needed for Wi-Fi channel-state information sensing, I design native USB firmware transports with custom CRC validation. When precision robot gearboxes are prohibitively expensive, I engineer high-reduction belt-driven transmissions and 3D-printable cycloidal actuators.
+                I believe in building reliable systems from first principles. When standard USB serial endpoints cannot sustain the throughput needed for Wi-Fi channel-state information sensing, I design native USB firmware transports with custom CRC validation. When precision robot gearboxes are prohibitively expensive, I engineer high-reduction belt-driven transmissions and 3D-printed joint mechanisms.
               </p>
               <p>
                 Beyond software, my work extends into the physical shop: CAD kinematics in Creo and SolidWorks, manual machining, MIG/TIG welding, and rapid additive prototyping.

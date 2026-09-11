@@ -41,13 +41,13 @@ const featuredProjects = [
     intent: "Re-engineer discarded mechanical components into high-utility, oversized Cartesian CNC platforms while maintaining sub-millimeter precision.",
     description:
       "Two failed printers rebuilt into one large-format machine with custom Marlin firmware, expanded to 585 × 775 × 230 mm, then demonstrated live at Open Sauce.",
-    stat: "585 × 775 × 230 mm · Quad-Z",
+    stat: "585 × 775 × 230 mm · Dual-Z",
   },
   {
     key: "team-3598" as const,
     eyebrow: "Leadership / competitive robotics",
     title: "Team 3598",
-    intent: "Direct 40+ students across closed-loop CANcoder swerve kinematics, CAD tolerance reviews, and regional outreach.",
+    intent: "Coordinate 40+ students across mechanical design, programming, competition operations, and regional outreach.",
     description:
       "Technical leadership across engineering, operations, competition preparation, and outreach for a 40+ student team.",
     stat: "4,452 students reached · Worlds berth",
