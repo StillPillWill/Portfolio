@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
 import { contact } from "../data/portfolio";
 import { Reveal } from "../components/Reveal";
@@ -85,6 +86,19 @@ export default function AboutPage() {
             </div>
 
             <aside className="about-page-sidebar">
+              <div className="about-portrait-card">
+                <div className="about-portrait-frame">
+                  <img
+                    src="/portfolio/media/william-placeholder.svg"
+                    alt="William Nzive · Portrait"
+                  />
+                </div>
+                <div className="about-portrait-caption">
+                  <strong>William Nzive</strong>
+                  <span>UC Davis · CSE</span>
+                </div>
+              </div>
+
               <div className="about-card">
                 <span className="eyebrow eyebrow-accent">Academic Status</span>
                 <strong>UC Davis · CSE</strong>

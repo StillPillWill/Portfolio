@@ -84,7 +84,7 @@ export default function ExperiencePage() {
                     <details className="exp-details">
                       <summary className="exp-toggle">
                         <span className="exp-toggle-icon" aria-hidden="true">▸</span>
-                        <span>Technical dossier &amp; notes</span>
+                        <span>Technical breakdown &amp; architecture</span>
                       </summary>
                       <div className="exp-drawer">
                         {exp.dossier.intent && (

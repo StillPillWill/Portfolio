@@ -43,7 +43,7 @@ No downloads are needed for:
 - Persistent signal waveform trace.
 - CSI subcarrier field, ring buffer, packet rings, and waveform ribbon.
 - Vulcan belt paths, torque rings, exploded labels, and joint axes.
-- Ender toolpath, extrusion filament, layer grid, and plotter line.
+- Ender toolpath, extrusion filament, layer grid, and Cartesian motion.
 - Team 3598 competition truss supporting first-party media planes.
 - Fog, restrained dust, chapter platforms, portals, cursor, and index.
 - Final `WN` geometry.

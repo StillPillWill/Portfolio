@@ -28,7 +28,7 @@ const projectStats: Record<ProjectKey, Array<{ label: string; value: string }>> 
   "ender3-2": [
     { label: "Build envelope", value: "585 × 775 × 230 mm" },
     { label: "New material", value: "~$16" },
-    { label: "Public demo", value: "Open Sauce plotter" },
+    { label: "Exhibition", value: "Open Sauce Maker Festival" },
   ],
   "team-3598": [
     { label: "Team size", value: "40+ students" },
@@ -251,15 +251,31 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
         <ol className="project-note-list">
           {project.beats.map((beat, index) => (
             <Reveal key={beat.title} as="li" className="project-note">
-              <div className="project-note-index">{String(index + 1).padStart(2, "0")}</div>
-              <div className="project-note-content">
-                <div className="project-note-meta-side">
-                  <p className="eyebrow">{beat.label}</p>
+              <div className="project-note-header">
+                <span className="project-note-index">{String(index + 1).padStart(2, "0")}</span>
+                <div className="project-note-title-wrap">
+                  <p className="eyebrow eyebrow-accent">{beat.label}</p>
                   <h3>{beat.title}</h3>
                 </div>
-                <div className="project-note-body-side">
-                  <p>{beat.body}</p>
-                  {beat.facts && (
+              </div>
+              <div className="project-note-grid">
+                {beat.intent ? (
+                  <div className="project-note-col project-note-intent-col">
+                    <span className="project-note-col-label">Objective &amp; Scope</span>
+                    <p className="project-note-intent">{beat.intent}</p>
+                    {beat.facts && (
+                      <ul className="project-facts">
+                        {beat.facts.map((fact) => (
+                          <li key={fact}>{fact}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ) : null}
+                <div className="project-note-col project-note-body-col">
+                  <span className="project-note-col-label">Technical Analysis &amp; Findings</span>
+                  <p className="project-note-body">{beat.body}</p>
+                  {!beat.intent && beat.facts && (
                     <ul className="project-facts">
                       {beat.facts.map((fact) => (
                         <li key={fact}>{fact}</li>

@@ -31,6 +31,7 @@ export function ModelViewer({
   const [progress, setProgress] = useState(0);
   const [Scene, setScene] = useState<ComponentType<{
     url: string;
+    projectKey?: string;
     spinRef: React.RefObject<SpinHandle>;
     onReady: () => void;
     onError: () => void;
@@ -147,6 +148,7 @@ export function ModelViewer({
         <div className="viewer-canvas">
           <Scene
             url={url}
+            projectKey={projectKey}
             spinRef={spinRef}
             onReady={() => setStage("ready")}
             onError={() => setStage("failed")}

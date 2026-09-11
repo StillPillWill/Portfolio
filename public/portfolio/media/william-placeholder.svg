@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0e1318"/>
+      <stop offset="100%" stop-color="#141c24"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5ceb95"/>
+      <stop offset="100%" stop-color="#2dd4bf"/>
+    </linearGradient>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="480" fill="url(#bg)"/>
+  <rect width="400" height="480" fill="url(#grid)"/>
+
+  <!-- Border & Corner Reticles -->
+  <rect x="16" y="16" width="368" height="448" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  
+  <!-- Technical Reticle Marks -->
+  <path d="M 16 32 L 16 16 L 32 16" fill="none" stroke="#5ceb95" stroke-width="2"/>
+  <path d="M 384 32 L 384 16 L 368 16" fill="none" stroke="#5ceb95" stroke-width="2"/>
+  <path d="M 16 448 L 16 464 L 32 464" fill="none" stroke="#5ceb95" stroke-width="2"/>
+  <path d="M 384 448 L 384 464 L 368 464" fill="none" stroke="#5ceb95" stroke-width="2"/>
+
+  <!-- Profile Silhouette / Avatar -->
+  <circle cx="200" cy="180" r="54" fill="#1b2430" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+  <path d="M 130 330 C 130 260, 270 260, 270 330 Z" fill="#1b2430" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+
+  <!-- Monogram -->
+  <text x="200" y="192" fill="#5ceb95" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="700" text-anchor="middle" letter-spacing="0.05em">WN</text>
+
+  <!-- Technical Meta Label -->
+  <text x="200" y="375" fill="#e9eeec" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" text-anchor="middle" letter-spacing="0.02em">William Nzive</text>
+  <text x="200" y="398" fill="rgba(233,238,236,0.5)" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="10.5" text-anchor="middle" letter-spacing="0.1em">UC DAVIS · CSE</text>
+  <text x="200" y="426" fill="rgba(92,235,149,0.7)" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="9" text-anchor="middle" letter-spacing="0.12em">PORTRAIT SPOT · DROP WEBP HERE</text>
+</svg>

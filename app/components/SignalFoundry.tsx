@@ -292,7 +292,7 @@ export function SignalFoundry() {
             <div>
               <p className="eyebrow">More builds · Systems &amp; Research</p>
               <h2 className="display" id="more-title">
-                Research dossiers &amp; builds.
+                Technical projects &amp; research.
               </h2>
             </div>
             <a href="/projects" className="button button-ghost">
@@ -312,7 +312,7 @@ export function SignalFoundry() {
                 <div className="more-card-footer">
                   <span className="more-card-stat">{item.proof}</span>
                   <span className="more-card-link">
-                    Explore dossier <Arrow />
+                    Project breakdown <Arrow />
                   </span>
                 </div>
               </a>
@@ -387,7 +387,7 @@ export function SignalFoundry() {
                     <details className="exp-details">
                       <summary className="exp-toggle">
                         <span className="exp-toggle-icon" aria-hidden="true">▸</span>
-                        <span>Technical dossier &amp; notes</span>
+                        <span>Technical breakdown &amp; architecture</span>
                       </summary>
                       <div className="exp-drawer">
                         {exp.dossier.intent && (
@@ -467,23 +467,37 @@ export function SignalFoundry() {
           </div>
         </Reveal>
         <Reveal delay={90}>
-          <div className="about-copy">
-            <p>
-              I&apos;m an undergraduate studying Computer Science and Engineering at UC Davis,
-              working across embedded systems, robotics, and machine learning. From writing USB bulk
-              capture pipelines for RF sensing to designing belt transmissions for robotic joints,
-              I focus on building reliable hardware and software with clear, verified measurements.
-            </p>
-            <div className="about-details">
-              <div>
-                <span className="eyebrow">Education</span>
-                <strong>University of California, Davis</strong>
-                <span>B.S. Computer Science &amp; Engineering · expected Jun 2030</span>
+          <div className="about-layout">
+            <div className="about-portrait-card">
+              <div className="about-portrait-frame">
+                <img
+                  src="/portfolio/media/william-placeholder.svg"
+                  alt="William Nzive · Portrait"
+                />
               </div>
-              <div>
-                <span className="eyebrow">Technical Interests</span>
-                <strong>Embedded, Robotics &amp; ML</strong>
-                <span>Firmware, kinematics, signal processing, and physical fabrication</span>
+              <div className="about-portrait-caption">
+                <strong>William Nzive</strong>
+                <span>UC Davis · B.S. CSE</span>
+              </div>
+            </div>
+            <div className="about-copy">
+              <p>
+                I&apos;m an undergraduate studying Computer Science and Engineering at UC Davis,
+                working across embedded systems, robotics, and machine learning. From writing USB bulk
+                capture pipelines for RF sensing to designing belt transmissions for robotic joints,
+                I focus on building reliable hardware and software with clear, verified measurements.
+              </p>
+              <div className="about-details">
+                <div>
+                  <span className="eyebrow">Education</span>
+                  <strong>University of California, Davis</strong>
+                  <span>B.S. Computer Science &amp; Engineering · expected Jun 2030</span>
+                </div>
+                <div>
+                  <span className="eyebrow">Technical Interests</span>
+                  <strong>Embedded, Robotics &amp; ML</strong>
+                  <span>Firmware, kinematics, signal processing, and physical fabrication</span>
+                </div>
               </div>
             </div>
           </div>

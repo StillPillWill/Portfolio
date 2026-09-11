@@ -49,13 +49,35 @@ class GLTFBoundary extends Component<
 
 const TARGET_SIZE = 3;
 
-function NormalizedModel({ url, onReady }: { url: string; onReady: () => void }) {
+const MODEL_ROTATIONS: Record<string, [number, number, number]> = {
+  vulcan: [0, 0, Math.PI / 2],
+  "ender3-2": [-Math.PI / 2, 0, 0],
+};
+
+function NormalizedModel({
+  url,
+  projectKey,
+  onReady,
+}: {
+  url: string;
+  projectKey?: string;
+  onReady: () => void;
+}) {
   const { scene } = useGLTF(url);
 
   // Clone scene so multiple viewers (or re-mounts) do not steal or corrupt each other
   const clonedScene = useMemo(() => {
-    return scene.clone(true);
-  }, [scene]);
+    const s = scene.clone(true);
+    const key =
+      projectKey ||
+      (url.includes("vulcan") ? "vulcan" : url.includes("ender") ? "ender3-2" : "");
+    if (key && MODEL_ROTATIONS[key]) {
+      const [rx, ry, rz] = MODEL_ROTATIONS[key];
+      s.rotation.set(rx, ry, rz);
+      s.updateMatrixWorld(true);
+    }
+    return s;
+  }, [scene, projectKey, url]);
 
   const normalized = useMemo(() => {
     try {
@@ -175,12 +197,13 @@ function IdleSpin({ spinRef, children }: { spinRef: SpinRef; children: ReactNode
 
 export type ViewerSceneProps = {
   url: string;
+  projectKey?: string;
   spinRef: SpinRef;
   onReady: () => void;
   onError: () => void;
 };
 
-export default function ViewerScene({ url, spinRef, onReady, onError }: ViewerSceneProps) {
+export default function ViewerScene({ url, projectKey, spinRef, onReady, onError }: ViewerSceneProps) {
   const rootRef = useRef<THREE.Group>(null);
   const handleReady = useRef(onReady);
 
@@ -222,7 +245,7 @@ export default function ViewerScene({ url, spinRef, onReady, onError }: ViewerSc
           <group ref={rootRef}>
             <GLTFBoundary onError={onError}>
               <Suspense fallback={null}>
-                <NormalizedModel url={url} onReady={() => handleReady.current()} />
+                <NormalizedModel url={url} projectKey={projectKey} onReady={() => handleReady.current()} />
               </Suspense>
             </GLTFBoundary>
           </group>
