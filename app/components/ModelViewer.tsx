@@ -23,7 +23,7 @@ export function ModelViewer({
   url,
   projectKey,
   label,
-  hudRight = "3D · interactive",
+  hudRight = "Interactive 3D",
   className = "",
   style,
 }: ModelViewerProps) {
@@ -141,7 +141,7 @@ export function ModelViewer({
       <span className="viewer-hud viewer-hud-tl">{label}</span>
       <span className="viewer-hud viewer-hud-tr">
         {stage === "loading" ? `Loading ${progress}%` : hudRight}
-        {stage === "ready" ? " · drag to orbit" : ""}
+        {stage === "ready" ? " · drag to rotate" : ""}
       </span>
 
       {showCanvas && Scene ? (
@@ -162,7 +162,7 @@ export function ModelViewer({
             <img src={FALLBACKS[projectKey]} alt={label} decoding="async" />
           ) : null}
           <figcaption>{label}</figcaption>
-          <span className="viewer-hint">static preview</span>
+          <span className="viewer-hint">Static Preview</span>
         </figure>
       ) : (
         stage !== "ready" && fallbackImage(projectKey, label)

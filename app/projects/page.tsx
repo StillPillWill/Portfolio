@@ -55,7 +55,7 @@ export default function ProjectsPage() {
       <section className="project-directory-hero section-wrap">
         <Reveal>
           <div className="directory-hero-copy">
-            <p className="eyebrow eyebrow-accent">Directory · Systems &amp; Research</p>
+            <p className="eyebrow eyebrow-accent">Systems &amp; Research Directory</p>
             <h1 className="display">All projects &amp; engineering records.</h1>
             <p className="directory-hero-lede">
               A comprehensive index of embedded sensing research, robotic kinematics, large-format CNC machines,
@@ -121,7 +121,7 @@ export default function ProjectsPage() {
             <div>
               <p className="eyebrow">Additional Systems &amp; Prototypes</p>
               <h2 className="display" id="research-systems-title">
-                Research &amp; technical notes.
+                Research &amp; additional systems.
               </h2>
             </div>
             <p className="section-heading-note">

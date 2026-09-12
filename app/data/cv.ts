@@ -27,7 +27,7 @@ export const cv = {
   education: [
     {
       institution: "University of California, Davis",
-      detail: "B.S. Computer Science and Engineering · expected Jun 2030",
+      detail: "B.S. Computer Science and Engineering · Expected June 2030",
     },
     {
       institution: "School of Engineering and Sciences",

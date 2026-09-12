@@ -55,7 +55,7 @@ export default function ExperiencePage() {
         <Reveal>
           <div className="section-heading">
             <div>
-              <p className="eyebrow eyebrow-accent">Timeline · Research &amp; Engineering</p>
+              <p className="eyebrow eyebrow-accent">Engineering &amp; Research Timeline</p>
               <h1 className="display">Experience &amp; projects.</h1>
             </div>
             <p className="section-heading-note">

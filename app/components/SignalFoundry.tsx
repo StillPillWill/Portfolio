@@ -46,7 +46,7 @@ const featuredProjects = [
     title: "Team 3598",
     description:
       "Technical leadership across engineering, operations, competition preparation, and outreach for a 40+ student team.",
-    stat: "4,452 students reached · Worlds berth",
+    stat: "4,452 students reached · Impact Award",
   },
 ];
 
@@ -121,7 +121,7 @@ function ProjectVisual({ project }: { project: (typeof featuredProjects)[number]
   return (
     <div className="project-card-visual">
       <img src={image.src} alt={image.alt} decoding="async" />
-      <span className="visual-label">Selected work / {project.key}</span>
+      <span className="visual-label">{project.title}</span>
     </div>
   );
 }
@@ -239,8 +239,8 @@ export function SignalFoundry() {
           <ModelViewer
             url="/portfolio/models/vulcan/vulcan-showcase.glb"
             projectKey="vulcan"
-            label="Vulcan V1 · assembly study"
-            hudRight="CAD · GLB"
+            label="Vulcan V1 CAD Model"
+            hudRight="Interactive 3D"
           />
           <Waveform />
         </div>
@@ -290,9 +290,9 @@ export function SignalFoundry() {
         <Reveal>
           <div className="section-heading">
             <div>
-              <p className="eyebrow">More builds · Systems &amp; Research</p>
+              <p className="eyebrow">More builds &amp; research</p>
               <h2 className="display" id="more-title">
-                Technical projects &amp; research.
+                Additional engineering projects.
               </h2>
             </div>
             <a href="/projects" className="button button-ghost">
@@ -312,7 +312,7 @@ export function SignalFoundry() {
                 <div className="more-card-footer">
                   <span className="more-card-stat">{item.proof}</span>
                   <span className="more-card-link">
-                    Project breakdown <Arrow />
+                    View project breakdown <Arrow />
                   </span>
                 </div>
               </a>
@@ -325,7 +325,7 @@ export function SignalFoundry() {
         <Reveal>
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Skills &amp; Tooling</p>
+              <p className="eyebrow">Skills &amp; Technologies</p>
               <h2 className="display" id="matrix-title">
                 Technical toolkit.
               </h2>
@@ -357,7 +357,7 @@ export function SignalFoundry() {
         <Reveal>
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Experience</p>
+              <p className="eyebrow">Engineering Experience</p>
               <h2 className="display" id="exp-title">
                 Experience &amp; projects.
               </h2>
@@ -460,7 +460,7 @@ export function SignalFoundry() {
       <section className="about-section section-wrap" id="about" aria-labelledby="about-title">
         <Reveal>
           <div className="about-lead">
-            <p className="eyebrow">Background</p>
+            <p className="eyebrow">Background &amp; Focus</p>
             <h2 className="display" id="about-title">
               About me.
             </h2>
@@ -491,7 +491,7 @@ export function SignalFoundry() {
                 <div>
                   <span className="eyebrow">Education</span>
                   <strong>University of California, Davis</strong>
-                  <span>B.S. Computer Science &amp; Engineering · expected Jun 2030</span>
+                  <span>B.S. Computer Science &amp; Engineering · Expected June 2030</span>
                 </div>
                 <div>
                   <span className="eyebrow">Technical Interests</span>

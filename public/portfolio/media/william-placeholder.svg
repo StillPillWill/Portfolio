@@ -36,5 +36,5 @@
   <!-- Technical Meta Label -->
   <text x="200" y="375" fill="#e9eeec" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" text-anchor="middle" letter-spacing="0.02em">William Nzive</text>
   <text x="200" y="398" fill="rgba(233,238,236,0.5)" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="10.5" text-anchor="middle" letter-spacing="0.1em">UC DAVIS · CSE</text>
-  <text x="200" y="426" fill="rgba(92,235,149,0.7)" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="9" text-anchor="middle" letter-spacing="0.12em">PORTRAIT SPOT · DROP WEBP HERE</text>
+  <text x="200" y="424" fill="rgba(92,235,149,0.7)" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="9" text-anchor="middle" letter-spacing="0.12em">ENGINEERING &amp; SYSTEMS</text>
 </svg>

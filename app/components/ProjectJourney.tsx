@@ -77,7 +77,7 @@ function CsiEvidencePanel() {
         </dl>
         <span className="data-panel-foot">122 training runs · 400 hrs training · 90% speaker recognition</span>
       </div>
-      <span>Corpus totals · live instrumentation</span>
+      <span>Corpus dataset &amp; experimental metrics</span>
     </div>
   );
 }
@@ -91,7 +91,7 @@ function HeroArtwork({ projectKey }: { projectKey: ProjectKey }) {
         url={project.model}
         projectKey="vulcan"
         label={`${project.name} · interactive model`}
-        hudRight={`CAD · ${project.number}/04`}
+        hudRight="Interactive CAD"
       />
     );
   }
@@ -151,8 +151,8 @@ function EvidenceNote({ projectKey }: { projectKey: ProjectKey }) {
     <aside className="evidence-note">
       <Reveal>
         <div>
-          <span className="eyebrow eyebrow-accent">Scope &amp; Status</span>
-          <h2 className="display">Demonstrated results &amp; ongoing questions.</h2>
+          <span className="eyebrow eyebrow-accent">Research Scope &amp; Status</span>
+          <h2 className="display">Demonstrated capabilities &amp; ongoing investigations.</h2>
         </div>
       </Reveal>
       <Reveal delay={90}>
@@ -298,10 +298,10 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
               url={project.model}
               projectKey={projectKey as "vulcan" | "ender3-2"}
               label={`${project.name} · full assembly`}
-              hudRight="drag to orbit · scroll to continue"
+              hudRight="Drag to rotate · Scroll to zoom"
             />
             <div className="model-section-meta">
-              <span>Interactive · WebGL</span>
+              <span>Interactive 3D Model</span>
               <span>Source CAD exported to GLB</span>
             </div>
           </Reveal>
@@ -313,12 +313,12 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
           <Reveal>
             <div className="section-heading">
               <div>
-                <p className="eyebrow">Project record</p>
+                <p className="eyebrow">Project Gallery</p>
                 <h2 className="display" id="gallery-title">
-                  The work, in frames.
+                  Build &amp; testing documentation.
                 </h2>
               </div>
-              <p className="section-heading-note">Original project media and build documentation.</p>
+              <p className="section-heading-note">Photographs, video captures, and CAD documentation from the physical build process.</p>
             </div>
           </Reveal>
           <div className="project-gallery-grid">
@@ -347,7 +347,7 @@ export function ProjectJourney({ projectKey }: { projectKey: ProjectKey }) {
 
       <footer className="site-footer section-wrap">
         <span>William Nzive / {project.name}</span>
-        <span>Questions, collaboration, or a hard problem?</span>
+        <span>Open to engineering roles, research collaborations, and technical discussions.</span>
         <a href={`mailto:${contact.email}`}>
           Get in touch <Arrow />
         </a>
