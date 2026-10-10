@@ -48,3 +48,11 @@ yarn-error.log*
 
 # build artifacts
 *.tsbuildinfo
+qa/out/
+qa/before/
+qa/after/
+qa/a/
+qa/b/
+qa/f/
+qa/i/
+qa/*.log

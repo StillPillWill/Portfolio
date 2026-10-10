@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ProjectJourney } from "../../components/ProjectJourney";
+import { ProjectPage } from "../../components/ProjectPage";
 
 export const metadata: Metadata = {
   title: "Team 3598 Robotics Captaincy & Outreach · William Nzive",
@@ -17,5 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function TeamProjectPage() {
-  return <ProjectJourney projectKey="team-3598" />;
+  return <ProjectPage projectKey="team-3598" />;
 }

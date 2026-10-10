@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ProjectJourney } from "../../components/ProjectJourney";
+import { ProjectPage } from "../../components/ProjectPage";
 
 export const metadata: Metadata = {
   title: "Vulcan 6-Axis Robot Arm · Mechanical Design Study · William Nzive",
@@ -17,5 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function VulcanProjectPage() {
-  return <ProjectJourney projectKey="vulcan" />;
+  return <ProjectPage projectKey="vulcan" />;
 }

@@ -156,7 +156,7 @@ export const chapters: Chapter[] = [
     status: "Built & Exhibited at Open Sauce",
     title: "Ender3-2: large-format machine salvage and rapid builds.",
     intent: "Rebuild decommissioned printer hardware into an expanded Cartesian platform for under $20 in new materials.",
-    body: "Rebuilt two failed, basically e-waste Ender 3s into an expanded 585 × 775 × 230 mm Cartesian machine with custom Marlin firmware and a 12 × 18 dynamic bed leveling mesh.",
+    body: "Rebuilt two scrapped Ender 3s into an expanded 585 × 775 × 230 mm Cartesian machine with custom Marlin firmware and a 12 × 18 dynamic bed leveling mesh.",
     records: [
       { label: "Build Volume", value: "585 × 775 × 230 mm envelope (over 3× standard build volume)" },
       { label: "Budget & Time", value: "$16 new material expenditure · ~64 hours fabrication" },
@@ -196,7 +196,7 @@ export const chapters: Chapter[] = [
     records: [
       { label: "Email", value: "williamnzive2007@gmail.com" },
       { label: "Profiles", value: "GitHub (@StillPillWill) · LinkedIn" },
-      { label: "Availability", value: "Summer 2026 internships · co-ops · research collaborations" },
+      { label: "Availability", value: "Internships · co-ops · research collaborations" },
     ],
     accent: "#e5b86b",
   },
@@ -234,7 +234,7 @@ export const projects: Record<ProjectKey, Project> = {
         title: "Hardware-synchronized audio capture and chunked binary storage.",
         intent: "Build a synchronized dataset pairing RF phase disturbances directly with calibrated acoustic ground truth.",
         body: "Supervised acoustic training requires exact temporal alignment between RF perturbations and acoustic waveforms. I developed a host-side collection daemon in Python that synchronizes dual microcontrollers with multi-channel audio input, streaming into chunked binary storage with index tables. This system compiled a corpus of 4.6 billion raw packets and 98 hours of paired audio on roughly $40 of total hardware.",
-        facts: ["4.6B raw packets", "98 hours paired audio", "~$40 hardware BOM", "Sub-millisecond sync"],
+        facts: ["4.6B raw packets", "98 hours paired audio", "~$40 hardware BOM", "Paired RF + audio"],
         visual: "instrument",
       },
       {
@@ -321,7 +321,7 @@ export const projects: Record<ProjectKey, Project> = {
     name: "Ender3-2",
     domain: "Mechanical Systems & Machine Design",
     status: "Built & Exhibited at Open Sauce",
-    deck: "A salvage-driven large-format Cartesian machine rebuilt from two failed, basically e-waste donor printers, scaled to an expanded 585 × 775 × 230 mm build envelope with custom firmware and demonstrated live in continuous operation at Open Sauce.",
+    deck: "A salvage-driven large-format Cartesian machine rebuilt from two scrapped donor printers, scaled to an expanded 585 × 775 × 230 mm build envelope with custom firmware and demonstrated live in continuous operation at Open Sauce.",
     accent: "#e5b86b",
     repo: "https://github.com/StillPillWill/Ender3-2",
     model: "/portfolio/models/ender3-2/ender-showcase.glb",
@@ -329,9 +329,9 @@ export const projects: Record<ProjectKey, Project> = {
       {
         label: "Problem & Salvage",
         title: "Rebuilding decommissioned machines into a 3× larger build envelope.",
-        intent: "Reclaim functional extrusions, motors, and electronics from two broken, basically e-waste printers into an expanded build envelope.",
-        body: "Standard desktop 3D printers have ~220 × 220 mm beds. Salvaging structural extrusions, leadscrews, stepper motors, and motion hardware from two discarded, basically e-waste Ender 3 units, I built an expanded Cartesian platform achieving a 585 × 775 × 230 mm build volume with $16 in new expenditure for timing belts and plywood.",
-        facts: ["2 e-waste printers salvaged", "585 × 775 × 230 mm envelope", "$16 new material BOM", "Over 3× standard volume"],
+        intent: "Reclaim functional extrusions, motors, and electronics from two scrapped printers into an expanded build envelope.",
+        body: "Standard desktop 3D printers have ~220 × 220 mm beds. Salvaging structural extrusions, leadscrews, stepper motors, and motion hardware from two scrapped Ender 3 units, I built an expanded Cartesian platform achieving a 585 × 775 × 230 mm build volume with $16 in new expenditure for timing belts and plywood.",
+        facts: ["2 scrapped printers salvaged", "585 × 775 × 230 mm envelope", "$16 new material BOM", "Over 3× standard volume"],
         visual: "model",
       },
       {
@@ -362,8 +362,8 @@ export const projects: Record<ProjectKey, Project> = {
         label: "Public Exhibition",
         title: "Demonstrated live in continuous multi-hour operation at Open Sauce.",
         intent: "Validate mechanical reliability under continuous multi-hour public demonstration.",
-        body: "At the Open Sauce maker festival in San Francisco, the rebuilt machine operated live as a working centerpiece throughout the event. Over multiple hours of continuous exhibition for hundreds of attendees, the enlarged platform maintained calibration and motion reliability without structural or thermal failure.",
-        facts: ["Open Sauce exhibitor", "Multi-hour continuous demo", "Zero mechanical failures", "Public reliability test"],
+        body: "At the Open Sauce maker festival in San Mateo, the rebuilt machine ran live as a working exhibit. Over multiple hours of continuous operation the enlarged platform held calibration and kept printing.",
+        facts: ["Open Sauce exhibitor", "San Mateo, 2026", "Multi-hour continuous demo", "Public reliability test"],
         visual: "media",
       },
     ],
@@ -405,7 +405,7 @@ export const projects: Record<ProjectKey, Project> = {
         title: "Hands-on engineering mentorship in programming, CAD, and shop fabrication.",
         intent: "Mentor students in robot programming, CAD modeling, manual/CNC machining, and shop safety.",
         body: "Mentored students directly in Java robot programming, Git version control, Onshape CAD modeling, manual machining, CNC fabrication, and 3D printing, building technical capability and ensuring shop safety standards.",
-        facts: ["Java & Git", "Onshape CAD", "Machining & welding", "3D printing mentorship"],
+        facts: ["Java & Git", "Onshape CAD", "Machining", "3D printing mentorship"],
         visual: "media",
       },
       {
@@ -439,3 +439,62 @@ export const contact = {
   github: "https://github.com/StillPillWill",
   linkedin: "https://www.linkedin.com/in/william-nzive-622226376/",
 };
+
+export type Stat = { to: number; label: string; prefix?: string; suffix?: string; decimals?: number; text?: string };
+
+/** Headline numbers per project — every figure here appears in the résumé or project records. */
+export const projectStats: Record<ProjectKey, Stat[]> = {
+  csi: [
+    { to: 90, suffix: "%", label: "closed-set speaker recognition" },
+    { to: 4.6, decimals: 1, suffix: "B", label: "CSI packets captured" },
+    { to: 10839, label: "records/s over native USB, 0 drops" },
+    { to: 40, prefix: "$", label: "total hardware cost" },
+  ],
+  vulcan: [
+    { to: 6, label: "degrees of freedom" },
+    { to: 16, prefix: "1:", label: "two-stage belt reduction" },
+    { to: 32, suffix: " N·m", label: "target holding torque, J1–J3" },
+    { to: 0, text: "⅓", label: "V2 target cost relative to V1" },
+  ],
+  "ender3-2": [
+    { to: 585, suffix: " × 775", label: "mm bed, from two scrapped printers" },
+    { to: 216, label: "probe points (12 × 18 mesh)" },
+    { to: 16, prefix: "$", label: "in new material" },
+    { to: 64, suffix: " h", label: "logged build time" },
+  ],
+  "team-3598": [
+    { to: 40, suffix: "+", label: "students led as captain" },
+    { to: 5, label: "working groups coordinated" },
+    { to: 4452, label: "students reached through outreach" },
+    { to: 0, text: "Impact", label: "FIRST Impact Award · World Championship berth" },
+  ],
+};
+
+/** Short homepage framing for each featured project. */
+export const featured: Array<{ key: ProjectKey; kicker: string; title: string; line: string }> = [
+  {
+    key: "csi",
+    kicker: "Research · embedded sensing",
+    title: "Hearing sound through Wi‑Fi",
+    line: "ESP32 firmware, a 10,839 records/s USB capture path, and models that identify speakers from channel-state information alone.",
+  },
+  {
+    key: "vulcan",
+    kicker: "Mechanical design · robotics",
+    title: "Vulcan, a six-axis arm",
+    line: "An open-source arm built around timing-belt reductions and printed structure instead of precision gearboxes. V1 CAD complete; V2 underway.",
+  },
+  {
+    key: "ender3-2",
+    kicker: "Fabrication · firmware",
+    title: "Ender3‑2, two dead printers made one big one",
+    line: "Salvaged into a 585 × 775 mm machine with custom Marlin and a 12 × 18 leveling mesh, then run live at Open Sauce.",
+  },
+  {
+    key: "team-3598",
+    kicker: "Leadership · competitive robotics",
+    title: "Captain, FRC Team 3598",
+    line: "Led 40+ students across five groups to the FIRST Impact Award and a World Championship berth; outreach reached 4,452 students.",
+  },
+];
+

@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { RevealObserver } from "./components/RevealObserver";
 
 export const viewport: Viewport = {
-  themeColor: "#07090b",
+  themeColor: "#0e0d0b",
   colorScheme: "dark",
 };
 
@@ -59,8 +60,6 @@ export const metadata: Metadata = {
     title: "William Nzive — Software, sensing, and machines",
     description:
       "Computer Science & Engineering student at UC Davis building embedded software, robotics kinematics, and sensor pipelines.",
-    site: "@StillPillWill",
-    creator: "@StillPillWill",
     images: ["/og.jpg"],
   },
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
@@ -85,7 +84,7 @@ const structuredData = {
       },
       sameAs: [
         "https://github.com/StillPillWill",
-        "https://www.linkedin.com/in/william-nzive/",
+        "https://www.linkedin.com/in/william-nzive-622226376/",
       ],
       knowsAbout: [
         "Embedded Systems",
@@ -133,28 +132,20 @@ const structuredData = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="no-js" suppressHydrationWarning>
       <head>
-        <link
-          rel="preload"
-          href="/fonts/manrope-variable.ttf"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href="/fonts/dm-mono-regular.ttf"
-          as="font"
-          type="font/ttf"
-          crossOrigin="anonymous"
-        />
         <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          // mark JS before first paint so reveal styles never hide content for no-JS visitors
+          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.replace('no-js','js')" }}
         />
+        <link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </head>
-      <body>{children}</body>
+      <body id="top">
+        {children}
+        <RevealObserver />
+      </body>
     </html>
   );
 }

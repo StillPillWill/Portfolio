@@ -1,0 +1,15 @@
+import puppeteer from "puppeteer-core";
+const browser = await puppeteer.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: "new" });
+const BASE = "http://localhost:4174";
+await browser.defaultBrowserContext().overridePermissions(BASE, ["clipboard-read", "clipboard-write", "clipboard-sanitized-write"]);
+const page = await browser.newPage();
+await page.setViewport({ width: 1440, height: 900 });
+page.on("console", (m) => console.log("console", m.text()));
+await page.goto(BASE + "/contact", { waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 1200));
+console.log("before:", await page.$eval(".copy-btn", (e) => e.textContent), await page.$eval(".copy-btn", (e) => !!e.__reactProps$ || Object.keys(e).join(",")));
+await page.click(".copy-btn");
+await new Promise((r) => setTimeout(r, 400));
+console.log("after:", await page.$eval(".copy-btn", (e) => e.textContent + " state=" + e.dataset.state));
+console.log("clip:", await page.evaluate(() => navigator.clipboard.readText().catch((e) => "ERR " + e.message)));
+await browser.close();

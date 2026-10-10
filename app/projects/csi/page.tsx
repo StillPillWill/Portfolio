@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ProjectJourney } from "../../components/ProjectJourney";
+import { ProjectPage } from "../../components/ProjectPage";
 
 export const metadata: Metadata = {
   title: "CSI Audio Sensing Research · Wi-Fi RF Capture & ML · William Nzive",
@@ -17,5 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function CsiProjectPage() {
-  return <ProjectJourney projectKey="csi" />;
+  return <ProjectPage projectKey="csi" />;
 }

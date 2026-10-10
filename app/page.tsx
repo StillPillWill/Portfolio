@@ -1,5 +1,5 @@
-import { SignalFoundry } from "./components/SignalFoundry";
+import { Home } from "./components/Home";
 
-export default function Home() {
-  return <SignalFoundry />;
+export default function Page() {
+  return <Home />;
 }

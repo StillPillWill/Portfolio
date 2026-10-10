@@ -128,13 +128,13 @@ export const cv = {
       title: "Ender3-2",
       role: "Builder / firmware author",
       meta: "Fabrication / firmware / 2026",
-      intent: "Salvage usable mechanical and electrical components from two broken, basically e-waste Ender 3s into an expanded 585 × 775 × 230 mm Cartesian platform for ~$16 in new material.",
-      summary: "Salvaged usable mechanical and electrical parts from two basically e-waste Ender 3s, restructuring them into a working Cartesian printer with an expanded 585 × 775 × 230 mm build volume.",
+      intent: "Salvage usable mechanical and electrical components from two scrapped Ender 3s into an expanded 585 × 775 × 230 mm Cartesian platform for ~$16 in new material.",
+      summary: "Salvaged usable mechanical and electrical parts from two scrapped Ender 3s, restructuring them into a working Cartesian printer with an expanded 585 × 775 × 230 mm build volume.",
       proof: "Physically built and demonstrated live at Open Sauce; logged ~64 hours build time on a ~$16 new material budget.",
       route: "/projects/ender3-2",
       dossier: {
-        intent: "Expand Cartesian build volume using salvaged e-waste parts while ensuring mechanical stability and bed level calibration.",
-        architecture: "Cartesian machine reconstruction combining salvaged extrusions, motors, leadscrews, and controller from two decommissioned, basically e-waste Ender 3 printers into an expanded 585 × 775 × 230 mm platform. Custom live-editable firmware with a 12 × 18 bed probe mesh.",
+        intent: "Expand Cartesian build volume using salvaged parts while ensuring mechanical stability and bed level calibration.",
+        architecture: "Cartesian machine reconstruction combining salvaged extrusions, motors, leadscrews, and controller from two scrapped Ender 3 printers into an expanded 585 × 775 × 230 mm platform. Custom live-editable firmware with a 12 × 18 bed probe mesh.",
         stack: ["Cartesian Mechanics", "Creality 4.2.2 Board", "Custom Firmware", "4040 Aluminum Extrusions", "Dual Lead Screws", "Machine Calibration"],
         metrics: [
           "585 × 775 × 230 mm machine build envelope",

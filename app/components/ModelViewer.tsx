@@ -1,17 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, type ComponentType, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ComponentType } from "react";
 import type { ModelViewerProps, SpinHandle } from "./viewer/types";
 
-/* eslint-disable @next/next/no-img-element -- static WebGL fallback frame, not a content image */
+/* eslint-disable @next/next/no-img-element -- static fallback frame for the WebGL viewer */
 
 /**
- * Public model viewer. Renders a static fallback frame immediately
- * (SSR-safe), then lazily hydrates a three.js canvas only when:
- *  - the viewport is wide enough (no 3D on small phones),
- *  - WebGL is available,
- *  - reduced motion is off,
- * and the user has interacted with the page (or after 2.5s idle).
+ * Interactive GLB viewer. Server-renders a still render of the model, then
+ * swaps in a three.js canvas once the frame scrolls near the viewport — only on
+ * screens ≥ 700 px wide with WebGL and without reduced-motion. The page scroll
+ * wheel is never captured (zoom is disabled); drag rotates.
  */
 
 const FALLBACKS: Record<string, string> = {
@@ -19,40 +17,33 @@ const FALLBACKS: Record<string, string> = {
   "ender3-2": "/portfolio/media/ender3-2/full-build.webp",
 };
 
-export function ModelViewer({
-  url,
-  projectKey,
-  label,
-  hudRight = "Interactive 3D",
-  className = "",
-  style,
-}: ModelViewerProps) {
-  const [stage, setStage] = useState<"idle" | "loading" | "ready" | "failed">("idle");
-  const [progress, setProgress] = useState(0);
-  const [Scene, setScene] = useState<ComponentType<{
-    url: string;
-    projectKey?: string;
-    spinRef: React.RefObject<SpinHandle>;
-    onReady: () => void;
-    onError: () => void;
-  }> | null>(null);
+type SceneProps = {
+  url: string;
+  projectKey?: string;
+  spinRef: React.RefObject<SpinHandle>;
+  onReady: () => void;
+  onError: () => void;
+};
+
+export function ModelViewer({ url, projectKey, label, className = "" }: ModelViewerProps) {
+  const [stage, setStage] = useState<"idle" | "loading" | "ready" | "static">("idle");
+  const [Scene, setScene] = useState<ComponentType<SceneProps> | null>(null);
   const spinRef = useRef<SpinHandle>({ active: true });
   const hostRef = useRef<HTMLDivElement>(null);
 
-  // Pause auto-spin while the user is dragging.
+  // Pause auto-spin while dragging.
   useEffect(() => {
     if (stage !== "ready") return;
     const host = hostRef.current;
     if (!host) return;
+    let timer: number | undefined;
     const down = () => {
       spinRef.current.active = false;
+      window.clearTimeout(timer);
     };
-    let timer: number | undefined;
     const up = () => {
       window.clearTimeout(timer);
-      timer = window.setTimeout(() => {
-        spinRef.current.active = true;
-      }, 2600);
+      timer = window.setTimeout(() => (spinRef.current.active = true), 2400);
     };
     host.addEventListener("pointerdown", down);
     window.addEventListener("pointerup", up);
@@ -63,121 +54,72 @@ export function ModelViewer({
     };
   }, [stage]);
 
-  // Gate + lazy-load the heavy scene.
+  // Capability gate + load when near viewport.
   useEffect(() => {
-    if (stage !== "idle") return;
-
-    const ok =
+    const host = hostRef.current;
+    if (!host || stage !== "idle") return;
+    const capable =
       window.matchMedia("(min-width: 700px)").matches &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
       (() => {
         try {
-          const c = document.createElement("canvas");
-          return !!(
-            c.getContext("webgl") ||
-            c.getContext("experimental-webgl")
-          );
+          return !!document.createElement("canvas").getContext("webgl2");
         } catch {
           return false;
         }
       })();
-
-    if (!ok) {
-      // One-shot capability gate evaluated at mount (viewport width,
-      // reduced motion, WebGL). Runs once; cannot cascade.
+    if (!capable) {
+      // one-shot capability decision at mount
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setStage("failed");
+      setStage("static");
       return;
     }
-
     let cancelled = false;
-    const start = () => {
-      if (cancelled) return;
-      import("./viewer/ViewerScene")
-        .then((mod) => {
-          if (cancelled) return;
-          setScene(() => mod.default);
-          setStage("loading");
-        })
-        .catch(() => setStage("failed"));
-    };
-
-    const t = window.setTimeout(start, 2500);
-    const kick = () => {
-      window.clearTimeout(t);
-      start();
-    };
-    window.addEventListener("pointerdown", kick, { once: true });
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        import("./viewer/ViewerScene")
+          .then((mod) => {
+            if (cancelled) return;
+            setScene(() => mod.default);
+            setStage("loading");
+          })
+          .catch(() => !cancelled && setStage("static"));
+      },
+      { rootMargin: "200px" },
+    );
+    io.observe(host);
     return () => {
       cancelled = true;
-      window.clearTimeout(t);
-      window.removeEventListener("pointerdown", kick);
+      io.disconnect();
     };
   }, [stage]);
 
-  // Fake-but-honest progress while the chunk + GLB stream in.
-  useEffect(() => {
-    if (stage !== "loading") return;
-    const iv = window.setInterval(() => {
-      setProgress((p) => (p >= 92 ? 92 : p + Math.max(1, Math.round((92 - p) / 8))));
-    }, 140);
-    return () => window.clearInterval(iv);
-  }, [stage]);
-
-  const showCanvas = stage === "loading" || stage === "ready";
+  const fallback = FALLBACKS[projectKey];
 
   return (
-    <div
-      ref={hostRef}
-      className={`viewer-frame ${className}`.trim()}
-      style={style as CSSProperties}
-      data-stage={stage}
-    >
-      <span className="corner corner-tl" />
-      <span className="corner corner-tr" />
-      <span className="corner corner-bl" />
-      <span className="corner corner-br" />
-
-      <span className="viewer-hud viewer-hud-tl">{label}</span>
-      <span className="viewer-hud viewer-hud-tr">
-        {stage === "loading" ? `Loading ${progress}%` : hudRight}
-        {stage === "ready" ? " · drag to rotate" : ""}
-      </span>
-
-      {showCanvas && Scene ? (
+    <div ref={hostRef} className={`viewer ${className}`.trim()} data-stage={stage}>
+      {(stage === "loading" || stage === "ready") && Scene ? (
         <div className="viewer-canvas">
           <Scene
             url={url}
             projectKey={projectKey}
             spinRef={spinRef}
             onReady={() => setStage("ready")}
-            onError={() => setStage("failed")}
+            onError={() => setStage("static")}
           />
         </div>
       ) : null}
-
-      {stage === "failed" ? (
-        <figure className="viewer-fallback">
-          {FALLBACKS[projectKey] ? (
-            <img src={FALLBACKS[projectKey]} alt={label} decoding="async" />
-          ) : null}
-          <figcaption>{label}</figcaption>
-          <span className="viewer-hint">Static Preview</span>
-        </figure>
-      ) : (
-        stage !== "ready" && fallbackImage(projectKey, label)
-      )}
+      {stage !== "ready" && fallback ? (
+        <img className="viewer-still" src={fallback} alt={label} decoding="async" />
+      ) : null}
+      <div className="viewer-hud" aria-hidden={stage !== "ready"}>
+        <span>{label}</span>
+        <span>
+          {stage === "ready" ? "Drag to rotate" : stage === "loading" ? "Loading model…" : stage === "static" ? "CAD render" : ""}
+        </span>
+      </div>
     </div>
-  );
-}
-
-function fallbackImage(projectKey: string, label: string): ReactNode {
-  const src = FALLBACKS[projectKey];
-  if (!src) return null;
-  return (
-    <figure className="viewer-fallback">
-      <img src={src} alt={label} decoding="async" fetchPriority="high" />
-      <figcaption>{label}</figcaption>
-    </figure>
   );
 }

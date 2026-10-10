@@ -1,0 +1,11 @@
+import puppeteer from "puppeteer-core";
+const b = await puppeteer.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: "new" });
+const p = await b.newPage(); await p.setViewport({ width: 1440, height: 900 });
+p.on("console", m => console.log("console", m.type(), m.text().slice(0,200)));
+await p.goto("http://localhost:4174/projects/ender3-2", { waitUntil: "networkidle2" });
+await new Promise(r => setTimeout(r, 1000));
+console.log(await p.evaluate(() => { const li = document.querySelector(".gallery-item"); window.__li = li; return { n: document.querySelectorAll("[data-reveal]").length, inCount: document.querySelectorAll(".is-in").length }; }));
+await p.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+await new Promise(r => setTimeout(r, 1200));
+console.log(await p.evaluate(() => ({ sameNode: window.__li === document.querySelector(".gallery-item"), inDom: document.contains(window.__li), liIn: window.__li.classList.contains("is-in"), cls: window.__li.className, sh: document.documentElement.scrollHeight, sy: scrollY, top: window.__li.getBoundingClientRect().top })));
+await b.close();

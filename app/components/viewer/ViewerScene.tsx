@@ -253,7 +253,7 @@ export default function ViewerScene({ url, projectKey, spinRef, onReady, onError
 
         <FitCamera rootRef={rootRef} />
         <ContactShadows position={[0, -1.7, 0]} opacity={0.45} scale={10} blur={2.4} far={4} color="#000000" />
-        <OrbitControls enablePan={false} enableDamping dampingFactor={0.08} />
+        <OrbitControls enablePan={false} enableZoom={false} enableDamping dampingFactor={0.08} />
       </Canvas>
     </GLTFBoundary>
   );
