@@ -8,9 +8,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "William Nzive — Software, sensing, and machines",
+  title: "William Nzive — Computer Science & Engineering",
   description:
-    "William Nzive is a Computer Science and Engineering student at UC Davis building embedded software, robotics, and physical systems.",
+    "William Nzive is a Computer Science and Engineering student at UC Davis who learns what a problem needs and builds it — projects span software, machine learning, embedded systems, robotics, and fabrication.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://williamn.site"),
   alternates: {
     canonical: "/",
@@ -46,20 +46,20 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "William Nzive — Software, sensing, and machines",
+    title: "William Nzive — Computer Science & Engineering",
     description:
-      "Computer Science & Engineering student at UC Davis building embedded software, robotics kinematics, and sensor pipelines.",
+      "Computer Science & Engineering student at UC Davis. Builds and measures hard things across software, ML, electronics, and mechanical design.",
     url: "https://williamn.site",
     siteName: "William Nzive",
     locale: "en_US",
     type: "website",
-    images: [{ url: "/og.jpg", width: 1731, height: 909, alt: "William Nzive — software, sensing, and machines" }],
+    images: [{ url: "/og.jpg", width: 1731, height: 909, alt: "William Nzive — Computer Science & Engineering" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "William Nzive — Software, sensing, and machines",
+    title: "William Nzive — Computer Science & Engineering",
     description:
-      "Computer Science & Engineering student at UC Davis building embedded software, robotics kinematics, and sensor pipelines.",
+      "Computer Science & Engineering student at UC Davis. Builds and measures hard things across software, ML, electronics, and mechanical design.",
     images: ["/og.jpg"],
   },
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
@@ -76,7 +76,7 @@ const structuredData = {
       image: "https://williamn.site/og.jpg",
       jobTitle: "Computer Science & Engineering Student & Systems Builder",
       description:
-        "Undergraduate Computer Science and Engineering student at UC Davis building embedded software, robotics, and physical systems.",
+        "Undergraduate Computer Science and Engineering student at UC Davis. Projects in software, machine learning, embedded systems, robotics, and fabrication demonstrate a general ability to learn and build.",
       affiliation: {
         "@type": "EducationalOrganization",
         name: "University of California, Davis",
@@ -116,7 +116,7 @@ const structuredData = {
       "@type": "ProfilePage",
       "@id": "https://williamn.site/#profilepage",
       url: "https://williamn.site",
-      name: "William Nzive — Software, sensing, and machines",
+      name: "William Nzive — Computer Science & Engineering",
       isPartOf: {
         "@id": "https://williamn.site/#website",
       },

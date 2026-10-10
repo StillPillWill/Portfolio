@@ -23,19 +23,20 @@ export function Home() {
               </span>
               <span className="line">
                 <span>
-                  builds <em>firmware,</em>
+                  learns what a <em>hard problem</em>
                 </span>
               </span>
               <span className="line">
                 <span>
-                  <em>sensors</em> &amp; <em>machines.</em>
+                  needs, then <em>proves</em> it.
                 </span>
               </span>
             </h1>
             <p className="hero-lede">
-              I write the code close to the hardware and then prove it works: a Wi‑Fi sensing rig that recognises speakers
-              at 90% on $40 of parts, a six-axis arm designed around belts instead of gearboxes, and a printer rebuilt from
-              scrap with over three times the build volume.
+              I pick up whatever the problem demands — code, machine learning, electronics, CAD, a machine shop — and
+              measure the result instead of asserting it. The projects below are evidence of that, not the boundary of it:
+              speaker recognition over Wi‑Fi on $40 of parts, a six-axis arm, a printer rebuilt from scrap at over three
+              times the volume.
             </p>
             <div className="hero-cta">
               <a className="btn" href="#work">
@@ -60,7 +61,7 @@ export function Home() {
                 Selected <em>work</em>
               </>
             }
-            aside={<p>Four projects, each with something you can poke at.</p>}
+            aside={<p>Four projects that show how I work. Each has something you can poke at.</p>}
           />
           <div className="chapters">
             {featured.map((f, i) => (

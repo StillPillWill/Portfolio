@@ -69,8 +69,8 @@ export const chapters: Chapter[] = [
     number: "01",
     domain: "Profile · William Nzive",
     title: "Computer Science & Engineering at UC Davis.",
-    intent: "Build firmware, robotics kinematics, and RF sensor pipelines backed by empirical benchmarks.",
-    body: "Undergraduate Computer Science and Engineering student at UC Davis working across embedded firmware, RF sensing, robotics CAD, and physical fabrication.",
+    intent: "Learn what a problem needs, build it, and back it with measurements.",
+    body: "Undergraduate Computer Science and Engineering student at UC Davis. The projects here demonstrate range, not a single specialty.",
     records: [
       { label: "Focus", value: "Bare-metal firmware · RF sensing · robot kinematics · fabrication" },
       { label: "Demonstrated", value: "90% CSI speaker recognition · 4.6B packets · 6-axis CAD · large-format CNC" },
@@ -192,7 +192,7 @@ export const chapters: Chapter[] = [
     domain: "CONTACT & OPPORTUNITIES",
     title: "Available for engineering roles and research collaborations.",
     intent: "Connect with engineering teams building embedded systems, robotics, and hardware.",
-    body: "Open to internships and technical roles in embedded firmware, robotics kinematics, RF sensing pipelines, and systems software.",
+    body: "Open to internships and technical roles across software, machine learning, systems, and hardware.",
     records: [
       { label: "Email", value: "williamnzive2007@gmail.com" },
       { label: "Profiles", value: "GitHub (@StillPillWill) · LinkedIn" },

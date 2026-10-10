@@ -181,14 +181,14 @@ export function AboutBlock() {
     <div className="about">
       <div className="about-copy" data-reveal>
         <p className="about-lead">
-          I like problems where the software only works if the hardware does too — and the only way to know is to
-          measure it.
+          I like hard problems I don&apos;t yet know how to solve, and I like finding out whether the answer actually
+          works by measuring it.
         </p>
         <p>
           I&apos;m a first-year Computer Science and Engineering student at UC Davis, and I graduated salutatorian from the
-          School of Engineering and Sciences in Sacramento. My work runs from bare-metal firmware and USB transport, through
-          signal processing and model training, to CAD, machining, and getting a machine to survive a day on an exhibition
-          floor.
+          School of Engineering and Sciences in Sacramento. The projects on this site are how I practice that, not the limits of it: they happen to cover
+          firmware, signal processing, model training, CAD, and machining because those are what each problem called for.
+          The next one could be anything.
         </p>
         <p>
           Before that I captained FRC Team 3598, taught myself computer architecture by writing a bootloader and a toy OS,

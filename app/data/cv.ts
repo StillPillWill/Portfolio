@@ -21,9 +21,9 @@ export type CvRecord = {
 
 export const cv = {
   name: "William Nzive",
-  headline: "Computer Science & Engineering student at UC Davis building embedded software, robotics, and physical systems.",
+  headline: "Computer Science & Engineering student at UC Davis. Learns what a hard problem needs, builds it, and measures the result.",
   summary:
-    "Undergraduate Computer Science and Engineering student at UC Davis working across embedded firmware, robotics kinematics, RF sensing, and mechanical fabrication.",
+    "Undergraduate Computer Science and Engineering student at UC Davis. Projects in embedded systems, machine learning, robotics, and fabrication demonstrate how I learn and build.",
   education: [
     {
       institution: "University of California, Davis",
