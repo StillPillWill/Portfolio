@@ -105,7 +105,7 @@ await page.setViewport({ width: 390, height: 844 });
 await page.goto(BASE + "/projects", { waitUntil: "networkidle2" });
 await sleep(600);
 check("mobile: no horizontal overflow", await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
-check("mobile: filter bar is not sticky", (await page.$eval(".explorer-bar", (e) => getComputedStyle(e).position)) === "static");
+check("mobile: filter bar is not sticky", (await page.$eval(".explorer-bar", (e) => getComputedStyle(e).position)) !== "sticky");
 check("mobile: chips are one scrollable row", await page.$eval(".chips", (e) => e.scrollWidth > e.clientWidth && e.getBoundingClientRect().height < 60));
 check("mobile: first card visible within first screen", await page.$eval(".tile", (e) => e.getBoundingClientRect().top < 844));
 await page.screenshot({ path: "qa/x/explorer-mobile.png" });

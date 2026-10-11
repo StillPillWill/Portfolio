@@ -47,6 +47,11 @@ for (const w of [1440, 1100, 820, 390]) {
       // hero: text block and visual share a top edge (within 6px)
       const c = document.querySelector(".p-hero-copy .crumbs"), v = document.querySelector(".p-hero-visual");
       if (c && v && innerWidth > 900) { const d = Math.abs(c.getBoundingClientRect().top - v.getBoundingClientRect().top); if (d > 8) issues.push(`project hero: text top is ${Math.round(d)}px off the visual top`); }
+      // pseudo-element dividers must sit inside their parent's box (a static parent makes them attach to the page)
+      for (const e of document.querySelectorAll(".explorer-bar")) {
+        const ps = getComputedStyle(e).position, af = getComputedStyle(e, "::after");
+        if (af.content !== "none" && af.display !== "none" && ps === "static") issues.push("explorer-bar divider on a static box (line crosses page)");
+      }
       return { n, issues };
     });
     checked += res.n;

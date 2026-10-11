@@ -735,7 +735,7 @@ a.tile-link:hover .tile-media img { transform: none; }
 /* dividers that ran into the page margins: draw them at content width */
 .explorer-bar { border-bottom: 0; }
 .explorer-bar::after { content: ""; position: absolute; left: var(--pad); right: var(--pad); bottom: 0; height: 1px; background: var(--line); }
-.explorer-flat .explorer-bar::after { left: 0; right: 0; }
+.explorer-flat .explorer-bar::after { display: none; }
 .p-pager { border-top: 0; background: linear-gradient(var(--line), var(--line)) center top / calc(100% - 2 * var(--pad)) 1px no-repeat; }
 
 /* stats: numbers sit on the content edge, not 20px inside it */
@@ -805,3 +805,9 @@ a.tile-link:hover .tile-media img { transform: none; }
 .hero.intro::after { background: linear-gradient(90deg, var(--bg) 0%, var(--bg) 50%, rgba(247, 247, 244, 0.75) 60%, rgba(247, 247, 244, 0) 78%), linear-gradient(0deg, var(--bg) 0%, rgba(247, 247, 244, 0.85) 10%, rgba(247, 247, 244, 0) 34%); }
 @media (max-width: 1000px) { .intro-inner > * { max-width: 52ch; } .hero.intro::after { background: linear-gradient(90deg, var(--bg) 0%, rgba(247, 247, 244, 0.94) 55%, rgba(247, 247, 244, 0.5) 100%), linear-gradient(0deg, var(--bg) 0%, rgba(247, 247, 244, 0) 30%); } }
 @media (max-width: 700px) { .intro-inner > * { max-width: none; } .hero.intro::after { background: linear-gradient(0deg, var(--bg) 46%, rgba(247, 247, 244, 0.9) 64%, rgba(247, 247, 244, 0.25) 100%); } }
+
+/* the divider under the filter bar only exists where the bar is its own positioned box */
+.explorer-bar { position: sticky; }
+.explorer-flat .explorer-bar, .explorer-bar:not(.x) { }
+@media (max-width: 700px) { .explorer-bar { position: relative; } }
+.explorer-flat .explorer-bar { position: relative; }
