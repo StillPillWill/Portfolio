@@ -1,9 +1,14 @@
-import { contact, featured, projects } from "../data/portfolio";
-import { Arrow, ContactBlock, AboutBlock, ExperienceTimeline, ProjectLink, SectionHead, SiteFooter, Specimen, Stats, WorkIndex } from "./blocks";
+import { allProjects, featuredProjects, site } from "../../content";
+import { Arrow, ContactBlock, AboutBlock, ExperienceTimeline, ProjectLink, SectionHead, SiteFooter, Stats, WorkIndex } from "./blocks";
 import { SubcarrierField } from "./motion/SubcarrierField";
 import { SiteHeader } from "./SiteHeader";
+import { Specimen } from "./specimens";
+
+const MORE_LIMIT = 8;
 
 export function Home() {
+  const more = allProjects.filter((p) => p.featured === undefined);
+  const shown = more.slice(0, MORE_LIMIT);
   return (
     <>
       <a className="skip-link" href="#main">
@@ -42,8 +47,8 @@ export function Home() {
               <a className="btn" href="#work">
                 See the work <Arrow dir="e" />
               </a>
-              <a className="link" href={`mailto:${contact.email}`}>
-                {contact.email}
+              <a className="link" href={`mailto:${site.email}`}>
+                {site.email}
               </a>
             </div>
           </div>
@@ -61,41 +66,54 @@ export function Home() {
                 Selected <em>work</em>
               </>
             }
-            aside={<p>Four projects that show how I work. Each has something you can poke at.</p>}
+            aside={<p>{`${featuredProjects.length} projects that show how I work. Each has something you can poke at.`}</p>}
           />
           <div className="chapters">
-            {featured.map((f, i) => (
-              <article key={f.key} className={`chapter chapter-${f.key}${i % 2 ? " chapter-flip" : ""}`} aria-labelledby={`ch-${f.key}`}>
+            {featuredProjects.map((p, i) => (
+              <article key={p.slug} className={`chapter chapter-${p.slug}${i % 2 ? " chapter-flip" : ""}`} aria-labelledby={`ch-${p.slug}`}>
                 <div className="chapter-copy" data-reveal>
                   <p className="label">
-                    <span className="mono">{projects[f.key].number}</span> {f.kicker}
+                    <span className="mono">{String(p.featured).padStart(2, "0")}</span> {p.kicker ?? p.categories.join(" · ")}
                   </p>
-                  <h3 id={`ch-${f.key}`}>{f.title}</h3>
-                  <p className="chapter-line">{f.line}</p>
-                  <Stats projectKey={f.key} compact />
-                  <ProjectLink k={f.key} />
+                  <h3 id={`ch-${p.slug}`}>{p.headline ?? p.name}</h3>
+                  <p className="chapter-line">{p.summary}</p>
+                  <Stats project={p} compact />
+                  <ProjectLink project={p} />
                 </div>
                 <div className="chapter-visual" data-reveal>
-                  <Specimen projectKey={f.key} />
+                  <Specimen project={p} />
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="section" id="more" aria-labelledby="more-title">
-          <SectionHead
-            id="more-title"
-            index="02"
-            title={
-              <>
-                Also <em>built</em>
-              </>
-            }
-            aside={<p>Smaller projects and ongoing research. Open any row for the details.</p>}
-          />
-          <WorkIndex />
-        </section>
+        {shown.length ? (
+          <section className="section" id="more" aria-labelledby="more-title">
+            <SectionHead
+              id="more-title"
+              index="02"
+              title={
+                <>
+                  Also <em>built</em>
+                </>
+              }
+              aside={
+                <a className="link" href="/projects">
+                  {`All ${allProjects.length} projects`} <Arrow dir="e" />
+                </a>
+              }
+            />
+            <WorkIndex items={shown} />
+            {more.length > shown.length ? (
+              <p className="more-foot">
+                <a className="link" href="/projects">
+                  {`+ ${more.length - shown.length} more on the projects page`} <Arrow dir="e" />
+                </a>
+              </p>
+            ) : null}
+          </section>
+        ) : null}
 
         <section className="section" id="experience" aria-labelledby="exp-title">
           <SectionHead

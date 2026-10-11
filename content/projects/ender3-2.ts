@@ -1,0 +1,138 @@
+import { defineProject } from "../define.ts";
+
+export default defineProject({
+  slug: "ender3-2",
+  name: "Ender3-2",
+  tier: "flagship",
+  status: "complete",
+  statusNote: "Built & Exhibited at Open Sauce",
+  start: 2026,
+  featured: 3,
+  categories: ["fabrication","systems"],
+  skills: ["Marlin firmware","4040 extrusion","Machine calibration","Creality 4.2.2"],
+  role: "Builder / firmware author",
+  domain: "Mechanical Systems & Machine Design",
+  summary: "Salvaged into a 585 × 775 mm machine with custom Marlin and a 12 × 18 leveling mesh, then run live at Open Sauce.",
+  headline: "Ender3‑2, two dead printers made one big one",
+  kicker: "Fabrication · firmware",
+  deck: "A salvage-driven large-format Cartesian machine rebuilt from two scrapped donor printers, scaled to an expanded 585 × 775 × 230 mm build envelope with custom firmware and demonstrated live in continuous operation at Open Sauce.",
+  links: {
+    repo: "https://github.com/StillPillWill/Ender3-2",
+  },
+  stats: [
+    {
+      to: 585,
+      suffix: " × 775",
+      label: "mm bed, from two scrapped printers",
+    },
+    {
+      to: 216,
+      label: "probe points (12 × 18 mesh)",
+    },
+    {
+      to: 16,
+      prefix: "$",
+      label: "in new material",
+    },
+    {
+      to: 64,
+      suffix: " h",
+      label: "logged build time",
+    },
+  ],
+  specimen: "bedmesh",
+  modelRotation: [-90, 0, 0],
+  model: "ender-showcase.glb",
+  still: "full-build.webp",
+  media: [
+    {
+      file: "printing-motion.mp4",
+      alt: "Ender3-2 running a large-format boat print",
+      caption: "Completed Cartesian machine printing in workshop",
+      ratio: "portrait",
+      kind: "video",
+    },
+    {
+      file: "machine-in-operation.webp",
+      alt: "Ender3-2 printing a large multicolor boat",
+      caption: "Oversized multicolor print on 585 × 775 mm bed",
+      ratio: "portrait",
+    },
+    {
+      file: "full-build.webp",
+      alt: "Full Ender3-2 machine and oversized build surface",
+      caption: "Assembled frame with extended 4040 aluminum extrusions",
+      ratio: "portrait",
+    },
+    {
+      file: "boat-print.webp",
+      alt: "Large boat print on Ender3-2",
+      caption: "Scale comparison on expanded build platform",
+      ratio: "portrait",
+    },
+    {
+      file: "assembly-stage.webp",
+      alt: "Ender3-2 during physical assembly",
+      caption: "Frame and dual lead-screw assembly in workshop",
+      ratio: "portrait",
+    },
+  ],
+  notes: [
+    {
+      label: "Problem & Salvage",
+      title: "Rebuilding decommissioned machines into a 3× larger build envelope.",
+      intent: "Reclaim functional extrusions, motors, and electronics from two scrapped printers into an expanded build envelope.",
+      body: "Standard desktop 3D printers have ~220 × 220 mm beds. Salvaging structural extrusions, leadscrews, stepper motors, and motion hardware from two scrapped Ender 3 units, I built an expanded Cartesian platform achieving a 585 × 775 × 230 mm build volume with $16 in new expenditure for timing belts and plywood.",
+      facts: [
+        "2 scrapped printers salvaged",
+        "585 × 775 × 230 mm envelope",
+        "$16 new material BOM",
+        "Over 3× standard volume",
+      ],
+    },
+    {
+      label: "Structural Mechanics",
+      title: "Extended 4040 extrusion frame with dual-axis stabilization.",
+      intent: "Ensure structural rigidity across the expanded Cartesian motion envelope using reinforced hardware.",
+      body: "The enlarged frame uses extended 4040 aluminum extrusion, a dual-lead-screw Y axis, dual stepper motors, and a plywood bed reinforced with salvaged metal to ensure stability and smooth motion across the oversized span.",
+      facts: ["Extended 4040 extrusion","Dual lead screws","Dual motors","Reinforced bed"],
+    },
+    {
+      label: "Firmware Calibration",
+      title: "Custom Marlin firmware with 12 × 18 bilinear bed compensation mesh.",
+      intent: "Compensate for bed surface height variations across the large build platform.",
+      body: "Large-format heated beds inevitably exhibit thermal warping and mechanical runout that standard 3x3 bed leveling cannot resolve. I compiled custom Marlin firmware for the Creality 4.2.2 32-bit board, configuring calibrated microstepping, acceleration curves, and an extensive 12 × 18 point bilinear probe mesh that dynamically interpolates nozzle height across all 4,533 cm² of print area.",
+      facts: [
+        "Creality 4.2.2 32-bit",
+        "12 × 18 bilinear mesh",
+        "Custom Marlin build",
+        "Dynamic height mapping",
+      ],
+    },
+    {
+      label: "Materials & Budget",
+      title: "Documented 64 hours of hands-on build time on a $16 new material budget.",
+      intent: "Track fabrication hours and minimize cost through component salvage.",
+      body: "The project engineering log documents 64 hours of fabrication, assembly, wiring, and tuning. Total incremental capital expenditure was held to $16 (replacement timing belts and bed plywood). All other structural extrusions, power supplies, stepper motors, and wiring harnesses were reclaimed and reconditioned from donor units.",
+      facts: ["64 hours build log","$16 incremental budget","Salvage engineering","Documented BOM"],
+    },
+    {
+      label: "Public Exhibition",
+      title: "Demonstrated live in continuous multi-hour operation at Open Sauce.",
+      intent: "Validate mechanical reliability under continuous multi-hour public demonstration.",
+      body: "At the Open Sauce maker festival in San Mateo, the rebuilt machine ran live as a working exhibit. Over multiple hours of continuous operation the enlarged platform held calibration and kept printing.",
+      facts: [
+        "Open Sauce exhibitor",
+        "San Mateo, 2026",
+        "Multi-hour continuous demo",
+        "Public reliability test",
+      ],
+    },
+  ],
+  seo: {
+    title: "Ender3-2 Large-Format 3D Printer · Physical Build · William Nzive",
+    description: "Rebuilt two scrapped Ender 3 printers into an expanded 585 × 775 × 230 mm Cartesian machine with custom firmware, exhibited live at Open Sauce.",
+    ogTitle: "Ender3-2 — Large-Format Machine Salvage & Firmware · William Nzive",
+    ogDescription: "Salvaged and combined two scrapped Ender 3s into an expanded 585 × 775 × 230 mm Cartesian platform with custom firmware, demonstrated live at Open Sauce.",
+  },
+});

@@ -62,7 +62,7 @@ export const metadata: Metadata = {
       "Computer Science & Engineering student at UC Davis. Builds and measures hard things across software, ML, electronics, and mechanical design.",
     images: ["/og.jpg"],
   },
-  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+  icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }, { url: "/favicon.ico", sizes: "any" }], shortcut: "/favicon.ico" },
 };
 
 const structuredData = {

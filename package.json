@@ -9,7 +9,9 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "start": "vinext start",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs",
+    "test": "npm run content:check && npm run build && node --test tests/*.test.mjs",
+    "content:check": "node tools/content-check.mjs",
+    "new:project": "node tools/new-project.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern legacy --ignore-pattern tmp",
     "db:generate": "drizzle-kit generate"
   },

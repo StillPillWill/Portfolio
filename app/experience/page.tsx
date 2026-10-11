@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { allProjects } from "../../content";
 import { Arrow, ExperienceTimeline, SiteFooter, WorkIndex } from "../components/blocks";
 import { SiteHeader } from "../components/SiteHeader";
 
@@ -32,7 +33,7 @@ export default function ExperiencePage() {
           <h2 id="more-title" className="p-sub" data-reveal>
             Additional projects
           </h2>
-          <WorkIndex />
+          <WorkIndex items={allProjects.filter((p) => p.tier !== "flagship")} />
         </section>
       </main>
       <SiteFooter />

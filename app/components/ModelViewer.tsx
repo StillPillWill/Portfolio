@@ -12,20 +12,15 @@ import type { ModelViewerProps, SpinHandle } from "./viewer/types";
  * wheel is never captured (zoom is disabled); drag rotates.
  */
 
-const FALLBACKS: Record<string, string> = {
-  vulcan: "/portfolio/media/vulcan-hero.webp",
-  "ender3-2": "/portfolio/media/ender3-2/full-build.webp",
-};
-
 type SceneProps = {
   url: string;
-  projectKey?: string;
+  rotation?: [number, number, number];
   spinRef: React.RefObject<SpinHandle>;
   onReady: () => void;
   onError: () => void;
 };
 
-export function ModelViewer({ url, projectKey, label, className = "" }: ModelViewerProps) {
+export function ModelViewer({ url, still, rotation, label, className = "" }: ModelViewerProps) {
   const [stage, setStage] = useState<"idle" | "loading" | "ready" | "static">("idle");
   const [Scene, setScene] = useState<ComponentType<SceneProps> | null>(null);
   const spinRef = useRef<SpinHandle>({ active: true });
@@ -96,7 +91,7 @@ export function ModelViewer({ url, projectKey, label, className = "" }: ModelVie
     };
   }, [stage]);
 
-  const fallback = FALLBACKS[projectKey];
+  const fallback = still;
 
   return (
     <div ref={hostRef} className={`viewer ${className}`.trim()} data-stage={stage}>
@@ -104,7 +99,7 @@ export function ModelViewer({ url, projectKey, label, className = "" }: ModelVie
         <div className="viewer-canvas">
           <Scene
             url={url}
-            projectKey={projectKey}
+            rotation={rotation}
             spinRef={spinRef}
             onReady={() => setStage("ready")}
             onError={() => setStage("static")}

@@ -49,18 +49,13 @@ class GLTFBoundary extends Component<
 
 const TARGET_SIZE = 3;
 
-const MODEL_ROTATIONS: Record<string, [number, number, number]> = {
-  vulcan: [0, 0, Math.PI / 2],
-  "ender3-2": [-Math.PI / 2, 0, 0],
-};
-
 function NormalizedModel({
   url,
-  projectKey,
+  rotation,
   onReady,
 }: {
   url: string;
-  projectKey?: string;
+  rotation?: [number, number, number];
   onReady: () => void;
 }) {
   const { scene } = useGLTF(url);
@@ -68,16 +63,13 @@ function NormalizedModel({
   // Clone scene so multiple viewers (or re-mounts) do not steal or corrupt each other
   const clonedScene = useMemo(() => {
     const s = scene.clone(true);
-    const key =
-      projectKey ||
-      (url.includes("vulcan") ? "vulcan" : url.includes("ender") ? "ender3-2" : "");
-    if (key && MODEL_ROTATIONS[key]) {
-      const [rx, ry, rz] = MODEL_ROTATIONS[key];
-      s.rotation.set(rx, ry, rz);
+    if (rotation) {
+      const d = Math.PI / 180;
+      s.rotation.set(rotation[0] * d, rotation[1] * d, rotation[2] * d);
       s.updateMatrixWorld(true);
     }
     return s;
-  }, [scene, projectKey, url]);
+  }, [scene, rotation]);
 
   const normalized = useMemo(() => {
     try {
@@ -197,13 +189,13 @@ function IdleSpin({ spinRef, children }: { spinRef: SpinRef; children: ReactNode
 
 export type ViewerSceneProps = {
   url: string;
-  projectKey?: string;
+  rotation?: [number, number, number];
   spinRef: SpinRef;
   onReady: () => void;
   onError: () => void;
 };
 
-export default function ViewerScene({ url, projectKey, spinRef, onReady, onError }: ViewerSceneProps) {
+export default function ViewerScene({ url, rotation, spinRef, onReady, onError }: ViewerSceneProps) {
   const rootRef = useRef<THREE.Group>(null);
   const handleReady = useRef(onReady);
 
@@ -245,7 +237,7 @@ export default function ViewerScene({ url, projectKey, spinRef, onReady, onError
           <group ref={rootRef}>
             <GLTFBoundary onError={onError}>
               <Suspense fallback={null}>
-                <NormalizedModel url={url} projectKey={projectKey} onReady={() => handleReady.current()} />
+                <NormalizedModel url={url} rotation={rotation} onReady={() => handleReady.current()} />
               </Suspense>
             </GLTFBoundary>
           </group>

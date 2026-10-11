@@ -8,7 +8,9 @@ const BASE = process.argv[2] ?? "http://localhost:4173";
 const OUT = process.argv[3] ?? "qa/out";
 fs.mkdirSync(OUT, { recursive: true });
 
-const ROUTES = ["/", "/projects", "/projects/csi", "/projects/vulcan", "/projects/ender3-2", "/projects/team-3598", "/experience", "/about", "/contact", "/work", "/does-not-exist"];
+// derived from content/ so new projects are audited automatically
+const paged = fs.readdirSync(new URL("../content/projects/", import.meta.url)).filter((f) => f.endsWith(".ts")).map((f) => f.replace(/\.ts$/, "")).filter((slug) => !/tier: "note"/.test(fs.readFileSync(new URL(`../content/projects/${slug}.ts`, import.meta.url), "utf8")));
+const ROUTES = ["/", "/projects", ...paged.map((s) => `/projects/${s}`), "/experience", "/about", "/contact", "/work", "/does-not-exist"];
 const VIEWPORTS = [
   { name: "desktop", width: 1440, height: 900 },
   { name: "mobile", width: 390, height: 844, isMobile: true, hasTouch: true, deviceScaleFactor: 2 },
@@ -35,18 +37,18 @@ for (const vp of VIEWPORTS) {
     page.on("response", (r) => { if (r.status() >= 400) failed.push(`${r.status()} ${r.url()}`); });
     const res = await page.goto(BASE + route, { waitUntil: "networkidle2", timeout: 45000 }).catch((e) => ({ status: () => "ERR " + e.message }));
     // scroll through to trigger reveals / lazy work
-    await page.evaluate(async () => {
-      const h = document.documentElement.scrollHeight;
-      for (let y = 0; y < h; y += 500) { window.scrollTo({ top: y, behavior: "instant" }); await new Promise((r) => setTimeout(r, 60)); }
-      window.scrollTo({ top: h, behavior: "instant" });
-      await new Promise((r) => setTimeout(r, 300));
-      window.scrollTo({ top: 0, behavior: "instant" });
-      await new Promise((r) => setTimeout(r, 900));
-    });
+    {
+      // scroll like a person: real wheel events with pauses, so reveal logic sees genuine input
+      const h = await page.evaluate(() => document.documentElement.scrollHeight);
+      for (let y = 0; y < h; y += 400) { await page.mouse.wheel({ deltaY: 400 }); await new Promise((r) => setTimeout(r, 110)); }
+      await new Promise((r) => setTimeout(r, 700));
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await new Promise((r) => setTimeout(r, 700));
+    }
     const info = await page.evaluate(() => {
       const vw = document.documentElement.clientWidth;
       const overflow = [...document.querySelectorAll("body *")]
-        .filter((el) => { const r = el.getBoundingClientRect(); return r.width > 0 && (r.right > vw + 1 || r.left < -1); })
+        .filter((el) => { const r = el.getBoundingClientRect(); if (el.closest(".chips")) return false; /* deliberate horizontal-scroll row */ return r.width > 0 && (r.right > vw + 1 || r.left < -1); })
         .slice(0, 8).map((el) => `${el.tagName.toLowerCase()}.${[...el.classList].join(".")} [${Math.round(el.getBoundingClientRect().left)}..${Math.round(el.getBoundingClientRect().right)}]`);
       const imgsNoAlt = [...document.images].filter((i) => !i.hasAttribute("alt")).length;
       const brokenImgs = [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src);

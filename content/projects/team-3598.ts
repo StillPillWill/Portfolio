@@ -1,0 +1,115 @@
+import { defineProject } from "../define.ts";
+
+export default defineProject({
+  slug: "team-3598",
+  name: "Team 3598",
+  tier: "flagship",
+  status: "complete",
+  statusNote: "Former Captain (Season Complete)",
+  start: 2025,
+  end: 2026,
+  featured: 4,
+  categories: ["leadership","robotics"],
+  skills: ["Java","Git","Onshape","Machining","Team leadership","STEM outreach"],
+  role: "Team captain",
+  domain: "Leadership & Competitive Robotics",
+  summary: "Led 40+ students across five groups to the FIRST Impact Award and a World Championship berth; outreach reached 4,452 students.",
+  headline: "Captain, FRC Team 3598",
+  kicker: "Leadership · competitive robotics",
+  deck: "Engineering captaincy coordinating mechanical design, programming, competition operations, and community outreach for an FRC robotics team of more than 40 students.",
+  stats: [
+    {
+      to: 40,
+      suffix: "+",
+      label: "students led as captain",
+    },
+    {
+      to: 5,
+      label: "working groups coordinated",
+    },
+    {
+      to: 4452,
+      label: "students reached through outreach",
+    },
+    {
+      to: 0,
+      text: "Impact",
+      label: "FIRST Impact Award · World Championship berth",
+    },
+  ],
+  specimen: "particles",
+  media: [
+    {
+      file: "team-group-photo.webp",
+      alt: "Full Team 3598 group",
+      caption: "Team 3598 students, mentors, and competition robot",
+      ratio: "wide",
+    },
+    {
+      file: "competition-crowd.webp",
+      alt: "Team 3598 students at competition",
+      caption: "Drive team and pit crew at regional competition",
+      ratio: "wide",
+    },
+    {
+      file: "outreach-reach.webp",
+      alt: "Team 3598 outreach record",
+      caption: "Regional STEM outreach summary across Sacramento",
+      ratio: "wide",
+    },
+    {
+      file: "team-identity.webp",
+      alt: "Team 3598 identity and location record",
+      caption: "Team 3598 identity and program record",
+      ratio: "portrait",
+    },
+  ],
+  notes: [
+    {
+      label: "Leadership Scope",
+      title: "Led 40+ students across engineering, operations, and outreach.",
+      intent: "Coordinate mechanical design, manufacturing, electrical, programming, operations, and outreach across five working groups.",
+      body: "As captain of FRC Team 3598 (SEStematic Eliminators), I coordinated more than 40 high school students across mechanical design, manufacturing, electrical, programming, operations, and community outreach, directing technical milestones and competition strategy.",
+      facts: ["40+ student team","Former captain","5 working groups","Cross-disciplinary oversight"],
+    },
+    {
+      label: "Subteams & Operations",
+      title: "Synchronized milestones across five working groups.",
+      intent: "Align sprint milestones and shop resources across mechanical, electrical, software, operations, and outreach subteams.",
+      body: "I led shared sprint milestones across mechanical, electrical, software, operations, and outreach groups, coordinating machine shop access, bill of materials tracking, and rapid repairs and iterations between regional events.",
+      facts: ["Mechanical","Electrical","Software","Operations","Outreach"],
+    },
+    {
+      label: "Student Mentorship",
+      title: "Hands-on engineering mentorship in programming, CAD, and shop fabrication.",
+      intent: "Mentor students in robot programming, CAD modeling, manual/CNC machining, and shop safety.",
+      body: "Mentored students directly in Java robot programming, Git version control, Onshape CAD modeling, manual machining, CNC fabrication, and 3D printing, building technical capability and ensuring shop safety standards.",
+      facts: ["Java & Git","Onshape CAD","Machining","3D printing mentorship"],
+    },
+    {
+      label: "Competition Outcomes",
+      title: "District championship qualification, FIRST Impact Award, and World Championship berth.",
+      intent: "Execute competition strategy and guide the team to championship qualification and award recognition.",
+      body: "Team 3598 competed across three events, advanced to the district championship, qualified for the FIRST World Championship, and earned the FIRST Impact Award—the organization's highest honor celebrating engineering sustainability and team culture.",
+      facts: [
+        "FIRST Impact Award",
+        "World Championship berth",
+        "District qualification",
+        "3 competitions",
+      ],
+    },
+    {
+      label: "Community Impact",
+      title: "Documented STEM outreach reaching 4,452 students across Sacramento.",
+      intent: "Organize hands-on robotics workshops and STEM demonstrations for schools and community libraries.",
+      body: "Led community engineering initiatives including hands-on robotics workshops, public library exhibitions, school visits, demonstrations, and community partnerships that reached 4,452 students across the greater Sacramento region.",
+      facts: ["4,452 students reached","Workshops & demos","School visits","Sacramento region"],
+    },
+  ],
+  seo: {
+    title: "Team 3598 Robotics Captaincy & Outreach · William Nzive",
+    description: "Team captaincy, mechanical design reviews, FIRST Impact Award, World Championship qualification, and STEM outreach reaching 4,452 students across Sacramento.",
+    ogTitle: "Team 3598 — Robotics Leadership & Outreach · William Nzive",
+    ogDescription: "Former captain coordinating 40+ students across design, manufacturing, competition operations, and outreach reaching 4,452 students.",
+  },
+});

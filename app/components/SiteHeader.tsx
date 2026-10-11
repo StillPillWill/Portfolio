@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { contact } from "../data/portfolio";
+import { site } from "../../content/site.ts";
 
 const NAV = [
   { href: "/#work", label: "Work", match: "/projects" },
@@ -55,8 +55,8 @@ export function SiteHeader({ current = "" }: { current?: string }) {
             Résumé
             <span className="sr-only"> (PDF, opens in new tab)</span>
           </a>
-          <a className="nav-mail" href={`mailto:${contact.email}`} onClick={() => setOpen(false)}>
-            {contact.email}
+          <a className="nav-mail" href={`mailto:${site.email}`} onClick={() => setOpen(false)}>
+            {site.email}
           </a>
         </nav>
         <button

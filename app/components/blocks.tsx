@@ -1,12 +1,7 @@
 import type { ReactNode } from "react";
-import { contact, projects, projectStats, type ProjectKey, type Stat } from "../data/portfolio";
-import { cv, type CvRecord } from "../data/cv";
+import { allProjects, experience, site, yearLabel, domainOf, type Project } from "../../content";
 import { CountUp } from "./CountUp";
 import { CopyEmail } from "./CopyEmail";
-import { ModelViewer } from "./ModelViewer";
-import { BedMesh } from "./motion/BedMesh";
-import { OutreachParticles } from "./motion/OutreachParticles";
-import { Spectrogram } from "./motion/Spectrogram";
 import { Timeline } from "./Timeline";
 
 /* Shared, server-rendered building blocks used by every route. */
@@ -19,52 +14,14 @@ export function Arrow({ dir = "ne" }: { dir?: "ne" | "e" | "w" }) {
   );
 }
 
-export function Specimen({ projectKey, size = "md" }: { projectKey: ProjectKey; size?: "md" | "lg" }) {
-  const cls = `specimen specimen-${size}`;
-  switch (projectKey) {
-    case "csi":
-      return (
-        <div className={cls}>
-          <Spectrogram />
-          <p className="specimen-cap">Illustrative simulation of speech energy across subcarriers — not recorded data.</p>
-        </div>
-      );
-    case "vulcan":
-      return (
-        <div className={cls}>
-          <ModelViewer url="/portfolio/models/vulcan/vulcan-showcase.glb" projectKey="vulcan" label="Vulcan V1 · CAD export" />
-        </div>
-      );
-    case "ender3-2":
-      return (
-        <div className={cls}>
-          <BedMesh />
-          <p className="specimen-cap">The 12 × 18 probe grid at the real bed proportions; height profile illustrative, Z exaggerated.</p>
-        </div>
-      );
-    case "team-3598":
-      return (
-        <div className={cls}>
-          <OutreachParticles />
-        </div>
-      );
-  }
-}
-
-export function StatValue({ s }: { s: Stat }) {
-  if (s.text) return <>{s.text}</>;
-  return <CountUp to={s.to} prefix={s.prefix} suffix={s.suffix} decimals={s.decimals} />;
-}
-
-export function Stats({ projectKey, compact = false }: { projectKey: ProjectKey; compact?: boolean }) {
+export function Stats({ project, compact = false }: { project: Project; compact?: boolean }) {
+  if (!project.stats?.length) return null;
   return (
     <dl className={`stats${compact ? " stats-compact" : ""}`}>
-      {projectStats[projectKey].map((s, i) => (
+      {project.stats.map((s, i) => (
         <div key={s.label} className="stat" data-reveal style={{ ["--d" as string]: `${i * 60}ms` }}>
           <dt>{s.label}</dt>
-          <dd>
-            <StatValue s={s} />
-          </dd>
+          <dd>{s.text ?? <CountUp to={s.to} prefix={s.prefix} suffix={s.suffix} decimals={s.decimals} />}</dd>
         </div>
       ))}
     </dl>
@@ -83,8 +40,8 @@ export function SectionHead({ id, index, title, aside }: { id: string; index: st
   );
 }
 
-function Dossier({ item }: { item: CvRecord }) {
-  const d = item.dossier;
+function Dossier({ project }: { project: Project }) {
+  const d = project.dossier;
   if (!d) return null;
   return (
     <div className="dossier">
@@ -95,36 +52,41 @@ function Dossier({ item }: { item: CvRecord }) {
       <div>
         <h4>Decisions</h4>
         <ul>
-          {d.keyDecisions.map((k) => (
+          {d.decisions.map((k) => (
             <li key={k}>{k}</li>
           ))}
         </ul>
       </div>
       <div>
         <h4>Tools</h4>
-        <p className="dossier-tools">{d.stack.join(" · ")}</p>
+        <p className="dossier-tools">{d.tools.join(" · ")}</p>
       </div>
     </div>
   );
 }
 
-/** Accordion index of the smaller projects. Native <details>, animated height in CSS. */
-export function WorkIndex({ items = cv.additionalExperience }: { items?: CvRecord[] }) {
+/** Accordion list of projects. Native <details>, animated in CSS. Works for any number of rows. */
+export function WorkIndex({ items }: { items: Project[] }) {
   return (
     <ol className="index">
-      {items.map((item, i) => (
-        <li key={item.title} className="index-row" data-reveal style={{ ["--d" as string]: `${Math.min(i, 4) * 50}ms` }}>
+      {items.map((p, i) => (
+        <li key={p.slug} className="index-row" data-reveal style={{ ["--d" as string]: `${Math.min(i, 4) * 50}ms` }}>
           <details>
             <summary>
               <span className="index-n mono">{String(i + 1).padStart(2, "0")}</span>
-              <span className="index-title">{item.title}</span>
-              <span className="index-meta">{item.meta.split(" / ").slice(-1)[0]}</span>
+              <span className="index-title">{p.name}</span>
+              <span className="index-meta">{yearLabel(p)}</span>
               <span className="index-toggle" aria-hidden="true" />
             </summary>
             <div className="index-body">
-              <p className="index-lede">{item.summary}</p>
-              <p className="index-proof">{item.proof}</p>
-              <Dossier item={item} />
+              <p className="index-lede">{p.deck ?? p.summary}</p>
+              {p.proof ? <p className="index-proof">{p.proof}</p> : null}
+              <Dossier project={p} />
+              {p.href ? (
+                <a className="link" href={p.href}>
+                  Open the project page <Arrow dir="e" />
+                </a>
+              ) : null}
             </div>
           </details>
         </li>
@@ -136,16 +98,16 @@ export function WorkIndex({ items = cv.additionalExperience }: { items?: CvRecor
 export function ExperienceTimeline() {
   return (
     <Timeline>
-      {cv.experience.map((item) => {
-        const [area, , when] = item.meta.split(" / ");
+      {experience.map((item) => {
+        const proj = item.project ? allProjects.find((p) => p.slug === item.project) : undefined;
         return (
           <li key={item.title} className="tl-item" data-reveal>
             <span className="tl-dot" aria-hidden="true" />
-            <div className="tl-when mono">{when ?? area}</div>
+            <div className="tl-when mono">{item.when}</div>
             <div className="tl-main">
               <h3>
-                {item.route ? (
-                  <a href={item.route}>
+                {proj?.href ? (
+                  <a href={proj.href}>
                     {item.title} <Arrow dir="e" />
                   </a>
                 ) : (
@@ -166,7 +128,7 @@ export function ExperienceTimeline() {
 export function Toolkit() {
   return (
     <dl className="toolkit">
-      {cv.skills.map((s) => (
+      {site.skills.map((s) => (
         <div key={s.label} data-reveal>
           <dt>{s.label}</dt>
           <dd>{s.items.split(" · ").join(", ")}</dd>
@@ -186,9 +148,9 @@ export function AboutBlock() {
         </p>
         <p>
           I&apos;m a first-year Computer Science and Engineering student at UC Davis, and I graduated salutatorian from the
-          School of Engineering and Sciences in Sacramento. The projects on this site are how I practice that, not the limits of it: they happen to cover
-          firmware, signal processing, model training, CAD, and machining because those are what each problem called for.
-          The next one could be anything.
+          School of Engineering and Sciences in Sacramento. The projects on this site are how I practice that, not the limits
+          of it: they happen to cover firmware, signal processing, model training, CAD, and machining because those are what
+          each problem called for. The next one could be anything.
         </p>
         <p>
           Before that I captained FRC Team 3598, taught myself computer architecture by writing a bootloader and a toy OS,
@@ -198,7 +160,7 @@ export function AboutBlock() {
       <div className="about-side" data-reveal>
         <h3 className="label">Education</h3>
         <ul className="edu">
-          {cv.education.map((e) => (
+          {site.education.map((e) => (
             <li key={e.institution}>
               <strong>{e.institution}</strong>
               <span>{e.detail}</span>
@@ -223,19 +185,19 @@ export function ContactBlock({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
         Let&apos;s build <em>something that measures well.</em>
       </H>
       <div className="contact-row" data-reveal>
-        <a className="contact-mail" href={`mailto:${contact.email}`}>
-          {contact.email}
+        <a className="contact-mail" href={`mailto:${site.email}`}>
+          {site.email}
         </a>
-        <CopyEmail email={contact.email} />
+        <CopyEmail email={site.email} />
       </div>
       <ul className="contact-links" data-reveal>
         <li>
-          <a href={contact.github} target="_blank" rel="noreferrer">
+          <a href={site.github} target="_blank" rel="noreferrer">
             GitHub <Arrow />
           </a>
         </li>
         <li>
-          <a href={contact.linkedin} target="_blank" rel="noreferrer">
+          <a href={site.linkedin} target="_blank" rel="noreferrer">
             LinkedIn <Arrow />
           </a>
         </li>
@@ -268,10 +230,13 @@ export function SiteFooter() {
   );
 }
 
-export function ProjectLink({ k }: { k: ProjectKey }) {
+export function ProjectLink({ project }: { project: Project }) {
+  if (!project.href) return null;
   return (
-    <a className="link" href={`/projects/${k}`}>
-      Read the case study<span className="sr-only">: {projects[k].name}</span> <Arrow dir="e" />
+    <a className="link" href={project.href}>
+      Read the case study<span className="sr-only">: {project.name}</span> <Arrow dir="e" />
     </a>
   );
 }
+
+export { domainOf };

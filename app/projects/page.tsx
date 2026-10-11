@@ -1,16 +1,34 @@
 import type { Metadata } from "next";
-import { featured, projects } from "../data/portfolio";
-import { Arrow, SiteFooter, Specimen, WorkIndex } from "../components/blocks";
+import { allProjects, categoryCounts, yearLabel } from "../../content";
+import { SiteFooter } from "../components/blocks";
+import { ProjectExplorer, type Card } from "../components/ProjectExplorer";
 import { SiteHeader } from "../components/SiteHeader";
 
 export const metadata: Metadata = {
   title: "Projects · William Nzive",
   description:
-    "Embedded Wi-Fi sensing research, a six-axis robot arm, a large-format printer rebuilt from scrap, FRC leadership, and smaller systems and ML projects by William Nzive.",
+    "Research, machine learning, robotics, fabrication, and systems projects by William Nzive — filterable by category and searchable by skill.",
   alternates: { canonical: "/projects" },
 };
 
 export default function ProjectsPage() {
+  const cards: Card[] = allProjects.map((p) => ({
+    slug: p.slug,
+    name: p.name,
+    summary: p.summary,
+    proof: p.proof,
+    categories: p.categories,
+    skills: p.skills ?? [],
+    start: p.start,
+    endYear: p.end === "present" ? 9999 : (p.end ?? p.start),
+    years: yearLabel(p),
+    status: p.status,
+    featured: p.featured !== undefined,
+    href: p.href,
+    thumb: p.thumb,
+    flagship: p.tier === "flagship",
+  }));
+
   return (
     <>
       <a className="skip-link" href="#main">
@@ -24,33 +42,7 @@ export default function ProjectsPage() {
             Things I&apos;ve <em>built</em> and measured
           </h1>
         </header>
-        <ul className="tiles">
-          {featured.map((f) => (
-            <li key={f.key} className="tile" data-reveal>
-              <a href={`/projects/${f.key}`} className="tile-link">
-                <div className="tile-visual" aria-hidden="true">
-                  <Specimen projectKey={f.key} />
-                </div>
-                <div className="tile-copy">
-                  <p className="label">
-                    <span className="mono">{projects[f.key].number}</span> {f.kicker}
-                  </p>
-                  <h2>{f.title}</h2>
-                  <p>{f.line}</p>
-                  <span className="link">
-                    Case study <Arrow dir="e" />
-                  </span>
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <section className="section" aria-labelledby="more-title">
-          <h2 id="more-title" className="p-sub" data-reveal>
-            More projects &amp; research
-          </h2>
-          <WorkIndex />
-        </section>
+        <ProjectExplorer cards={cards} categories={categoryCounts()} />
       </main>
       <SiteFooter />
     </>

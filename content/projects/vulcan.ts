@@ -1,0 +1,122 @@
+import { defineProject } from "../define.ts";
+
+export default defineProject({
+  slug: "vulcan",
+  name: "Vulcan",
+  tier: "flagship",
+  status: "active",
+  statusNote: "Design Study · V1 CAD Complete, V2 in Progress",
+  start: 2025,
+  end: 2026,
+  featured: 2,
+  categories: ["robotics","fabrication"],
+  skills: ["Creo","SolidWorks","Onshape","Kinematics","Timing-belt drives","3D printing"],
+  role: "Mechanical designer",
+  domain: "Mechanical Systems & Robot Kinematics",
+  summary: "An open-source arm built around timing-belt reductions and printed structure instead of precision gearboxes. V1 CAD complete; V2 underway.",
+  headline: "Vulcan, a six-axis arm",
+  kicker: "Mechanical design · robotics",
+  deck: "A complete open-source six-axis robot arm mechanical design study, engineering kinematics, multi-stage synchronous belt reductions, and printable structural parts in CAD.",
+  links: {
+    repo: "https://github.com/StillPillWill/Vulcan",
+  },
+  stats: [
+    {
+      to: 6,
+      label: "degrees of freedom",
+    },
+    {
+      to: 16,
+      prefix: "1:",
+      label: "two-stage belt reduction",
+    },
+    {
+      to: 32,
+      suffix: " N·m",
+      label: "target holding torque, J1–J3",
+    },
+    {
+      to: 0,
+      text: "⅓",
+      label: "V2 target cost relative to V1",
+    },
+  ],
+  specimen: "model",
+  modelRotation: [0, 0, 90],
+  model: "vulcan-showcase.glb",
+  still: "vulcan-hero.webp",
+  media: [
+    {
+      file: "vulcan-hero.webp",
+      alt: "Vulcan V1 full robot-arm CAD render",
+      caption: "Vulcan V1 full 6-axis CAD assembly",
+      ratio: "wide",
+    },
+    {
+      file: "vulcan-detail.webp",
+      alt: "Vulcan V1 alternate full-assembly CAD view",
+      caption: "Arm articulation and joint geometry study",
+      ratio: "wide",
+    },
+    {
+      file: "vulcan-assembly.webp",
+      alt: "Vulcan V1 alternate assembly view",
+      caption: "Counterbalanced shoulder geometry and differential wrist",
+      ratio: "wide",
+    },
+    {
+      file: "vulcan-zine.jpg",
+      alt: "Vulcan V1 technical zine",
+      caption: "V1 technical documentation zine and assembly manual",
+      ratio: "portrait",
+    },
+  ],
+  notes: [
+    {
+      label: "Design Challenge",
+      title: "Resolving 6-DOF industrial kinematics within desktop 3D printing constraints.",
+      intent: "Avoid expensive industrial gearboxes by designing an accessible, belt-driven transmission.",
+      body: "Traditional six-axis robot arms rely on expensive precision gearboxes. Vulcan V1 was designed as an open-source mechanical architecture around standard NEMA steppers, off-the-shelf timing belts, and 3D-printable structural parts, allowing a full 6-DOF manipulator to be built without industrial CNC machining.",
+      facts: ["6 degrees of freedom","Zero harmonic drives","CAD design study","Desktop printable"],
+    },
+    {
+      label: "Transmission Architecture",
+      title: "Multi-stage synchronous belt drives with modular reduction ratios.",
+      intent: "Deliver smooth torque transmission without gear backlash using pre-tensioned timing belts.",
+      body: "Joints 1 through 4 utilize two-stage synchronous belt reductions (1:16 primary reduction) driven by NEMA 23 stepper motors. Unlike 3D-printed plastic gear teeth, which suffer from rapid abrasive wear and backlash, belts distribute load across multiple teeth simultaneously. Changing joint torque simply requires reprinting a drive pulley.",
+      facts: ["1:16 main reduction","Two-stage belt drive","Modular pulleys","Belt transmission"],
+    },
+    {
+      label: "Differential Wrist",
+      title: "Decoupled 2-DOF wrist kinematics driven by dual rear-mounted NEMA 17s.",
+      intent: "Minimize forearm inertia by relocating wrist actuation motors back toward the elbow.",
+      body: "Joints 5 (pitch) and 6 (roll) are resolved through a bevel-gear differential wrist driven by two NEMA 17 motors mounted coaxially further back on the forearm. By driving both motors in the same direction, the wrist pitches; driving them in opposite directions rolls the tool flange. This design prevents heavy motor mass from concentrating at the end-effector, substantially reducing required holding torque for upstream joints.",
+      facts: ["Differential wrist","Dual NEMA 17","Coaxial forearm mounting","Reduced link inertia"],
+    },
+    {
+      label: "Structural Kinematics",
+      title: "Targeted torque curves matched joint load distributions.",
+      intent: "Size motor torque and structural cross-sections to withstand maximum cantilever bending moments.",
+      body: "Static load analysis across the arm kinematic envelope established target holding torques: 31–32 N·m on high-load joints 1–3, 10.28 N·m on joint 4, and 7.2 N·m on the wrist. Structural members incorporate ribbed internal infill geometries and counterbalanced shoulder geometry to offset gravitational cantilever moments.",
+      facts: ["31–32 N·m · J1–J3","10.28 N·m · J4","7.2 N·m · J5–J6","Ribbed load distribution"],
+    },
+    {
+      label: "V2 Redesign",
+      title: "V1 established the kinematic baseline; V2 focuses on aggressive cost reduction.",
+      intent: "Simplify assembly and reduce part count in V2 based on V1 tolerance analysis.",
+      body: "V1 was completed and documented as a thorough CAD study and technical zine. Critical review revealed that V1's large bearing count and complex fastener assemblies added unnecessary assembly friction. V2 redesign is currently underway, replacing complex bearing stacks with integrated thin-section ball races and molded sub-assemblies to achieve a target cost roughly one-third of V1.",
+      facts: [
+        "V1 design study complete",
+        "V2 in progress",
+        "Target: 1/3 V1 cost",
+        "Part-count optimization",
+      ],
+    },
+  ],
+  seo: {
+    title: "Vulcan 6-Axis Robot Arm · Mechanical Design Study · William Nzive",
+    description: "Complete open-source 6-axis robot arm CAD architecture featuring 1:16 belt reductions, differential wrist mechanism, and printable chassis design.",
+    ogTitle: "Vulcan — 6-Axis Robot Arm CAD Design Study · William Nzive",
+    ogDescription: "A complete open-source six-axis robot arm design study, detailing kinematics, belt reductions, and printable structural parts in CAD.",
+  },
+});

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { ProjectMedia } from "../data/portfolio";
+import type { Media } from "../../content/types.ts";
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -9,7 +9,7 @@ import type { ProjectMedia } from "../data/portfolio";
  * Gallery with a keyboard-driven lightbox (←/→ to move, Esc to close,
  * focus returned to the opening thumbnail). Uses the native <dialog>.
  */
-export function Gallery({ items }: { items: ProjectMedia[] }) {
+export function Gallery({ items }: { items: Media[] }) {
   const [index, setIndex] = useState<number | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
