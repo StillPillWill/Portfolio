@@ -723,3 +723,85 @@ a.tile-link:hover .tile-media img { transform: none; }
   .hero.intro::after { background: linear-gradient(0deg, var(--bg) 46%, rgba(247, 247, 244, 0.9) 64%, rgba(247, 247, 244, 0.25) 100%); }
   .collage-tile { opacity: 0.7; }
 }
+
+
+/* =====================================================================
+   Alignment pass. One content edge: everything sits on --pad inside
+   max-width --max, and every divider spans exactly that content width.
+   ===================================================================== */
+/* contact page had its padding applied twice */
+.page-contact .contact { padding: calc(var(--header-h) + 14vh) 0 0; }
+
+/* dividers that ran into the page margins: draw them at content width */
+.explorer-bar { border-bottom: 0; }
+.explorer-bar::after { content: ""; position: absolute; left: var(--pad); right: var(--pad); bottom: 0; height: 1px; background: var(--line); }
+.explorer-flat .explorer-bar::after { left: 0; right: 0; }
+.p-pager { border-top: 0; background: linear-gradient(var(--line), var(--line)) center top / calc(100% - 2 * var(--pad)) 1px no-repeat; }
+
+/* stats: numbers sit on the content edge, not 20px inside it */
+.stats { border-left: 0; }
+.stat { padding-left: 0; padding-right: 20px; border-right: 0; }
+.stat + .stat { padding-left: 20px; border-left: 1px solid var(--line); }
+.stats-compact .stat { padding-left: 0; }
+.stats-compact .stat + .stat { padding-left: 16px; }
+.stats-compact .stat:nth-child(odd) { padding-left: 0; border-left: 0; }
+@media (max-width: 760px) {
+  .stats:not(.stats-compact) .stat:nth-child(odd) { padding-left: 0; border-left: 0; }
+}
+
+/* timeline: date column, a spine, and text on one grid */
+.timeline::before, .timeline::after { left: 164px; }
+.tl-item { grid-template-columns: 164px 1fr; gap: 0; }
+.tl-when { text-align: left; padding: 3px 24px 0 0; line-height: 1.5; }
+.tl-main { padding-left: 40px; }
+.tl-dot { left: 160px; top: 8px; }
+.tl-main h3 { line-height: 1.25; }
+@media (max-width: 760px) {
+  .timeline::before, .timeline::after { left: 4px; }
+  .tl-item { grid-template-columns: 1fr; padding-left: 32px; }
+  .tl-main { padding-left: 0; }
+  .tl-dot { left: 0; }
+  .tl-when { padding: 0; }
+}
+
+/* project hero: text and visual share a top edge */
+.p-hero { align-items: start; }
+.p-hero-copy { padding-top: 4px; }
+
+/* wall: every tile in a row has the same photo height, plates included */
+.tiles-wall .tile-media, .tiles-wall .tile-flagship .tile-media, .tiles-wall .tile-plate { height: clamp(190px, 17.5vw, 260px) !important; }
+@media (max-width: 640px) { .tiles-wall .tile-media, .tiles-wall .tile-flagship .tile-media, .tiles-wall .tile-plate { height: 52vw !important; } }
+.plate { align-content: start; padding: 16px 18px; }
+.plate-stack { font-size: 0.9rem; line-height: 1.6; -webkit-line-clamp: 6; color: var(--ink-2); }
+
+/* about: side column starts level with the lead sentence */
+.about-side { gap: 10px; }
+.about-side .label { padding-top: 14px; }
+.edu li { padding: 10px 0; }
+
+
+/* ---- alignment pass 2: vertical rhythm ---- */
+.section.section-tight { padding-top: 0; }
+.page-head { margin-bottom: clamp(32px, 5vw, 64px); }
+.page-contact .contact { padding-top: 0; }
+.page-contact { padding-bottom: clamp(40px, 8vw, 120px); }
+.p-hero-copy { padding-top: 0; }
+.crumbs { line-height: 1; }
+.p-hero { padding-top: calc(var(--header-h) + clamp(32px, 5vw, 64px)); }
+
+/* tiles with no photo yet: a deliberate typographic card, same size as the photo tiles */
+.plate-cat { display: block; font-family: var(--sans); font-style: normal; font-size: 0.8rem; color: var(--ink-3); }
+.plate { align-content: start; gap: 10px; padding: 18px 20px; border-top: 2px solid var(--ink); background: var(--bg-3); }
+.plate-stack { font-family: var(--sans); font-size: 1.05rem; line-height: 1.5; color: var(--ink); font-weight: 500; -webkit-line-clamp: 5; }
+
+.hero.intro::after { background: linear-gradient(90deg, var(--bg) 0%, var(--bg) 44%, rgba(247, 247, 244, 0.7) 56%, rgba(247, 247, 244, 0) 76%), linear-gradient(0deg, var(--bg) 0%, rgba(247, 247, 244, 0) 18%); }
+@media (max-width: 1000px) { .hero.intro::after { background: linear-gradient(90deg, var(--bg) 0%, rgba(247, 247, 244, 0.94) 55%, rgba(247, 247, 244, 0.5) 100%); } }
+@media (max-width: 700px) { .hero.intro::after { background: linear-gradient(0deg, var(--bg) 46%, rgba(247, 247, 244, 0.9) 64%, rgba(247, 247, 244, 0.25) 100%); } }
+
+@media (max-width: 700px) { .explorer-bar { position: static; } .explorer-bar::after { display: none; } }
+.explorer-flat .explorer-bar { position: static; }
+/* hero: text column ends well before the photos, collage melts into the page at the bottom */
+.intro-inner > * { max-width: 46ch; }
+.hero.intro::after { background: linear-gradient(90deg, var(--bg) 0%, var(--bg) 50%, rgba(247, 247, 244, 0.75) 60%, rgba(247, 247, 244, 0) 78%), linear-gradient(0deg, var(--bg) 0%, rgba(247, 247, 244, 0.85) 10%, rgba(247, 247, 244, 0) 34%); }
+@media (max-width: 1000px) { .intro-inner > * { max-width: 52ch; } .hero.intro::after { background: linear-gradient(90deg, var(--bg) 0%, rgba(247, 247, 244, 0.94) 55%, rgba(247, 247, 244, 0.5) 100%), linear-gradient(0deg, var(--bg) 0%, rgba(247, 247, 244, 0) 30%); } }
+@media (max-width: 700px) { .intro-inner > * { max-width: none; } .hero.intro::after { background: linear-gradient(0deg, var(--bg) 46%, rgba(247, 247, 244, 0.9) 64%, rgba(247, 247, 244, 0.25) 100%); } }
