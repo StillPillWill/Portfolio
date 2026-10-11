@@ -71,9 +71,12 @@ test("project pages carry stats, notes, and prev/next", async () => {
 test("facts agree with the résumé, LinkedIn is consistent", async () => {
   const csi = await (await render("/projects/csi")).text();
   assert.match(csi, /10,839/);
+  const events = await (await render("/projects")).text();
+  assert.match(events, /San Mateo/);
   const ender = await (await render("/projects/ender3-2")).text();
-  assert.match(ender, /San Mateo/);
   assert.doesNotMatch(ender, /San Francisco/);
+  const csiPage = await (await render("/projects/csi")).text();
+  assert.doesNotMatch(csiPage, /90%|4\.6 ?B|98 hours|122 training/, "unsourced CSI figures stay off the page");
   const home = await (await render("/")).text();
   const links = new Set([...home.matchAll(/linkedin\.com\/in\/[^"\\]+/g)].map((m) => m[0].replace(/\/$/, "")));
   assert.equal(links.size, 1, `linkedin variants: ${[...links]}`);
