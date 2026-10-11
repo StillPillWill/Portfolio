@@ -1,18 +1,23 @@
 import { categoryCounts, site } from "../../content";
 import { Arrow, ContactBlock, AboutBlock, ExperienceTimeline, SectionHead, SiteFooter } from "./blocks";
 import { buildCards } from "./cards";
+import { CollageFX } from "./CollageFX";
+import { HeroCollage } from "./HeroCollage";
 import { ProjectExplorer } from "./ProjectExplorer";
 import { SiteHeader } from "./SiteHeader";
 
 export function Home() {
   return (
     <>
+      <CollageFX />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
       <SiteHeader />
       <main id="main">
-        <section className="intro" aria-labelledby="hero-title">
+        <section className="hero intro" aria-labelledby="hero-title">
+          <HeroCollage />
+          <div className="intro-inner">
           <h1 id="hero-title" className="intro-name">
             William Nzive
           </h1>
@@ -32,6 +37,10 @@ export function Home() {
             <a className="link" href={site.github} target="_blank" rel="noreferrer">
               GitHub <Arrow />
             </a>
+          </p>
+          </div>
+          <p className="hero-hint mono" aria-hidden="true">
+            hover a photo to hold it · click to open the project
           </p>
         </section>
 

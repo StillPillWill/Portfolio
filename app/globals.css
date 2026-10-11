@@ -692,3 +692,34 @@ a.tile-link:hover .tile-media img { transform: none; }
 .plate-cat { display: none; }
 .plate { padding: 14px 16px; align-content: start; }
 .plate-stack { font-family: var(--sans); font-size: 0.82rem; line-height: 1.55; -webkit-line-clamp: 4; }
+
+
+/* ---- collage returns, on the light page ---- */
+.hero.intro { min-height: clamp(560px, 78svh, 760px); display: flex; align-items: center; padding: calc(var(--header-h) + 24px) var(--pad) 48px; max-width: none; margin: 0; overflow: hidden; isolation: isolate; }
+.intro-inner { position: relative; max-width: var(--max); width: 100%; margin: 0 auto; pointer-events: none; }
+.intro-inner > * { max-width: 58ch; }
+.intro-inner a { pointer-events: auto; }
+.intro-name { font-size: clamp(2.6rem, 6vw, 4.6rem); }
+.hero.intro::after { background: linear-gradient(90deg, var(--bg) 6%, rgba(247, 247, 244, 0.9) 34%, rgba(247, 247, 244, 0.35) 62%, rgba(247, 247, 244, 0) 84%), linear-gradient(0deg, var(--bg) 0%, rgba(247, 247, 244, 0) 18%); }
+.collage-tile { opacity: 0.92; filter: none; border-radius: 4px; box-shadow: 0 1px 0 var(--line); }
+.collage-tile:hover { transform: scale(1.03); box-shadow: 0 18px 40px -18px rgba(21, 21, 19, 0.45); }
+.collage-cap { background: var(--ink); color: var(--bg); border-radius: 3px; }
+.hero-hint { color: var(--ink-3); }
+@media (max-width: 700px) {
+  .hero.intro { min-height: 600px; align-items: flex-end; }
+  .hero.intro::after { background: linear-gradient(0deg, var(--bg) 30%, rgba(247, 247, 244, 0.82) 58%, rgba(247, 247, 244, 0.1) 100%); }
+  .collage-tile { opacity: 0.8; }
+  .intro-inner > * { max-width: none; }
+}
+
+/* header stays solid so the nav is readable over the collage */
+.header { background: rgba(247, 247, 244, 0.94); border-bottom-color: var(--line); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.hero.intro::after { background: linear-gradient(90deg, var(--bg) 8%, rgba(247, 247, 244, 0.94) 40%, rgba(247, 247, 244, 0.5) 58%, rgba(247, 247, 244, 0) 80%), linear-gradient(0deg, var(--bg) 0%, rgba(247, 247, 244, 0) 18%); }
+.intro-inner > * { max-width: 52ch; }
+
+.intro-inner { max-width: calc(var(--max) - 2 * var(--pad)); }
+
+@media (max-width: 700px) {
+  .hero.intro::after { background: linear-gradient(0deg, var(--bg) 46%, rgba(247, 247, 244, 0.9) 64%, rgba(247, 247, 244, 0.25) 100%); }
+  .collage-tile { opacity: 0.7; }
+}
