@@ -18,7 +18,7 @@ export function HeroCollage() {
   // round-robin across projects so neighbouring tiles come from different projects
   const perProject = allProjects.map((p) =>
     p.media
-      .filter((m) => m.kind !== "video" && IMG.test(m.src))
+      .filter((m) => m.kind !== "video" && !m.figure && IMG.test(m.src))
       .map<Tile>((m) => ({ src: m.src, alt: m.alt, ratio: RATIO[m.ratio] ?? "3 / 2", href: p.href, label: p.name })),
   );
   const pool: Tile[] = [];

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { allProjects, categoryCounts, yearLabel } from "../../content";
+import { categoryCounts } from "../../content";
 import { SiteFooter } from "../components/blocks";
-import { ProjectExplorer, type Card } from "../components/ProjectExplorer";
+import { buildCards } from "../components/cards";
+import { ProjectExplorer } from "../components/ProjectExplorer";
 import { SiteHeader } from "../components/SiteHeader";
 
 export const metadata: Metadata = {
@@ -12,22 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
-  const cards: Card[] = allProjects.map((p) => ({
-    slug: p.slug,
-    name: p.name,
-    summary: p.summary,
-    proof: p.proof,
-    categories: p.categories,
-    skills: p.skills ?? [],
-    start: p.start,
-    endYear: p.end === "present" ? 9999 : (p.end ?? p.start),
-    years: yearLabel(p),
-    status: p.status,
-    featured: p.featured !== undefined,
-    href: p.href,
-    thumb: p.thumb,
-    flagship: p.tier === "flagship",
-  }));
+  const cards = buildCards();
 
   return (
     <>

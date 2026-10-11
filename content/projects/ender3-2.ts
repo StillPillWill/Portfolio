@@ -42,6 +42,8 @@ export default defineProject({
   ],
   specimen: "bedmesh",
   modelRotation: [-90, 0, 0],
+  cover: "full-build.webp",
+  preview: "benchy-print-wide.mp4",
   model: "ender-showcase.glb",
   still: "full-build.webp",
   media: [
@@ -76,6 +78,16 @@ export default defineProject({
       caption: "Frame and dual lead-screw assembly in workshop",
       ratio: "portrait",
     },
+    { file: "benchy-print-wide.mp4", alt: "Ender3-2 printing a Benchy", caption: "Full machine printing a Benchy, start to finish", ratio: "wide", kind: "video", poster: "benchy-print-wide.poster.webp" },
+    { file: "benchy-print-close.mp4", alt: "Close-up of the hotend printing", caption: "Close-up: hotend laying down the first layers", ratio: "wide", kind: "video" },
+    { file: "disassembled-parts.webp", alt: "Two Ender 3 printers disassembled", caption: "Day one: both printers dismantled for parts", ratio: "wide" },
+    { file: "frame-mid-assembly.webp", alt: "Printer frame mid-assembly", caption: "Frame mid-assembly on the workshop floor", ratio: "portrait" },
+    { file: "first-power-on.webp", alt: "Printer powered on for the first time", caption: "V1 powered on for the first time", ratio: "portrait" },
+    { file: "wiring-near-complete.webp", alt: "Near-complete wiring", caption: "Wiring the control board, nearly complete", ratio: "portrait" },
+    { file: "frame-component.webp", alt: "Frame component", caption: "Machined frame component", ratio: "portrait" },
+    { file: "bed-underside.webp", alt: "Underside of the bed with supports", caption: "Underside of the bed with supports", ratio: "portrait" },
+    { file: "printer-on-bed.webp", alt: "Printer on its oversized bed", caption: "Top-down: printer on the 585 × 775 mm bed", ratio: "portrait" },
+    { file: "first-test-print.webp", alt: "First test print", caption: "First test print, a blue object", ratio: "portrait" },
   ],
   notes: [
     {

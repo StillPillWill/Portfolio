@@ -1,0 +1,17 @@
+import puppeteer from "puppeteer-core";
+const b = await puppeteer.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: "new" });
+const p = await b.newPage();
+await p.setViewport({ width: 1440, height: 900 });
+await p.goto("http://localhost:4174/", { waitUntil: "networkidle2" });
+await new Promise((r) => setTimeout(r, 900));
+console.log("home tiles:", await p.$$eval("#work .tile", (e) => e.length));
+console.log("page height:", await p.evaluate(() => document.documentElement.scrollHeight));
+console.log("image requests on load:", await p.evaluate(() => performance.getEntriesByType("resource").filter((r) => /\.(webp|jpe?g|png)/.test(r.name)).length));
+await p.evaluate(() => scrollTo({ top: document.querySelector(".explorer-bar").getBoundingClientRect().top + scrollY - 90, behavior: "instant" }));
+await new Promise((r) => setTimeout(r, 900));
+await p.screenshot({ path: "qa/x/big-1.png" });
+await p.evaluate(() => [...document.querySelectorAll(".chip")].find((x) => /Robotics/.test(x.textContent)).click());
+await new Promise((r) => setTimeout(r, 500));
+console.log("robotics filter tiles:", await p.$$eval("#work .tile", (e) => e.length));
+await p.screenshot({ path: "qa/x/big-2.png" });
+await b.close();

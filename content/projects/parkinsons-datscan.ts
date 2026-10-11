@@ -22,4 +22,8 @@ export default defineProject({
     ],
     tools: ["Python","PyTorch","Scikit-Learn","CUDA","NumPy / Pandas","Medical Image Processing"],
   },
+  cover: "registration.webp",
+  media: [
+    { file: "registration.webp", alt: "Raw DaTscan volume slices next to the registered template", caption: "Raw DaTscan volumes (axial, coronal, sagittal) beside the template they are registered to. Public NTUA Parkinson dataset.", ratio: "wide", figure: true },
+  ],
 });

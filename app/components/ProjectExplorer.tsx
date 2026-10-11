@@ -6,9 +6,60 @@ import { ProjectCard, type Card } from "./ProjectCard";
 
 export type { Card };
 
+/**
+ * Pack tiles into rows of `cols` columns, in order (never reordered). `want(c)` is a
+ * tile's preferred width; a row that can't take the next tile is closed and its tiles
+ * are widened evenly to fill it, so no row ever has a hole.
+ */
+function packSpans(cards: Card[], cols: number, want: (c: Card) => number): number[] {
+  const spans: number[] = new Array(cards.length).fill(0);
+  let start = 0;
+  let used = 0;
+  const close = (end: number) => {
+    const n = end - start;
+    if (n <= 0) return;
+    for (let i = start; i < end; i++) spans[i] = want(cards[i]);
+    let rest = cols - used;
+    for (let k = 0; rest > 0; k++) {
+      const grow = Math.min(rest, 2);
+      spans[start + (k % n)] += grow;
+      rest -= grow;
+    }
+  };
+  for (let i = 0; i < cards.length; i++) {
+    const w = want(cards[i]);
+    if (used + w > cols) {
+      close(i);
+      start = i;
+      used = 0;
+    }
+    used += w;
+  }
+  close(cards.length);
+  return spans;
+}
+
+/** Wall column count follows the viewport: 12 (desktop), 12 with wider tiles (tablet), 12 single-tile rows (phone). */
+function useWallMode(): "wide" | "mid" | "narrow" {
+  const [mode, setMode] = useState<"wide" | "mid" | "narrow">("wide");
+  useEffect(() => {
+    const mid = window.matchMedia("(max-width: 1000px)");
+    const narrow = window.matchMedia("(max-width: 640px)");
+    const upd = () => setMode(narrow.matches ? "narrow" : mid.matches ? "mid" : "wide");
+    upd();
+    mid.addEventListener("change", upd);
+    narrow.addEventListener("change", upd);
+    return () => {
+      mid.removeEventListener("change", upd);
+      narrow.removeEventListener("change", upd);
+    };
+  }, []);
+  return mode;
+}
+
 type Cat = { id: string; label: string; count: number };
 type Sort = "recent" | "oldest" | "name";
-type View = "grid" | "list";
+type View = "wall" | "list";
 
 const SORTS: Array<{ id: Sort; label: string }> = [
   { id: "recent", label: "Newest" },
@@ -21,11 +72,11 @@ const SORTS: Array<{ id: Sort; label: string }> = [
  * JavaScript off and for crawlers); on the client this filters, searches, sorts,
  * and keeps its state in the URL so any view is linkable.
  */
-export function ProjectExplorer({ cards, categories }: { cards: Card[]; categories: Cat[] }) {
+export function ProjectExplorer({ cards, categories, sticky = true }: { cards: Card[]; categories: Cat[]; sticky?: boolean }) {
   const [cat, setCat] = useState<string>("all");
   const [q, setQ] = useState("");
   const [sort, setSort] = useState<Sort>("recent");
-  const [view, setView] = useState<View>("grid");
+  const [view, setView] = useState<View>("wall");
   const ready = useRef(false);
 
   // read initial state from the URL once, after hydration (keeps SSR markup stable)
@@ -49,7 +100,7 @@ export function ProjectExplorer({ cards, categories }: { cards: Card[]; categori
     if (cat !== "all") sp.set("cat", cat);
     if (q.trim()) sp.set("q", q.trim());
     if (sort !== "recent") sp.set("sort", sort);
-    if (view !== "grid") sp.set("view", view);
+    if (view !== "wall") sp.set("view", view);
     const qs = sp.toString();
     window.history.replaceState(null, "", window.location.pathname + (qs ? `?${qs}` : ""));
   }, [cat, q, sort, view]);
@@ -70,12 +121,18 @@ export function ProjectExplorer({ cards, categories }: { cards: Card[]; categori
     return [...list].sort(cmp[sort]);
   }, [cards, cat, q, sort]);
 
+  const mode = useWallMode();
+  const spans = useMemo(() => {
+    if (mode === "narrow") return shown.map(() => 12);
+    if (mode === "mid") return packSpans(shown, 12, (c) => (c.flagship ? 12 : 6));
+    return packSpans(shown, 12, (c) => (c.flagship ? 8 : 4));
+  }, [shown, mode]);
   const filtered = cat !== "all" || q.trim() !== "";
-  const catLabel = (id: string) => categories.find((c) => c.id === id)?.label ?? id;
+  const labels = useMemo(() => Object.fromEntries(categories.map((c) => [c.id, c.label])) as Record<string, string>, [categories]);
 
   // group by year only when the order is chronological
   const groups = useMemo(() => {
-    if (sort === "name") return [{ key: "", items: shown }];
+    if (sort === "name" || view === "wall") return [{ key: "", items: shown }];
     const out: Array<{ key: string; items: Card[] }> = [];
     for (const c of shown) {
       const key = c.endYear === 9999 ? "Ongoing" : String(sort === "oldest" ? c.start : c.endYear);
@@ -84,10 +141,10 @@ export function ProjectExplorer({ cards, categories }: { cards: Card[]; categori
       else out.push({ key, items: [c] });
     }
     return out;
-  }, [shown, sort]);
+  }, [shown, sort, view]);
 
   return (
-    <div className="explorer">
+    <div className={`explorer${sticky ? "" : " explorer-flat"}`}>
       <div className="explorer-bar" role="search">
         <div className="chips" role="group" aria-label="Filter by category">
           <button type="button" className="chip" aria-pressed={cat === "all"} onClick={() => setCat("all")}>
@@ -122,8 +179,8 @@ export function ProjectExplorer({ cards, categories }: { cards: Card[]; categori
             </select>
           </label>
           <div className="seg" role="group" aria-label="Layout">
-            <button type="button" aria-pressed={view === "grid"} onClick={() => setView("grid")}>
-              Grid
+            <button type="button" aria-pressed={view === "wall"} onClick={() => setView("wall")}>
+              Wall
             </button>
             <button type="button" aria-pressed={view === "list"} onClick={() => setView("list")}>
               List
@@ -167,9 +224,9 @@ export function ProjectExplorer({ cards, categories }: { cards: Card[]; categori
         groups.map((g) => (
           <section key={g.key || "all"} className="year-group" aria-label={g.key || "Projects"}>
             {g.key ? <h2 className="year-h mono">{g.key}</h2> : null}
-            <ul className={`cards cards-${view}`}>
-              {g.items.map((c) => (
-                <ProjectCard key={c.slug} c={c} view={view} catLabel={catLabel} />
+            <ul className={`tiles tiles-${view}`}>
+              {g.items.map((c, i) => (
+                <ProjectCard key={c.slug} c={c} view={view} labels={labels} span={view === "wall" ? spans[i] : undefined} />
               ))}
             </ul>
           </section>

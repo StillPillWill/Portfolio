@@ -35,7 +35,13 @@ for (const p of projects) {
     set.add(m.file);
     if (!exists(p.slug, m.file)) errors.push(`project "${p.slug}": media file missing: public/projects/${p.slug}/${m.file}`);
   }
-  for (const k of ["model", "still"]) {
+  for (const m of p.media ?? []) {
+    if (m.poster) {
+      set.add(m.poster);
+      if (!exists(p.slug, m.poster)) errors.push(`project "${p.slug}": poster file missing: public/projects/${p.slug}/${m.poster}`);
+    }
+  }
+  for (const k of ["model", "still", "cover", "preview"]) {
     if (!p[k]) continue;
     set.add(p[k]);
     if (!exists(p.slug, p[k])) errors.push(`project "${p.slug}": ${k} file missing: public/projects/${p.slug}/${p[k]}`);

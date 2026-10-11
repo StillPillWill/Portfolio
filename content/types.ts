@@ -26,6 +26,10 @@ export type MediaInput = {
   caption: string;
   ratio: "wide" | "portrait" | "square";
   kind?: "image" | "video";
+  /** a chart/diagram rather than a photo: shown in the gallery, never used as a card thumbnail */
+  figure?: boolean;
+  /** videos only: still frame shown before playback and as the card thumbnail */
+  poster?: string;
 };
 
 export type Stat = { to: number; label: string; prefix?: string; suffix?: string; decimals?: number; text?: string };
@@ -68,6 +72,10 @@ export type ProjectInput = {
   specimen?: SpecimenId;
   /** GLB, relative to public/projects/<slug>/ */
   model?: string;
+  /** image used on cards (relative to public/projects/<slug>/). Defaults to the still, then the first photo. */
+  cover?: string;
+  /** short muted loop played when a card is hovered (relative to public/projects/<slug>/) */
+  preview?: string;
   /** x, y, z rotation in degrees applied to the GLB so it sits upright (CAD exports vary) */
   modelRotation?: [number, number, number];
   /** still image for the 3D viewer fallback, relative to public/projects/<slug>/ */
@@ -78,14 +86,16 @@ export type ProjectInput = {
   seo?: { title?: string; description?: string; ogTitle?: string; ogDescription?: string };
 };
 
-export type Media = Omit<MediaInput, "file"> & { src: string };
+export type Media = Omit<MediaInput, "file" | "poster"> & { src: string; poster?: string };
 
-export type Project = Omit<ProjectInput, "media" | "model" | "still"> & {
+export type Project = Omit<ProjectInput, "media" | "model" | "still" | "cover" | "preview"> & {
   media: Media[];
+  preview?: string;
   model?: string;
   still?: string;
   /** best thumbnail for cards: first image, else the 3D still */
   thumb?: string;
+  thumbIsFigure?: boolean;
   href?: string; // undefined for tier "note"
 };
 

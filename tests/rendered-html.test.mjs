@@ -42,16 +42,19 @@ test("every route renders with shared header, one h1, footer, and no duplicate i
 test("homepage content is server-rendered (visible without JS)", async () => {
   const html = await (await render("/")).text();
   for (const needle of [
-    "Selected",
-    "Hearing sound through Wi",
-    "Vulcan, a six-axis arm",
-    "Captain, FRC Team 3598",
+    "All <em>work</em>",
+    "FRC Team 3598",
     "UCSC Science Internship Program",
     "DaTscan",
     "williamnzive2007@gmail.com",
     "Skip to content",
   ]) assert.ok(html.includes(needle), `missing: ${needle}`);
   assert.match(html, /class="no-js"/);
+  // the landing page shows the WHOLE portfolio as a wall, not a short "featured" list
+  const tiles = (html.match(/class="tile /g) ?? []).length;
+  assert.ok(tiles >= pagedSlugs.length, `wall has ${tiles} tiles for ${pagedSlugs.length}+ projects`);
+  for (const slug of pagedSlugs) assert.ok(html.includes(`href="/projects/${slug}"`), `home links to ${slug}`);
+  assert.doesNotMatch(html, /class="index-row"/, "no collapsed accordion on the landing page");
   assert.doesNotMatch(html, /Your site is taking shape/);
 });
 
@@ -104,7 +107,7 @@ test("projects index server-renders every project and the category filters (no J
   const html = await (await render("/projects")).text();
   assert.match(html, /aria-label="Filter by category"/);
   assert.match(html, /type="search"/);
-  assert.ok((html.match(/class="card[ "]/g) ?? []).length >= pagedSlugs.length);
+  assert.ok((html.match(/class="tile /g) ?? []).length >= pagedSlugs.length);
 });
 
 test("unknown project slug and a note-tier project do not get a page", async () => {

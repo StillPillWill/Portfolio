@@ -43,7 +43,11 @@ export default defineProject({
     },
   ],
   specimen: "spectrogram",
-  media: [],
+  cover: "mi-heatmap.webp",
+  media: [
+    { file: "mi-heatmap.webp", alt: "Mutual information between CSI subcarriers and audio frequency bins", caption: "Early exploratory analysis (Aug 2025): mutual information between CSI amplitude subcarriers and audio frequency bins. Strongest cell: 0.10 at subcarrier 27, audio bin 62.", ratio: "wide", figure: true },
+    { file: "time-lagged-mi.webp", alt: "Time-lagged mutual information between CSI energy and audio energy", caption: "The same analysis across time lags between CSI energy and audio energy.", ratio: "wide", figure: true },
+  ],
   notes: [
     {
       label: "Research Hypothesis",

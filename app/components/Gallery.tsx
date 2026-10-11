@@ -43,7 +43,7 @@ export function Gallery({ items }: { items: Media[] }) {
     <>
       <ul className="gallery">
         {items.map((m, i) => (
-          <li key={m.src} className={`gallery-item gallery-${m.ratio}`} data-reveal style={{ ["--d" as string]: `${(i % 3) * 70}ms` }}>
+          <li key={m.src} className={`gallery-item gallery-${m.ratio}${m.figure ? " gallery-figure" : ""}`} data-reveal style={{ ["--d" as string]: `${(i % 3) * 70}ms` }}>
             <button
               type="button"
               className="gallery-btn"
@@ -54,7 +54,7 @@ export function Gallery({ items }: { items: Media[] }) {
               aria-label={`Open ${m.alt}`}
             >
               {m.kind === "video" ? (
-                <video src={m.src} muted loop autoPlay playsInline preload="metadata" aria-hidden="true" />
+                <video src={m.src} poster={m.poster} muted loop autoPlay playsInline preload="metadata" aria-hidden="true" />
               ) : (
                 <img src={m.src} alt="" loading="lazy" decoding="async" />
               )}
@@ -71,7 +71,7 @@ export function Gallery({ items }: { items: Media[] }) {
         {cur ? (
           <figure className="lightbox-fig">
             {cur.kind === "video" ? (
-              <video key={cur.src} src={cur.src} controls autoPlay muted loop playsInline aria-label={cur.alt} />
+              <video key={cur.src} src={cur.src} poster={cur.poster} controls autoPlay muted loop playsInline aria-label={cur.alt} />
             ) : (
               <img key={cur.src} src={cur.src} alt={cur.alt} />
             )}

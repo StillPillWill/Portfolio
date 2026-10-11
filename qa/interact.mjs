@@ -87,19 +87,23 @@ check("collage: pauses off-screen", await page.$eval(".hero", (e) => e.classList
 await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
 await wait(500)
 
-// spectrogram
-await canvasTest(page, "spectro", ".fx-spectro canvas", ".chapter-csi");
+// spectrogram (CSI project page)
+await page.goto(BASE + "/projects/csi", { waitUntil: "networkidle2" });
+await wait(1200);
+await canvasTest(page, "spectro", ".fx-spectro canvas", ".p-hero");
 const vad = await page.$eval(".fx-vad", (e) => e.textContent);
 check("spectro: VAD readout present", ["speech", "silence"].includes(vad), vad);
 
-// mesh: wait for sweep complete, verify readout
-await (await page.$(".chapter-ender3-2")).scrollIntoView();
+// mesh: wait for sweep complete, verify readout (Ender3-2 project page)
+await page.goto(BASE + "/projects/ender3-2", { waitUntil: "networkidle2" });
+await wait(1200);
+await (await page.$(".p-hero")).scrollIntoView();
 await wait(1500);
 const mid = await page.$eval(".fx-mesh .fx-hud", (e) => e.textContent);
 await wait(9500);
 const done = await page.$eval(".fx-mesh .fx-hud", (e) => e.textContent);
 check("mesh: probing counter advances then finishes", /probing/.test(mid) || /Z offset/.test(mid) ? /Z offset/.test(done) : false, `${mid.trim()} -> ${done.trim()}`);
-await canvasTest(page, "mesh", ".fx-mesh canvas", ".chapter-ender3-2", async (p, b) => {
+await canvasTest(page, "mesh", ".fx-mesh canvas", ".p-hero", async (p, b) => {
   await p.mouse.move(b.x + b.width / 2, b.y + b.height / 2);
   await p.mouse.down();
   await p.mouse.move(b.x + b.width / 2 + 160, b.y + b.height / 2 - 60, { steps: 10 });
@@ -108,8 +112,10 @@ await canvasTest(page, "mesh", ".fx-mesh canvas", ".chapter-ender3-2", async (p,
 const h2 = await page.$eval(".fx-mesh .fx-hud", (e) => e.textContent);
 check("mesh: hover readout shows bilinear Z", /Z offset/.test(h2), h2.trim());
 
-// particles
-await canvasTest(page, "particles", ".fx-particles canvas", ".chapter-team-3598", async (p, b) => { await p.mouse.click(b.x + b.width / 2, b.y + b.height / 2); });
+// particles (Team 3598 project page)
+await page.goto(BASE + "/projects/team-3598", { waitUntil: "networkidle2" });
+await wait(1200);
+await canvasTest(page, "particles", ".fx-particles canvas", ".p-hero", async (p, b) => { await p.mouse.click(b.x + b.width / 2, b.y + b.height / 2); });
 await wait(3500);
 {
   await page.mouse.move(5, 5);
@@ -117,18 +123,47 @@ await wait(3500);
   await (await page.$(".fx-particles canvas")).screenshot({ path: `${OUT}/particles-settled.png` });
 }
 
-// counters final values
-await page.evaluate(async () => { for (let y = 0; y < document.documentElement.scrollHeight; y += 400) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 80)); } });
-await wait(2200);
-const counts = await page.$$eval(".chapter .stat dd", (els) => els.map((e) => e.textContent));
-check("counters land on true values", counts.join("|") === ["90%", "4.6B", "10,839", "$40", "6", "1:16", "32 N·m", "⅓", "585 × 775", "216", "$16", "64 h", "40+", "5", "4,452", "Impact"].join("|"), counts.join("|"));
+// counters land on true values, on each flagship page
+const EXPECT = { csi: ["90%", "4.6B", "10,839", "$40"], vulcan: ["6", "1:16", "32 N·m", "⅓"], "ender3-2": ["585 × 775", "216", "$16", "64 h"], "team-3598": ["40+", "5", "4,452", "Impact"] };
+for (const [slug, want] of Object.entries(EXPECT)) {
+  await page.goto(BASE + "/projects/" + slug, { waitUntil: "networkidle2" });
+  await wait(600);
+  await page.evaluate(() => document.querySelector(".p-stats").scrollIntoView({ behavior: "instant", block: "center" }));
+  await wait(2400);
+  const got = await page.$$eval(".p-stats .stat dd", (els) => els.map((e) => e.textContent));
+  check(`counters land on true values: ${slug}`, got.join("|") === want.join("|"), got.join("|"));
+}
+await page.goto(BASE + "/", { waitUntil: "networkidle2" });
+await wait(1200);
 
-// "Also built" cards match the /projects cards
-await page.evaluate(() => document.querySelector("#more").scrollIntoView());
-await wait(600);
-check("home: 'Also built' uses the shared project cards", (await page.$$eval("#more .card", (e) => e.length)) >= 4 && (await page.$$("#more .index-row")).length === 0);
-check("home: card links go to project pages", await page.$$eval("#more a.card-link", (e) => e.length > 0 && e.every((a) => /^\/projects\/[a-z0-9-]+$/.test(a.getAttribute("href")))));
-check("home: 'All N projects' link present", (await page.$eval("#more .section-aside a", (a) => /All \d+ projects/.test(a.textContent) && a.getAttribute("href") === "/projects")));
+// landing page: one wall showing ALL projects, same tiles as /projects
+await page.evaluate(() => document.querySelector("#work").scrollIntoView({ behavior: "instant" }));
+await wait(700);
+const nTiles = await page.$$eval("#work .tile", (e) => e.length);
+check("home: wall shows every project (not a short featured list)", nTiles >= 10, `tiles=${nTiles}`);
+check("home: no collapsed accordion on landing", (await page.$$(".index-row")).length === 0);
+check("home: tile links go to project pages", await page.$$eval("#work a.tile-link", (e) => e.length > 0 && e.every((a) => /^\/projects\/[a-z0-9-]+$/.test(a.getAttribute("href")))));
+check("home: has category filters + search", (await page.$$("#work .chip")).length >= 4 && (await page.$("#work input[type=search]")) !== null);
+check("home: most tiles show a real image", (await page.$$eval("#work .tile-media img", (e) => e.filter((i) => i.complete && i.naturalWidth > 0).length)) >= 4);
+// hover plays the preview clip on tiles that have one
+const hvName = await page.evaluate(() => [...document.querySelectorAll("#work .tile")].find((e) => e.querySelector("video"))?.querySelector(".tile-name")?.textContent ?? null);
+check("home: some tile has a hover preview clip", hvName !== null);
+if (hvName) {
+  const pos = await page.evaluate((n) => {
+    const e = [...document.querySelectorAll("#work .tile")].find((x) => x.querySelector(".tile-name")?.textContent === n);
+    window.scrollTo({ top: window.scrollY + e.getBoundingClientRect().top - 250, behavior: "instant" });
+    const r = e.getBoundingClientRect();
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+  }, hvName);
+  await wait(500);
+  await page.mouse.move(pos.x, pos.y, { steps: 5 });
+  await wait(1400);
+  check("home: hovering a tile plays its clip", await page.$eval(".tile:hover video", (v) => !v.paused && v.currentTime > 0 && +getComputedStyle(v).opacity > 0.9));
+  await page.mouse.move(5, 5);
+  await wait(500);
+  check("home: clip stops when the pointer leaves", await page.$eval("#work .tile video", (v) => v.paused || +getComputedStyle(v).opacity < 0.1));
+}
+await page.mouse.move(5, 5);
 
 // accordion (experience page keeps the expandable rows)
 await page.goto(BASE + "/experience", { waitUntil: "networkidle2" });

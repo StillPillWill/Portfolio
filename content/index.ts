@@ -31,14 +31,20 @@ const asset = (slug: string, file: string) => `/projects/${slug}/${file}`;
 const IMG = /\.(webp|jpe?g|png|avif)$/i;
 
 function build(p: ProjectInput): Project {
-  const media: Media[] = (p.media ?? []).map(({ file, ...m }) => ({ ...m, src: asset(p.slug, file) }));
-  const firstImage = media.find((m) => m.kind !== "video" && IMG.test(m.src));
+  const media: Media[] = (p.media ?? []).map(({ file, poster, ...m }) => ({
+    ...m,
+    src: asset(p.slug, file),
+    ...(poster ? { poster: asset(p.slug, poster) } : {}),
+  }));
+  const firstImage = media.find((m) => m.kind !== "video" && !m.figure && IMG.test(m.src));
   return {
     ...p,
     media,
     model: p.model ? asset(p.slug, p.model) : undefined,
     still: p.still ? asset(p.slug, p.still) : undefined,
-    thumb: p.still ? asset(p.slug, p.still) : firstImage?.src,
+    thumbIsFigure: p.cover ? Boolean((p.media ?? []).find((m) => m.file === p.cover)?.figure) : false,
+    preview: p.preview ? asset(p.slug, p.preview) : undefined,
+    thumb: p.cover ? asset(p.slug, p.cover) : p.still ? asset(p.slug, p.still) : firstImage?.src,
     href: p.tier === "note" ? undefined : `/projects/${p.slug}`,
   };
 }

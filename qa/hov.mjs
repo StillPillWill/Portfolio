@@ -1,0 +1,15 @@
+import puppeteer from "puppeteer-core";
+const b = await puppeteer.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: "new", args: ["--autoplay-policy=no-user-gesture-required"] });
+const p = await b.newPage(); await p.setViewport({ width: 1440, height: 900 });
+await p.goto("http://localhost:4174/", { waitUntil: "networkidle2" }); await new Promise(r => setTimeout(r, 800));
+await p.evaluate(() => scrollTo({ top: document.querySelector(".explorer-bar").getBoundingClientRect().top + scrollY - 90, behavior: "instant" })); await new Promise(r => setTimeout(r, 800));
+const info = await p.evaluate(() => [...document.querySelectorAll("#work .tile")].map(t => { const r = t.getBoundingClientRect(); return { name: t.querySelector(".tile-name")?.textContent, video: !!t.querySelector("video"), x: Math.round(r.x + r.width / 2), y: Math.round(r.y + r.height / 2), inView: r.top >= 0 && r.bottom <= innerHeight }; }));
+console.log(JSON.stringify(info.filter(i => i.video)));
+const t = info.find(i => i.video && i.inView) ?? info.find(i => i.video);
+await p.evaluate((y) => scrollTo({ top: scrollY + y - 450, behavior: "instant" }), t.y);
+await new Promise(r => setTimeout(r, 500));
+const pos = await p.evaluate((n) => { const e = [...document.querySelectorAll("#work .tile")].find(x => x.querySelector(".tile-name")?.textContent === n); const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; }, t.name);
+await p.mouse.move(pos.x, pos.y, { steps: 5 }); await new Promise(r => setTimeout(r, 1500));
+console.log(await p.evaluate(() => { const v = document.querySelector(".tile:hover video"); return v ? { src: v.getAttribute("src"), paused: v.paused, t: v.currentTime, op: getComputedStyle(v).opacity, ready: v.readyState, err: v.error?.message } : "no hovered video"; }));
+await p.screenshot({ path: "qa/x/hover.png" });
+await b.close();

@@ -1,4 +1,4 @@
-// Explorer verification: filter chips, search, sort, grid/list, URL state, empty state, keyboard.
+// Explorer verification: filter chips, search, sort, wall/list, URL state, empty state, keyboard.
 import puppeteer from "puppeteer-core";
 const BASE = process.argv[2] ?? "http://localhost:4174";
 const browser = await puppeteer.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: "new" });
@@ -11,8 +11,8 @@ await page.setViewport({ width: 1440, height: 900 });
 page.on("pageerror", (e) => errors.push(e.message));
 page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
 
-const count = () => page.$$eval(".card", (e) => e.length);
-const names = () => page.$$eval(".card-name", (e) => e.map((x) => x.textContent));
+const count = () => page.$$eval(".tile", (e) => e.length);
+const names = () => page.$$eval(".tile-name", (e) => e.map((x) => x.textContent));
 const status = () => page.$eval(".explorer-count", (e) => e.textContent.trim());
 const url = () => new URL(page.url());
 
@@ -57,15 +57,21 @@ check("no year headings when sorted A–Z", (await page.$$(".year-h")).length ==
 await page.select(".select select", "recent");
 await sleep(200);
 const heads = await page.$$eval(".year-h", (e) => e.map((x) => x.textContent));
-check("newest sort groups by year, Ongoing first", heads[0] === "Ongoing" && heads.length > 1, heads.join(","));
-const ys = heads.filter((h) => /^\d+$/.test(h)).map(Number);
+check("wall view has no year headings (keeps the grid packed)", heads.length === 0, heads.join(","));
+await page.evaluate(() => [...document.querySelectorAll(".seg button")].find((b) => b.textContent === "List").click());
+await sleep(200);
+const lheads = await page.$$eval(".year-h", (e) => e.map((x) => x.textContent));
+check("list view newest sort groups by year, Ongoing first", lheads[0] === "Ongoing" && lheads.length > 1, lheads.join(","));
+const ys = lheads.filter((h) => /^\d+$/.test(h)).map(Number);
 check("year headings strictly descending", ys.every((y, i) => i === 0 || ys[i - 1] > y), ys.join(","));
+await page.evaluate(() => [...document.querySelectorAll(".seg button")].find((b) => b.textContent === "Wall").click());
+await sleep(200);
 check("URL carries ?sort when not default", (await (async () => { await page.select(".select select", "oldest"); await sleep(150); return url().searchParams.get("sort"); })()) === "oldest");
 
 // view switch
 await page.evaluate(() => [...document.querySelectorAll(".seg button")].find((b) => b.textContent === "List").click());
 await sleep(200);
-check("list layout applied", (await page.$(".cards-list")) !== null && (await page.$(".cards-grid")) === null);
+check("list layout applied", (await page.$(".tiles-list")) !== null && (await page.$(".tiles-wall")) === null);
 check("URL carries ?view=list", url().searchParams.get("view") === "list");
 
 // deep link restores state after a full reload
@@ -73,16 +79,16 @@ await page.goto(BASE + "/projects?cat=ml&sort=name&view=list&q=model", { waitUnt
 await sleep(700);
 check("deep link restores category", await page.$$eval(".chip", (e) => e.find((b) => /Machine learning/.test(b.textContent))?.getAttribute("aria-pressed") === "true"));
 check("deep link restores search text", (await page.$eval('input[type="search"]', (e) => e.value)) === "model");
-check("deep link restores sort + view", (await page.$eval(".select select", (e) => e.value)) === "name" && (await page.$(".cards-list")) !== null);
+check("deep link restores sort + view", (await page.$eval(".select select", (e) => e.value)) === "name" && (await page.$(".tiles-list")) !== null);
 const dl = await count();
 check("deep link result set is a subset", dl >= 0 && dl < total, `dl=${dl}`);
 
 // cards navigate; note cards are not links
 await page.goto(BASE + "/projects", { waitUntil: "networkidle2" });
 await sleep(500);
-const hrefs = await page.$$eval("a.card-link", (e) => e.map((a) => a.getAttribute("href")));
+const hrefs = await page.$$eval("a.tile-link", (e) => e.map((a) => a.getAttribute("href")));
 check("every linked card goes to /projects/<slug>", hrefs.every((h) => /^\/projects\/[a-z0-9-]+$/.test(h)));
-const notes = await page.$$eval(".card-note", (e) => e.map((li) => li.querySelector("a") === null));
+const notes = await page.$$eval(".tile-note", (e) => e.map((li) => li.querySelector("a") === null));
 check("note cards are not links", notes.every(Boolean));
 
 // keyboard: tab reaches chips and they toggle with Enter
@@ -101,7 +107,7 @@ await sleep(600);
 check("mobile: no horizontal overflow", await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
 check("mobile: filter bar is not sticky", (await page.$eval(".explorer-bar", (e) => getComputedStyle(e).position)) === "static");
 check("mobile: chips are one scrollable row", await page.$eval(".chips", (e) => e.scrollWidth > e.clientWidth && e.getBoundingClientRect().height < 60));
-check("mobile: first card visible within first screen", await page.$eval(".card", (e) => e.getBoundingClientRect().top < 844));
+check("mobile: first card visible within first screen", await page.$eval(".tile", (e) => e.getBoundingClientRect().top < 844));
 await page.screenshot({ path: "qa/x/explorer-mobile.png" });
 await page.setViewport({ width: 1440, height: 900 });
 await page.goto(BASE + "/projects", { waitUntil: "networkidle2" });

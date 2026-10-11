@@ -43,9 +43,14 @@ export default defineProject({
   ],
   specimen: "model",
   modelRotation: [0, 0, 90],
+  cover: "vulcan-hero.webp",
+  preview: "cad-turntable.mp4",
   model: "vulcan-showcase.glb",
   still: "vulcan-hero.webp",
   media: [
+    { file: "cad-turntable.mp4", alt: "CAD turntable of the Vulcan assembly", caption: "Orbit of the V1 assembly in CAD (joints do not actuate)", ratio: "wide", kind: "video", poster: "cad-turntable.poster.webp" },
+    { file: "belt-cutaway.webp", alt: "Annotated cutaway of the belt reductions", caption: "Cutaway of the source CAD with outer covers hidden, showing belt and pulley solids", ratio: "wide" },
+    { file: "belt-detail.webp", alt: "Close crop of the belt drive in CAD", caption: "Close crop of the same native CAD view", ratio: "wide" },
     {
       file: "vulcan-hero.webp",
       alt: "Vulcan V1 full robot-arm CAD render",
