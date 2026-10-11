@@ -63,10 +63,10 @@ export default defineProject({
     },
     {
       label: "Status",
-      title: "Results so far are exploratory; no accuracy figure is claimed here.",
-      intent: "Keep what is demonstrated separate from what is still being tested.",
-      body: "The charts above come from early exploratory analysis in August 2025. The goal is a publication-ready prototype, and the work still includes filtering, alignment, collection methods, and model design. I would rather list the measured throughput above than quote a recognition rate I cannot point to a run for.",
-      facts: ["Exploratory results", "Publication-ready prototype is the goal", "Throughput figures are measured"],
+      title: "Where the audio work stands",
+      intent: "Audio recovery from Wi-Fi CSI is still a research prototype.",
+      body: "The throughput numbers above are measured. The audio side is earlier: the charts come from exploratory analysis in August 2025, looking for which subcarriers carry information about sound. The next steps are filtering, time alignment, better data collection and the model itself. The goal is a publication-ready prototype.",
+      facts: ["Throughput measured", "Audio analysis in progress", "Goal: publication-ready prototype"],
     },
   ],
   seo: {

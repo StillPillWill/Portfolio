@@ -74,15 +74,13 @@ export function ProjectPage({ project: p }: { project: Project }) {
               Project notes
             </h2>
             <ol className="notes">
-              {p.notes.map((b, n) => (
+              {p.notes.map((b) => (
                 <li key={b.title} className="note" data-reveal>
                   <div className="note-side">
-                    <span className="mono note-n">{String(n + 1).padStart(2, "0")}</span>
                     <span className="label">{b.label}</span>
                   </div>
                   <div className="note-main">
                     <h3>{b.title}</h3>
-                    {b.intent ? <p className="note-intent">{b.intent}</p> : null}
                     <p>{b.body}</p>
                     {b.facts ? (
                       <ul className="facts">
