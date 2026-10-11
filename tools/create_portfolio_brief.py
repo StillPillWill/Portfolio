@@ -420,7 +420,7 @@ def build():
             "[x] Keep the site local during this iteration",
             "[x] Separate Computer Science and Mechanics work",
             "[x] Keep navigation spatial; no normal document scroll",
-            "[x] Exclude vibe-coded or weak showcase projects",
+            "[x] Exclude weak showcase projects",
             "[ ] Other non-negotiable: [TYPE HERE]",
         ],
     )

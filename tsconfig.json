@@ -26,5 +26,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "legacy", "tmp", "dist", "worker", "db", "examples", "qa"]
+  "exclude": ["node_modules", "legacy", "tmp", "dist", "worker", "qa"]
 }
