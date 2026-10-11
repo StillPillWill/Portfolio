@@ -144,7 +144,7 @@ export default defineProject({
   seo: {
     title: "Ender3-2 Large-Format 3D Printer · Physical Build · William Nzive",
     description: "Rebuilt two scrapped Ender 3 printers into an expanded 585 × 775 × 230 mm Cartesian machine with custom firmware, exhibited live at Open Sauce.",
-    ogTitle: "Ender3-2 — Large-Format Machine Salvage & Firmware · William Nzive",
+    ogTitle: "Ender3-2 | Large-Format Machine Salvage & Firmware · William Nzive",
     ogDescription: "Salvaged and combined two scrapped Ender 3s into an expanded 585 × 775 × 230 mm Cartesian platform with custom firmware, demonstrated live at Open Sauce.",
   },
 });

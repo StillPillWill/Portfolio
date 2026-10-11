@@ -90,7 +90,7 @@ export default defineProject({
       label: "Competition Outcomes",
       title: "District championship qualification, FIRST Impact Award, and World Championship berth.",
       intent: "Execute competition strategy and guide the team to championship qualification and award recognition.",
-      body: "Team 3598 competed across three events, advanced to the district championship, qualified for the FIRST World Championship, and earned the FIRST Impact Award—the organization's highest honor celebrating engineering sustainability and team culture.",
+      body: "Team 3598 competed across three events, advanced to the district championship, qualified for the FIRST World Championship, and earned the FIRST Impact Award, the organization's highest honor celebrating engineering sustainability and team culture.",
       facts: [
         "FIRST Impact Award",
         "World Championship berth",
@@ -109,7 +109,7 @@ export default defineProject({
   seo: {
     title: "Team 3598 Robotics Captaincy & Outreach · William Nzive",
     description: "Team captaincy, mechanical design reviews, FIRST Impact Award, World Championship qualification, and STEM outreach reaching 4,452 students across Sacramento.",
-    ogTitle: "Team 3598 — Robotics Leadership & Outreach · William Nzive",
+    ogTitle: "Team 3598 | Robotics Leadership & Outreach · William Nzive",
     ogDescription: "Former captain coordinating 40+ students across design, manufacturing, competition operations, and outreach reaching 4,452 students.",
   },
 });

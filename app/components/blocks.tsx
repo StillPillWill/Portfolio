@@ -28,12 +28,9 @@ export function Stats({ project, compact = false }: { project: Project; compact?
   );
 }
 
-export function SectionHead({ id, index, title, aside }: { id: string; index: string; title: ReactNode; aside?: ReactNode }) {
+export function SectionHead({ id, title, aside }: { id: string; index?: string; title: ReactNode; aside?: ReactNode }) {
   return (
     <div className="section-head" data-reveal>
-      <span className="section-index mono" aria-hidden="true">
-        {index}
-      </span>
       <h2 id={id}>{title}</h2>
       {aside ? <div className="section-aside">{aside}</div> : null}
     </div>
@@ -182,7 +179,7 @@ export function ContactBlock({ headingLevel = 2 }: { headingLevel?: 1 | 2 }) {
         Open to internships, co-ops, and research collaborations
       </p>
       <H id="contact-title" className="contact-title" data-reveal>
-        Let&apos;s build <em>something that measures well.</em>
+        Get in touch
       </H>
       <div className="contact-row" data-reveal>
         <a className="contact-mail" href={`mailto:${site.email}`}>

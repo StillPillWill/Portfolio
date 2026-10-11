@@ -121,7 +121,7 @@ export default defineProject({
   seo: {
     title: "Vulcan 6-Axis Robot Arm · Mechanical Design Study · William Nzive",
     description: "Complete open-source 6-axis robot arm CAD architecture featuring 1:16 belt reductions, differential wrist mechanism, and printable chassis design.",
-    ogTitle: "Vulcan — 6-Axis Robot Arm CAD Design Study · William Nzive",
+    ogTitle: "Vulcan | 6-Axis Robot Arm CAD Design Study · William Nzive",
     ogDescription: "A complete open-source six-axis robot arm design study, detailing kinematics, belt reductions, and printable structural parts in CAD.",
   },
 });

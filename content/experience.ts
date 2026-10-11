@@ -35,7 +35,7 @@ export const experience: ExperienceItem[] = [
     project: "ender3-2",
   },
   {
-    title: "FRC Team 3598 — SEStematic Eliminators",
+    title: "FRC Team 3598: SEStematic Eliminators",
     role: "Team captain",
     when: "2025–2026",
     summary: "Led a 40+ member robotics team through design, fabrication, programming, electrical integration, competition preparation, and outreach across 5 working groups.",

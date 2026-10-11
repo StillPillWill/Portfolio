@@ -16,7 +16,7 @@ export default defineProject({
   summary: "ESP32 firmware, a 10,839 records/s USB capture path, and models that identify speakers from channel-state information alone.",
   headline: "Hearing sound through Wi‑Fi",
   kicker: "Research · embedded sensing",
-  deck: "An ESP32 firmware, high-throughput native USB transport, and deep-learning pipeline built to evaluate acoustic sensing through Wi-Fi channel-state information—capturing 4.6B packets and 98 hours of synchronized audio to achieve 90% speaker recognition across 400 hours of training on $40 of hardware.",
+  deck: "An ESP32 firmware, high-throughput native USB transport, and deep-learning pipeline built to evaluate acoustic sensing through Wi-Fi channel-state information, capturing 4.6B packets and 98 hours of synchronized audio to achieve 90% speaker recognition across 400 hours of training on $40 of hardware.",
   links: {
     repo: "https://github.com/StillPillWill/Research",
   },
@@ -97,7 +97,7 @@ export default defineProject({
   seo: {
     title: "CSI Audio Sensing Research · Wi-Fi RF Capture & ML · William Nzive",
     description: "ESP32 firmware, native USB 10,839 records/s transport, and deep learning pipeline achieving 90% speaker recognition across 4.6B packets and 98 hours of audio.",
-    ogTitle: "CSI Research — Audio Sensing through Wi-Fi CSI · William Nzive",
+    ogTitle: "CSI Research | Audio Sensing through Wi-Fi CSI · William Nzive",
     ogDescription: "ESP32 firmware, native USB transport (10,839 records/s), and PyTorch ML models capturing 4.6 billion packets to investigate RF audio sensing.",
   },
 });

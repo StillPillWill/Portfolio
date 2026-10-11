@@ -8,9 +8,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "William Nzive — Computer Science & Engineering",
+  title: "William Nzive | Computer Science & Engineering",
   description:
-    "William Nzive is a Computer Science and Engineering student at UC Davis who learns what a problem needs and builds it — projects span software, machine learning, embedded systems, robotics, and fabrication.",
+    "William Nzive is a Computer Science and Engineering student at UC Davis who learns what a problem needs and builds it. Projects span software, machine learning, embedded systems, robotics, and fabrication.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://williamn.site"),
   alternates: {
     canonical: "/",
@@ -46,18 +46,18 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "William Nzive — Computer Science & Engineering",
+    title: "William Nzive | Computer Science & Engineering",
     description:
       "Computer Science & Engineering student at UC Davis. Builds and measures hard things across software, ML, electronics, and mechanical design.",
     url: "https://williamn.site",
     siteName: "William Nzive",
     locale: "en_US",
     type: "website",
-    images: [{ url: "/og.jpg", width: 1731, height: 909, alt: "William Nzive — Computer Science & Engineering" }],
+    images: [{ url: "/og.jpg", width: 1731, height: 909, alt: "William Nzive | Computer Science & Engineering" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "William Nzive — Computer Science & Engineering",
+    title: "William Nzive | Computer Science & Engineering",
     description:
       "Computer Science & Engineering student at UC Davis. Builds and measures hard things across software, ML, electronics, and mechanical design.",
     images: ["/og.jpg"],
@@ -116,7 +116,7 @@ const structuredData = {
       "@type": "ProfilePage",
       "@id": "https://williamn.site/#profilepage",
       url: "https://williamn.site",
-      name: "William Nzive — Computer Science & Engineering",
+      name: "William Nzive | Computer Science & Engineering",
       isPartOf: {
         "@id": "https://williamn.site/#website",
       },

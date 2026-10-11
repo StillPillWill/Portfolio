@@ -8,7 +8,7 @@ import { SiteHeader } from "../components/SiteHeader";
 export const metadata: Metadata = {
   title: "Projects · William Nzive",
   description:
-    "Research, machine learning, robotics, fabrication, and systems projects by William Nzive — filterable by category and searchable by skill.",
+    "Research, machine learning, robotics, fabrication, and systems projects by William Nzive. Filter by category or search by skill.",
   alternates: { canonical: "/projects" },
 };
 
@@ -25,7 +25,7 @@ export default function ProjectsPage() {
         <header className="page-head">
           <p className="label">Projects</p>
           <h1 className="page-title">
-            Things I&apos;ve <em>built</em> and measured
+            Projects
           </h1>
         </header>
         <ProjectExplorer cards={cards} categories={categoryCounts()} />

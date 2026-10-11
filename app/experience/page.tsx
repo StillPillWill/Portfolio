@@ -5,7 +5,7 @@ import { SiteHeader } from "../components/SiteHeader";
 
 export const metadata: Metadata = {
   title: "Experience · William Nzive",
-  description: "Research internship, independent research, robotics leadership, and engineering projects — William Nzive.",
+  description: "Research internship, independent research, robotics leadership, and engineering projects, by William Nzive.",
   alternates: { canonical: "/experience" },
 };
 
@@ -20,7 +20,7 @@ export default function ExperiencePage() {
         <header className="page-head">
           <p className="label">Experience</p>
           <h1 className="page-title">
-            Research, <em>builds,</em> and teams
+            Experience
           </h1>
           <a className="link" href="/resume.pdf" target="_blank" rel="noreferrer">
             Résumé (PDF) <Arrow />

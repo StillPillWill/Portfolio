@@ -6,9 +6,9 @@ export default function NotFound() {
     <>
       <SiteHeader />
       <main id="main" className="page page-404">
-        <p className="label mono">404 · no carrier</p>
+        <p className="label mono">404</p>
         <h1 className="page-title">
-          This page dropped <em>off the channel.</em>
+          Page not found
         </h1>
         <p>The link may be old, or the page moved.</p>
         <div className="hero-cta">

@@ -16,7 +16,7 @@ const SPECIMENS: Record<SpecimenId, (p: Project) => ReactNode> = {
   spectrogram: () => (
     <>
       <Spectrogram />
-      <p className="specimen-cap">Illustrative simulation of speech energy across subcarriers — not recorded data.</p>
+      <p className="specimen-cap">Illustrative simulation of speech energy across subcarriers. Not recorded data.</p>
     </>
   ),
   bedmesh: () => (

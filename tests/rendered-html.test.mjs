@@ -42,7 +42,7 @@ test("every route renders with shared header, one h1, footer, and no duplicate i
 test("homepage content is server-rendered (visible without JS)", async () => {
   const html = await (await render("/")).text();
   for (const needle of [
-    "All <em>work</em>",
+    "Experience",
     "FRC Team 3598",
     "UCSC Science Internship Program",
     "DaTscan",
