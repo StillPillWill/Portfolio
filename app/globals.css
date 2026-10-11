@@ -451,3 +451,35 @@ a.card-link:hover .card-name { color: var(--accent); }
   .p-pager a { padding: 22px 0; border-bottom: 1px solid var(--line); text-align: left; justify-items: start; }
   .pager-next { text-align: left; justify-items: start; }
 }
+
+/* ---------- hero photo collage ---------- */
+.collage { position: absolute; inset: -14% -6%; z-index: -2; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; transform: translate3d(calc(var(--mx, 0) * -22px), calc(var(--my, 0) * -16px), 0) rotate(-7deg) scale(1.08); transform-origin: 60% 50%; will-change: transform; }
+.collage-col { overflow: hidden; min-width: 0; }
+.collage-track { display: flex; flex-direction: column; animation: collage-up linear infinite; will-change: transform; }
+.collage-col:nth-child(even) .collage-track { animation-name: collage-down; }
+.collage-col:nth-child(2) { margin-top: 70px; }
+.collage-col:nth-child(4) { margin-top: 120px; }
+.collage-col:nth-child(6) { margin-top: 40px; }
+.collage-copy { display: flex; flex-direction: column; gap: 14px; padding-bottom: 14px; }
+.collage-col:hover .collage-track { animation-play-state: paused; }
+.hero.is-offscreen .collage-track { animation-play-state: paused; }
+@keyframes collage-up { to { transform: translate3d(0, -50%, 0); } }
+@keyframes collage-down { from { transform: translate3d(0, -50%, 0); } to { transform: translate3d(0, 0, 0); } }
+.collage-tile { position: relative; display: block; border-radius: 12px; overflow: hidden; background: var(--bg-3); opacity: 0.55; filter: saturate(0.9) brightness(0.85); transition: opacity 0.35s var(--ease), filter 0.35s var(--ease), transform 0.5s var(--ease); cursor: pointer; }
+.collage-tile img { width: 100%; height: 100%; object-fit: cover; display: block; user-select: none; -webkit-user-drag: none; }
+.collage-tile:hover { opacity: 1; filter: none; transform: scale(1.035); z-index: 2; }
+.collage-cap { position: absolute; left: 10px; bottom: 10px; padding: 4px 10px; border-radius: 999px; font-size: 0.74rem; background: rgba(14, 13, 11, 0.82); color: var(--ink); opacity: 0; transform: translateY(6px); transition: opacity 0.3s, transform 0.3s var(--ease); }
+.collage-tile:hover .collage-cap { opacity: 1; transform: none; }
+.hero::after { background: linear-gradient(90deg, var(--bg) 8%, rgba(14, 13, 11, 0.86) 40%, rgba(14, 13, 11, 0.35) 72%, rgba(14, 13, 11, 0.12) 100%), linear-gradient(0deg, var(--bg) 0%, transparent 26%), linear-gradient(180deg, var(--bg) 0%, transparent 18%); }
+@media (max-width: 900px) {
+  .collage { grid-template-columns: repeat(3, minmax(0, 1fr)); inset: -10% -18%; transform: rotate(-6deg) scale(1.05); gap: 12px; }
+  .collage-col:nth-child(n + 4) { display: none; }
+  .collage-col:nth-child(4), .collage-col:nth-child(6) { margin-top: 0; }
+  .collage-tile { opacity: 0.38; }
+  .collage-copy { gap: 12px; padding-bottom: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .collage { transform: rotate(-7deg) scale(1.08); }
+  .collage-track { animation: none !important; }
+  .collage-tile { transition: none; }
+}

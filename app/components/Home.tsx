@@ -1,6 +1,8 @@
-import { allProjects, featuredProjects, site } from "../../content";
-import { Arrow, ContactBlock, AboutBlock, ExperienceTimeline, ProjectLink, SectionHead, SiteFooter, Stats, WorkIndex } from "./blocks";
-import { SubcarrierField } from "./motion/SubcarrierField";
+import { allProjects, featuredProjects, site, yearLabel, CATEGORY_LABEL } from "../../content";
+import { Arrow, ContactBlock, AboutBlock, ExperienceTimeline, ProjectLink, SectionHead, SiteFooter, Stats } from "./blocks";
+import { CollageFX } from "./CollageFX";
+import { HeroCollage } from "./HeroCollage";
+import { ProjectCard } from "./ProjectCard";
 import { SiteHeader } from "./SiteHeader";
 import { Specimen } from "./specimens";
 
@@ -11,13 +13,14 @@ export function Home() {
   const shown = more.slice(0, MORE_LIMIT);
   return (
     <>
+      <CollageFX />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
       <SiteHeader />
       <main id="main">
         <section className="hero" aria-labelledby="hero-title">
-          <SubcarrierField className="hero-field" />
+          <HeroCollage />
           <div className="hero-inner">
             <p className="hero-kicker label">
               <span className="dot" aria-hidden="true" /> Computer Science &amp; Engineering, UC Davis
@@ -53,7 +56,7 @@ export function Home() {
             </div>
           </div>
           <p className="hero-hint mono" aria-hidden="true">
-            move or tap — you&apos;re the sound source
+            hover a photo to hold it · click to open the project
           </p>
         </section>
 
@@ -104,7 +107,30 @@ export function Home() {
                 </a>
               }
             />
-            <WorkIndex items={shown} />
+            <ul className="cards cards-grid">
+              {shown.map((p) => (
+                <ProjectCard
+                  key={p.slug}
+                  catLabel={(id) => CATEGORY_LABEL[id as keyof typeof CATEGORY_LABEL] ?? id}
+                  c={{
+                    slug: p.slug,
+                    name: p.name,
+                    summary: p.summary,
+                    proof: p.proof,
+                    categories: p.categories,
+                    skills: p.skills ?? [],
+                    start: p.start,
+                    endYear: p.end === "present" ? 9999 : (p.end ?? p.start),
+                    years: yearLabel(p),
+                    status: p.status,
+                    featured: false,
+                    href: p.href,
+                    thumb: p.thumb,
+                    flagship: p.tier === "flagship",
+                  }}
+                />
+              ))}
+            </ul>
             {more.length > shown.length ? (
               <p className="more-foot">
                 <a className="link" href="/projects">

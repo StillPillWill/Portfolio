@@ -53,10 +53,39 @@ await page.goto(BASE + "/", { waitUntil: "networkidle2" });
 await page.addStyleTag({ content: "html{scroll-behavior:auto!important}" });
 await wait(1500);
 
-// hero
-await canvasTest(page, "hero", ".hero-field canvas", ".hero", async (p, b) => { await p.mouse.click(b.x + b.width * 0.6, b.y + b.height * 0.4); });
-const hud = await page.$eval(".hero-field .fx-hud", (e) => e.textContent);
-check("hero: HUD updates with source", /subcarrier\s+-?\d+/.test(hud) || /subcarrier\s+−\d+/.test(hud) || /subcarrier\s+\d+/.test(hud), hud);
+// hero collage
+const cy = () => page.$$eval(".collage-track", (els) => els.map((e) => new DOMMatrix(getComputedStyle(e).transform).m42));
+const c1 = await cy();
+await wait(2000);
+const c2 = await cy();
+check("collage: photos drift (every column moves)", c1.length >= 3 && c1.every((v, i) => Math.abs(v - c2[i]) > 5), `${c1.join(",")} -> ${c2.join(",")}`);
+check("collage: images loaded", (await page.$$eval(".collage img", (e) => e.filter((i) => i.complete && i.naturalWidth > 0).length)) >= 30);
+check("collage: tiles link to real projects", (await page.$$eval(".collage-tile", (e) => e.every((a) => /^\/projects\/[a-z0-9-]+$/.test(a.getAttribute("href") ?? "")))));
+await page.mouse.move(1300, 150);
+await wait(600);
+const px = await page.$eval(".hero", (e) => +e.style.getPropertyValue("--mx"));
+await page.mouse.move(150, 750);
+await wait(600);
+const px2 = await page.$eval(".hero", (e) => +e.style.getPropertyValue("--mx"));
+check("collage: pointer parallax responds", px > 0.3 && px2 < -0.3, `${px} / ${px2}`);
+const pt = await page.evaluate(() => {
+  for (const t of document.querySelectorAll(".collage-tile")) {
+    const r = t.getBoundingClientRect();
+    const x = r.x + r.width / 2, y = r.y + r.height / 2;
+    if (x > 900 && x < 1380 && y > 120 && y < 780 && document.elementFromPoint(x, y)?.closest(".collage-tile") === t) return { x, y };
+  }
+  return null;
+});
+check("collage: a tile is visible and reachable on the right of the hero", pt !== null);
+await page.mouse.move(pt.x, pt.y);
+await wait(450);
+check("collage: hovered photo brightens and shows its project", await page.$eval(".collage-tile:hover", (e) => +getComputedStyle(e).opacity > 0.95 && +getComputedStyle(e.querySelector(".collage-cap")).opacity > 0.9));
+check("collage: headline sits above collage and stays clickable", await page.$eval(".hero-cta .btn", (e) => { const r = e.getBoundingClientRect(); return document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2)?.closest(".btn") === e; }));
+await page.evaluate(() => window.scrollTo({ top: 2400, behavior: "instant" }));
+await wait(500);
+check("collage: pauses off-screen", await page.$eval(".hero", (e) => e.classList.contains("is-offscreen")));
+await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+await wait(500)
 
 // spectrogram
 await canvasTest(page, "spectro", ".fx-spectro canvas", ".chapter-csi");
@@ -94,13 +123,24 @@ await wait(2200);
 const counts = await page.$$eval(".chapter .stat dd", (els) => els.map((e) => e.textContent));
 check("counters land on true values", counts.join("|") === ["90%", "4.6B", "10,839", "$40", "6", "1:16", "32 N·m", "⅓", "585 × 775", "216", "$16", "64 h", "40+", "5", "4,452", "Impact"].join("|"), counts.join("|"));
 
-// accordion
+// "Also built" cards match the /projects cards
 await page.evaluate(() => document.querySelector("#more").scrollIntoView());
+await wait(600);
+check("home: 'Also built' uses the shared project cards", (await page.$$eval("#more .card", (e) => e.length)) >= 4 && (await page.$$("#more .index-row")).length === 0);
+check("home: card links go to project pages", await page.$$eval("#more a.card-link", (e) => e.length > 0 && e.every((a) => /^\/projects\/[a-z0-9-]+$/.test(a.getAttribute("href")))));
+check("home: 'All N projects' link present", (await page.$eval("#more .section-aside a", (a) => /All \d+ projects/.test(a.textContent) && a.getAttribute("href") === "/projects")));
+
+// accordion (experience page keeps the expandable rows)
+await page.goto(BASE + "/experience", { waitUntil: "networkidle2" });
+await wait(800);
+await page.evaluate(() => document.querySelector(".index-row").scrollIntoView({ behavior: "instant", block: "center" }));
 await wait(600);
 await page.click(".index-row summary");
 await wait(600);
 check("accordion opens", await page.$eval(".index-row details", (d) => d.open));
 check("accordion body visible", await page.$eval(".index-row .index-body", (e) => e.getBoundingClientRect().height > 60 && getComputedStyle(e).opacity === "1"));
+await page.goto(BASE + "/", { waitUntil: "networkidle2" });
+await wait(1200);
 
 // timeline fill
 await page.evaluate(() => document.querySelector(".timeline").scrollIntoView({ block: "end" }));
@@ -153,11 +193,11 @@ await r.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "reduce" 
 await r.setViewport({ width: 1440, height: 900 });
 await r.goto(BASE + "/", { waitUntil: "networkidle2" });
 await wait(1500);
-const rf1 = await r.$eval(".hero-field canvas", (c) => +c.dataset.frames);
+const ra = await r.$eval(".collage-track", (c) => getComputedStyle(c).animationName);
+const rpos1 = await r.$eval(".collage-track", (c) => getComputedStyle(c).transform);
 await wait(1200);
-const rf2 = await r.$eval(".hero-field canvas", (c) => +c.dataset.frames);
-const rs = await sig(r, ".hero-field canvas");
-check("reduced motion: static frame drawn, loop idle", rs.nz > 200 && rf2 === rf1, `nz=${rs.nz} frames ${rf1}->${rf2}`);
+const rpos2 = await r.$eval(".collage-track", (c) => getComputedStyle(c).transform);
+check("reduced motion: collage is a still frame", ra === "none" && rpos1 === rpos2, `${ra} ${rpos1} ${rpos2}`);
 check("reduced motion: reveal content visible", (await r.$$eval("[data-reveal]", (els) => els.filter((e) => getComputedStyle(e).opacity < 1).length)) === 0);
 
 check("no console/page errors", errs.length === 0, errs.slice(0, 3).join(" | "));

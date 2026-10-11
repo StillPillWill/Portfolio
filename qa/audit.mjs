@@ -48,7 +48,7 @@ for (const vp of VIEWPORTS) {
     const info = await page.evaluate(() => {
       const vw = document.documentElement.clientWidth;
       const overflow = [...document.querySelectorAll("body *")]
-        .filter((el) => { const r = el.getBoundingClientRect(); if (el.closest(".chips")) return false; /* deliberate horizontal-scroll row */ return r.width > 0 && (r.right > vw + 1 || r.left < -1); })
+        .filter((el) => { const r = el.getBoundingClientRect(); if (el.closest(".chips, .collage")) return false; /* deliberate: swipe row + clipped decorative bleed */ return r.width > 0 && (r.right > vw + 1 || r.left < -1); })
         .slice(0, 8).map((el) => `${el.tagName.toLowerCase()}.${[...el.classList].join(".")} [${Math.round(el.getBoundingClientRect().left)}..${Math.round(el.getBoundingClientRect().right)}]`);
       const imgsNoAlt = [...document.images].filter((i) => !i.hasAttribute("alt")).length;
       const brokenImgs = [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.src);
