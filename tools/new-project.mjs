@@ -38,7 +38,7 @@ const flagship = `  // Homepage showcase rank (1 = first). Delete this line to k
     // { file: "photo.webp", alt: "What it shows", caption: "Caption", ratio: "wide" },
   ],
   notes: [
-    { label: "Problem", title: "What had to be solved", intent: "One-line goal.", body: "What you did and what happened.", facts: ["fact", "fact"] },
+    { label: "Problem", title: "What had to be solved", body: "What you did and what happened.", facts: ["fact", "fact"] },
   ],
 `;
 const standard = `  deck: "Two or three sentences that introduce the project on its page.",

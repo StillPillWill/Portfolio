@@ -64,28 +64,24 @@ export default defineProject({
     {
       label: "Role",
       title: "Captain of a team of more than 40.",
-      intent: "Keep design, build, code, and outreach moving together.",
       body: "As captain of FRC Team 3598 (SEStematic Eliminators) in 2025–2026 I led a team of more than 40 members through design, fabrication, programming, electrical integration, competition preparation, and outreach.",
       facts: ["40+ members", "Team captain", "2025–2026", "Sacramento, CA"],
     },
     {
       label: "Mentoring",
       title: "Teaching Java, Git, CAD, machining, and 3D printing.",
-      intent: "Bring newer members up to the point where they can build.",
       body: "I mentored students in Java, Git, CAD, machining, and 3D printing.",
       facts: ["Java", "Git", "CAD", "Machining", "3D printing"],
     },
     {
       label: "Outcomes",
       title: "FIRST Impact Award and a World Championship berth.",
-      intent: "Record what the team earned.",
       body: "During my captaincy the team earned the FIRST Impact Award and qualified for the FIRST World Championship.",
       facts: ["FIRST Impact Award", "World Championship qualification"],
     },
     {
       label: "Outreach",
       title: "The outreach record totals 4,452 students.",
-      intent: "Show how many students the team's programs reached.",
       body: "The team's outreach record, shown above, lists students reached by program: Saturday workshops (101), the Thursday Series (360), MOSAC (30), Sacramento Library (179), Girl Scouts and the Sacramento Zoo (61), 21 Reasons (21), Sisters of Nia (120), the Kappa Solar Car Race (110), school tours (301), and mentor presentations (3,169), for a total of 4,452.",
       facts: ["4,452 students in total", "Mentor presentations: 3,169", "School tours: 301", "Thursday Series: 360"],
     },

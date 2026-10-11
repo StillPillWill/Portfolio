@@ -14,7 +14,6 @@ export type SpecimenId = "spectrogram" | "bedmesh" | "particles" | "model";
 export type Beat = {
   label: string;
   title: string;
-  intent?: string;
   body: string;
   facts?: string[];
 };

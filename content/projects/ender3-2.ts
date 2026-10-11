@@ -92,38 +92,33 @@ export default defineProject({
   notes: [
     {
       label: "Why",
-      title: "Two broken Ender 3s, rebuilt as one absurdly large printer.",
-      intent: "Make the biggest machine possible from parts that were already there.",
+      title: "Two broken Ender 3s, rebuilt as one large printer.",
       body: "I had two broken Ender 3s and did not want to throw them away. If I was going to rebuild one, I might as well make it very big. The goal was maximum build volume on a near-zero budget: almost everything came from the two donor printers, and only a belt and plywood were bought, about $16 in total.",
       facts: ["Two donor Ender 3s", "585 × 775 × 230 mm", "About $16 bought", "About 64 hours"],
     },
     {
       label: "Frame and axes",
       title: "Three pieces of 4040 joined into one long Y axis, then the X axis extended the same way.",
-      intent: "Get long rails out of short extrusions.",
       body: "I used a bolt cutter to make a double-sided screw and used it to join three pieces of 4040 from the printers' bases into one long piece, then drilled new mounting holes for the Y axis. I extended the X axis with the same trick. The Y axis moves the whole bed on two lead screws wired in parallel, with a second Y motor added and wired in series to regulate current.",
       facts: ["3 × 4040 joined", "Double-sided screw joints", "Dual lead screws", "Dual Y motors"],
     },
     {
       label: "Bed",
-      title: "Plywood reinforced with scrap metal, after the first ideas did not work.",
-      intent: "Find a bed that is flat and stable at this size.",
+      title: "A plywood bed reinforced with scrap metal.",
       body: "My first idea was a basketball backboard with aluminum over it, but it was nowhere near level or stable enough, and epoxy reinforcement did not help enough either. I ended up with plywood reinforced with scrap metal found on the side of the road. The trade-offs are that it can warp, it is heavy, and it cannot be heated.",
       facts: ["Plywood + scrap metal", "Not heated", "Prone to warping", "Steel surface"],
     },
     {
       label: "Firmware",
       title: "Custom firmware with a 12 × 18 probe mesh on a Creality 4.2.2 board.",
-      intent: "Level a bed this large with the probe the controller can handle.",
       body: "Writing the firmware took the longest to get right. A 12 × 18 probe arrangement is non-square and close to the controller's limits, and parts of the stock firmware overrode the settings I put in. It also probes board concentricity, which catches errors early, since probing takes a long time at this scale. A BLTouch does the probing.",
       facts: ["Creality 4.2.2 board", "BLTouch probe", "12 × 18 = 216 points", "Concentricity probing"],
     },
     {
       label: "What is left",
-      title: "The Y axis is bumpy where the extrusion pieces join.",
-      intent: "Say what is not solved.",
-      body: "Between the clearance holes cut for screws and the gaps between the pieces of 4040, the Y axis is bumpy, and every time it crosses a gap it jumps a little, which leaves artifacts on prints. I plan to try JB Weld on those joints later.",
-      facts: ["Bumpy Y axis at joints", "Visible print artifacts", "Fix not yet done"],
+      title: "Next: smoothing the Y axis joints.",
+      body: "Between the clearance holes cut for screws and the gaps between the pieces of 4040, the Y axis has small steps where it crosses the joints, which shows up on prints. Filling those joints with JB Weld is the next fix.",
+      facts: ["Y-axis joints to fill", "Next fix: JB Weld"],
     },
   ],
   seo: {
